@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <button @click="flashMessage.error({title: 'Error Title', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. '})">ERROR</button>
+      <button @click="flashMessage.warning({title: 'Warning Title', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. '})">WARNING</button>
+      <button @click="flashMessage.success({title: 'Success Title', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. '})">SUCCESS</button>
+      <button @click="flashMessage.info({title: 'Info Title', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. '})">INFO</button>
+      <FlashMessage></FlashMessage>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data() {
+      return {
+          customStyle: {
+              backgroundColor: '#000'
+          }
+      }
   }
 }
 </script>
@@ -25,4 +31,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>

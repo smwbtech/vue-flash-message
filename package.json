@@ -22,6 +22,7 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "postcss-preset-env": "^6.4.0",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
@@ -40,7 +41,17 @@
   },
   "postcss": {
     "plugins": {
-      "autoprefixer": {}
+      "autoprefixer": {},
+      "postcss-preset-env": {
+        "stage": 2,
+        "features": {
+          "nesting-rules": true,
+          "custom-properties": {
+            "preserve": false,
+            "importFrom": "./src/assets/css/variables.css"
+          }
+        }
+      }
     }
   },
   "browserslist": [

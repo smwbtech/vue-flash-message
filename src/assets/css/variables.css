@@ -1,0 +1,14 @@
+:root {
+
+    /* Цвета */
+    --grey: #7b7b7b;
+    --dark-green: #01947a;
+    --dark-green-rgb: 1, 148, 122;
+    --orange: #f18b22;
+    --orange-rgb: 241, 139, 34;
+    --dark-blue: #1087c2;
+    --dark-blue-rgb: 16, 135, 194;
+    --red: #f12222;
+    --red-rgb: 241, 34, 34;
+    --block-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
