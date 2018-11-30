@@ -2,6 +2,8 @@
 
 The component to display single flash messages to user. It has styles presets, but can be easily customized by passing style object in argument.
 
+[![Live Demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ovoyyy4om6?view=preview)
+
 ## Setup
 ```
 npm i @smartweb/vue-flash-message
