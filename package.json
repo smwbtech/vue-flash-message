@@ -1,6 +1,6 @@
 {
   "name": "@smartweb/vue-flash-message",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "main": "./build/vue-flash-msg.common.js",
   "files": [
     "build/*",

@@ -7,7 +7,7 @@ export default {
 
         const defaultSettings = {
             name: 'flashMessage',
-            tag: 'FlashMesage',
+            tag: 'FlashMessage',
             time: 8000,
             icon: true
         };
