@@ -10,8 +10,8 @@ npm i vue-flash-msg
 
 ```javascript
 import Vue from 'vue';
-import VueFlashMessage from 'vue-flash-message';
-Vue.use(VueFlashMessage);
+import FlashMsg from 'vue-flash-msg';
+Vue.use(FlashMsg);
 ```
 
 You can pass configuration object as second argument
@@ -21,8 +21,9 @@ Vue.use(VueFlashMessage, config);
 ```
 ### Configuration object
 
+
 | Property | Description | Default |
-| --- | --- |
+| ------ | ------ | ------ |
 | name | {String} It is name of component and alias for EventBus global property. | 'flashMessage' |
 | tag | {String} Custom tag for component to use in your application. | 'FlashMesage' |
 | time | {Number} The duration (in ms) of the message display (can be customized during message call). | 8000  |
