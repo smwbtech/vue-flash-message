@@ -128,10 +128,29 @@ export default {
         }
     }
 
-    /* Верстка для мобильных устройств */
-    @media (320px <= width < 1024px) {
-        div {
+    /* Small Monitors */
+    @media (1024px <= width <= 1200px) {
+        .error-body {
             max-width: 100%;
+            width:50%;
+            max-width: 50%;
+            & .content {
+                padding: 15px;
+            }
+        }
+    }
+
+    /* Mobile devices */
+    @media (320px <= width < 1024px) {
+        .error-body {
+            font-size: .9em;
+            width: 90%;
+            max-width: 90%;
+            right: 5%;
+
+            & .content {
+                padding: 10px;
+            }
         }
     }
 
