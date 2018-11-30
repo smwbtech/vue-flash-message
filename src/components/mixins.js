@@ -46,7 +46,12 @@ export function createMixin(config) {
                         this.status = data.status;
                         this.title = data.title;
                         this.message = data.message;
-                        this.icon = data.icon ? data.icon : true;
+                        this.icon = data.icon === undefined ? true : data.icon;
+                        this.style.flashMessageStyle = data.flashMessageStyle ? data.flashMessageStyle : null;
+                        this.style.iconStyle = data.iconStyle ? data.iconStyle : null;
+                        this.style.contentStyle = data.contentStyle ? data.contentStyle : null;
+                        this.style.titleStyle = data.titleStyle ? data.titleStyle : null;
+                        this.style.textStyle = data.textStyle ? data.textStyle : null;
                         this.timeoutId = this.setTimeout(this.clearData, data.time);
                     }
                     else {
@@ -76,6 +81,11 @@ export function createMixin(config) {
                         this.title = '';
                         this.message = '';
                         this.icon = true;
+                        this.style.flashMessageStyle = null;
+                        this.style.iconStyle = null;
+                        this.style.contentStyle = null;
+                        this.style.titleStyle = null;
+                        this.style.textStyle = null;
                         this[config.name].msgDestroyed();
                 }
             },
