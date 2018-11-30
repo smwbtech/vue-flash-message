@@ -1922,6 +1922,13 @@ function _typeof(obj) {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.assign.js
 var es6_object_assign = __webpack_require__("f751");
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules//.cache//vue-loader","cacheIdentifier":"cffca526-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlashMessage.vue?vue&type=template&id=53fdce39&scoped=true&lang=html&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"flash-message"}},[(_vm.message.length > 0)?_c('div',{class:_vm.classObj,style:(_vm.style.flashMessageStyle),on:{"click":_vm.clearData}},[(_vm.icon)?_c('div',{staticClass:"icon",style:(_vm.style.iconStyle)}):_vm._e(),_c('div',{staticClass:"content",style:(_vm.style.contentStyle)},[_c('h3',{style:(_vm.style.titleStyle)},[_vm._v(_vm._s(_vm.getTitle))]),_c('p',{style:(_vm.style.textStyle)},[_vm._v(_vm._s(_vm.message))])])]):_vm._e()])}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/FlashMessage.vue?vue&type=template&id=53fdce39&scoped=true&lang=html&
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.iterator.js
 var es6_array_iterator = __webpack_require__("cadf");
 
@@ -1930,13 +1937,6 @@ var es6_promise = __webpack_require__("551c");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.promise.finally.js
 var es7_promise_finally = __webpack_require__("097d");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules//.cache//vue-loader","cacheIdentifier":"cffca526-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlashMessage.vue?vue&type=template&id=53fdce39&scoped=true&lang=html&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"flash-message"}},[(_vm.message.length > 0)?_c('div',{class:_vm.classObj,style:(_vm.style.flashMessageStyle),on:{"click":_vm.clearData}},[(_vm.icon)?_c('div',{staticClass:"icon",style:(_vm.style.iconStyle)}):_vm._e(),_c('div',{staticClass:"content",style:(_vm.style.contentStyle)},[_c('h3',{style:(_vm.style.titleStyle)},[_vm._v(_vm._s(_vm.getTitle))]),_c('p',{style:(_vm.style.textStyle)},[_vm._v(_vm._s(_vm.message))])])]):_vm._e()])}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/FlashMessage.vue?vue&type=template&id=53fdce39&scoped=true&lang=html&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlashMessage.vue?vue&type=script&lang=js&
 
@@ -2288,15 +2288,12 @@ function createMixin(config) {
 
 
 
-
-
-
 /* harmony default export */ var components = ({
   install: function install(Vue) {
     var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var defaultSettings = {
       name: 'flashMessage',
-      tag: 'FlashMesage',
+      tag: 'FlashMessage',
       time: 8000,
       icon: true
     };
