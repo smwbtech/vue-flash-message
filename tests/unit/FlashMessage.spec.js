@@ -74,19 +74,48 @@ describe('Test FlashMessage Compoent', () => {
 
         describe('Testing calls of EventBus methods', () => {
 
-            it(`Component has access to the ${config.name} method "show"`, () => {
+            it(`Component has access to the EventBus alias "${config.name}" => method "show()"`, () => {
                 expect(typeof cmp.vm[config.name].show).toBe('function');
             });
 
-            it('"setData()" method to be called after EventBus emit event "show"',  () => {
-                cmp.setMethods({ setData:jest.fn() })
-                cmp.vm.flashMessage.show({status: 'error', title: 'Error Title', message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. '});
-                // expect(cmp.emitted('show')).toBeTruthy();
-                // expect(true).toBe(true);
-                expect(cmp.vm.setData).toBeCalled();
+            it('Call method "show()" with arguments should change data in component',  (done) => {
+                cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
+                cmp.vm.$nextTick( () => {
+                    expect(cmp.vm.status).toBe('error');
+                    expect(cmp.vm.title).toBe('Error Title');
+                    expect(cmp.vm.message).toBe('Error Message Text')
+                    done();
+                });
             });
 
-        })
+        });
+
+        describe('Testing component events', () => {
+
+            it('"click" event should invoke component "clearData()" method', (done) => {
+                const stub = jest.fn();
+                cmp.setMethods({ clearData: stub });
+                cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
+                cmp.vm.$nextTick( () => {
+                    let element  = cmp.find('.error-body').trigger('click');
+                    expect(stub).toBeCalled();
+                    done();
+                });
+
+            });
+
+            it('Component should be cleared after "click" event', (done) => {
+                cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
+                cmp.vm.$nextTick( () => {
+                    let element  = cmp.find('.error-body').trigger('click');
+                    expect(cmp.vm.message).toBe('');
+                    done();
+                });
+
+            });
+
+        });
+
 
 
 
