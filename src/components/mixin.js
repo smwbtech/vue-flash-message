@@ -1,16 +1,15 @@
 export function createMixin(config) {
     //If user choosed 'bus' strategy or didn't pass any args
-    if(!config.strategy || config.strategy === 'bus') {
         return {
 
             data() {
                 return {
                     timeoutId: undefined, // id that will be returned by setTimeout() function
-                    time: 8000, // defualt time for timeOut function
+                    time: config.time, // defualt time for timeOut function
                     status: '', // message status: available 'error', 'warning', 'success', 'info'
                     title: '', //  message title
                     message: '', // message text
-                    icon: true, // display icon
+                    icon: config.icon, // display icon
                     style: {
                         flashMessageStyle: null,
                         iconStyle: null,
@@ -27,7 +26,17 @@ export function createMixin(config) {
                  * @return {String}     - user's title or default title that is the same as status
                  */
                 getTitle(){
-                    return this.title ? this.title : this.status.toUpperCase();
+                    return this.title ? this.title : this.status.toUpperCase() || 'HEY, LOOK AT ME';
+                },
+
+                classObj() {
+                    return {
+                        success: this.status === 'success',
+                        error: this.status === 'error',
+                        warning: this.status === 'warning',
+                        info: this.status === 'info',
+                        'error-body': true
+                    }
                 }
             },
 
@@ -46,7 +55,7 @@ export function createMixin(config) {
                         this.status = data.status;
                         this.title = data.title;
                         this.message = data.message;
-                        this.icon = data.icon === undefined ? true : data.icon;
+                        this.icon = data.icon === undefined ? config.icon : data.icon;
                         this.style.flashMessageStyle = data.flashMessageStyle ? data.flashMessageStyle : null;
                         this.style.iconStyle = data.iconStyle ? data.iconStyle : null;
                         this.style.contentStyle = data.contentStyle ? data.contentStyle : null;
@@ -95,39 +104,5 @@ export function createMixin(config) {
                 this[config.name].$on('clear', this.clearData);
             }
         }
-    }
-    else {
-        return {
-            computed: {
-                //Статус flashMessage
-                status() {
-                    return this.$store.state.flashMessage.status;
-                },
-                //Сообщение
-                message() {
-                    return this.$store.state.flashMessage.message;
-                },
-                //Заголовок сообщения
-                title() {
-                    let header = this.$store.state.flashMessage.header;
-                    if(header) return header;
-                    else {
-                        switch (this.status) {
-                            case 'success':
-                                return 'Успех';
-                            case 'error':
-                                return 'Ошибка';
-                            case 'notification':
-                                return 'Внимание';
-                        }
-                    }
-                }
-            },
-            methods: {
-                clearData() {
-                    this.$store.commit('flashMessage/clear');
-                }
-            }
-        }
-    }
+
 }

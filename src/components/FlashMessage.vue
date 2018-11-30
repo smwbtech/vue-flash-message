@@ -20,17 +20,7 @@
 <script>
 export default {
 
-    computed: {
-        classObj() {
-            return {
-                success: this.status === 'success',
-                error: this.status === 'error',
-                warning: this.status === 'warning',
-                info: this.status === 'info',
-                'error-body': true
-            }
-        }
-    }
+
 
 }
 </script>

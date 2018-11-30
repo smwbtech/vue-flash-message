@@ -7,7 +7,7 @@ let config = {
     strategy: 'bus'
 };
 let localVue = createLocalVue();
-localVue.use(MyPlugin);
+localVue.use(MyPlugin, config);
 
 
 
@@ -24,7 +24,6 @@ describe('Test FlashMessage Compoent', () => {
         });
 
         describe('Testing default data set', () => {
-
 
             it('FlashMesage has property "timeoutId" and it is equal to "undefined"', () => {
                 expect(cmp.vm).toHaveProperty('timeoutId', undefined);
