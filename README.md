@@ -10,14 +10,14 @@ npm i @smartweb/vue-flash-message
 
 ```javascript
 import Vue from 'vue';
-import FlashMsg from 'vue-flash-msg';
-Vue.use(FlashMsg);
+import FlashMessage from '@smartweb/vue-flash-message';
+Vue.use(FlashMessage);
 ```
 
 You can pass configuration object as second argument
 
 ```javascript
-Vue.use(VueFlashMessage, config);
+Vue.use(FlashMessage, config);
 ```
 ### Configuration object
 
