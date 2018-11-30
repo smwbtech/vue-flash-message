@@ -1,6 +1,6 @@
 {
   "name": "@smartweb/vue-flash-message",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "main": "./build/vue-flash-msg.common.js",
   "files": [
     "build/*",
@@ -21,11 +21,6 @@
         "name" : "Roman Privalov",
         "email" : "roman.privalov@gmail.com",
         "url" : "https://t.me/RomanPrivalov"
-    },
-    "vue ": {
-        "css": {
-            "extract": false
-        }
     },
   "scripts": {
     "serve": "vue-cli-service serve",
