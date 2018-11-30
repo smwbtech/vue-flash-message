@@ -4,7 +4,7 @@ The component to display single flash messages to user. It has styles presets, b
 
 ## Setup
 ```
-npm i vue-flash-msg
+npm i @smartweb/vue-flash-message
 ```
 ## Configuration
 
