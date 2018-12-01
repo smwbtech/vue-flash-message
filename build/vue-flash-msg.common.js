@@ -1207,7 +1207,7 @@ function _typeof(obj) {
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.assign.js
 var es6_object_assign = __webpack_require__("f751");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules//.cache//vue-loader","cacheIdentifier":"cffca526-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlashMessage.vue?vue&type=template&id=3d393cdd&scoped=true&lang=html&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"cffca526-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlashMessage.vue?vue&type=template&id=3d393cdd&scoped=true&lang=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"flash-message"}},[(_vm.message.length > 0)?_c('div',{class:_vm.classObj,style:(_vm.style.flashMessageStyle),on:{"click":_vm.clearData}},[(_vm.icon)?_c('div',{staticClass:"icon",style:(_vm.style.iconStyle)}):_vm._e(),_c('div',{staticClass:"content",style:(_vm.style.contentStyle)},[_c('h3',{style:(_vm.style.titleStyle)},[_vm._v(_vm._s(_vm.getTitle))]),_c('p',{style:(_vm.style.textStyle)},[_vm._v(_vm._s(_vm.message))])])]):_vm._e()])}
 var staticRenderFns = []
 
@@ -1490,8 +1490,8 @@ function createMixin(config) {
       // This property counts calls of msgMounted. VirtualDom update causes the apply of method in which this msgMounted calls
       destroyedCalls: 0,
       // This property counts calls of msgDestroyed. VirtualDom update causes the apply of method in which this msgDestroyed calls
-      mountedCb: null,
-      destroyedCb: null
+      mountedCb: [],
+      destroyedCb: []
     };
   },
   methods: {
@@ -1502,8 +1502,8 @@ function createMixin(config) {
         throw new Error('[flashMessage] argument should be an Object');
       }
 
-      this.destroyedCb ? this.destroyedCb() : this.destroyedCb = callbacks.destroyed;
-      this.mountedCb = callbacks.mounted;
+      callbacks.mounted ? this.mountedCb.push(callbacks.mounted) : false;
+      callbacks.destroyed ? this.destroyedCb.push(callbacks.destroyed) : false;
       this.$emit('show', data);
     },
     error: function error(data, callbacks) {
@@ -1531,11 +1531,11 @@ function createMixin(config) {
 
       this.mountedCalls++;
 
-      if (this.mountedCalls <= 1) {
-        if (this.mountedCb) this.mountedCb();
+      if (this.mountedCalls <= 1 && this.mountedCb.length > 0) {
+        this.mountedCb[0]();
         setTimeout(function () {
           _this.mountedCalls = 0;
-          _this.mountedCb = null;
+          _this.mountedCb = _this.mountedCb.slice(1);
         }, 0);
       }
     },
@@ -1544,11 +1544,11 @@ function createMixin(config) {
 
       this.destroyedCalls++;
 
-      if (this.destroyedCalls <= 1) {
-        if (this.destroyedCb) this.destroyedCb();
+      if (this.destroyedCalls <= 1 && this.destroyedCb.length > 0) {
+        this.destroyedCb[0]();
         setTimeout(function () {
           _this2.destroyedCalls = 0;
-          _this2.destroyedCb = null;
+          _this2.destroyedCb = _this2.destroyedCb.slice(1);
         }, 0);
       }
     }
