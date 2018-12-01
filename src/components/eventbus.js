@@ -3,8 +3,8 @@ export default {
         return {
             mountedCalls: 0, // This property counts calls of msgMounted. VirtualDom update causes the apply of method in which this msgMounted calls
             destroyedCalls: 0, // This property counts calls of msgDestroyed. VirtualDom update causes the apply of method in which this msgDestroyed calls
-            mountedCb: null,
-            destroyedCb: null
+            mountedCb: [],
+            destroyedCb: []
         }
     },
 
@@ -15,8 +15,8 @@ export default {
                 throw new Error('[flashMessage] argument should be an Object');
             }
 
-            this.destroyedCb ? this.destroyedCb() : this.destroyedCb = callbacks.destroyed;
-            this.mountedCb = callbacks.mounted;
+            callbacks.mounted ? this.mountedCb.push(callbacks.mounted) : false;
+            callbacks.destroyed ? this.destroyedCb.push(callbacks.destroyed) : false;
             this.$emit('show', data);
         },
         error(data, callbacks) {
@@ -34,22 +34,22 @@ export default {
 
         msgMounted() {
             this.mountedCalls++;
-            if(this.mountedCalls <= 1) {
-                if(this.mountedCb) this.mountedCb();
+            if(this.mountedCalls <= 1 && this.mountedCb.length > 0) {
+                this.mountedCb[0]();
                 setTimeout( () => {
                     this.mountedCalls = 0;
-                    this.mountedCb = null;
+                    this.mountedCb = this.mountedCb.slice(1);
                 }, 0);
             }
         },
 
         msgDestroyed() {
             this.destroyedCalls++;
-            if(this.destroyedCalls <= 1) {
-                if(this.destroyedCb) this.destroyedCb();
+            if(this.destroyedCalls <= 1 && this.destroyedCb.length > 0) {
+                this.destroyedCb[0]();
                 setTimeout( () => {
                     this.destroyedCalls = 0;
-                    this.destroyedCb = null;
+                    this.destroyedCb = this.destroyedCb.slice(1);
                 }, 0);
             }
         }
