@@ -1,8 +1,8 @@
-# vue-flash-msg
+# vue-flash-message
 
-The component to display single flash messages to user. It has styles presets, but can be easily customized by passing style object in argument.
+The component to display single flash message to user. It has styles presets, but can be easily customized by passing style object as argument.
 
-[![Live Demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ovoyyy4om6?view=preview)
+[Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)
 
 ## Setup
 ```
@@ -25,9 +25,9 @@ Vue.use(FlashMessage, config);
 
 | Property | Type | Description | Default |
 | ------ | ------ | ------ | ------ |
-| **name** | **String** | It is name of component and alias for EventBus global property. | 'flashMessage' |
-| **tag** | **String** | Custom tag for component to use in your application. | 'FlashMesage' |
-| **time** | **Number** | The duration (in ms) of the message display (can be customized during message call). | 8000  |
+| **name** | **String** | It is a name of the component and alias for the EventBus global property. | 'flashMessage' |
+| **tag** | **String** | Custom tag for the component to use in your application. | 'FlashMesage' |
+| **time** | **Number** | Duration (in ms) of the message display (can be customized during message call). | 8000  |
 | **icon** | **Boolean** | If you would like to use icons as default. | true  |
 
 ## Usage
@@ -64,7 +64,7 @@ The first argument - is data object.
 | **status** | **String** | Status of component. Default presets: 'error', 'warning', 'info', 'success' |
 | **title** | **String** | Title of your message |
 | **message** | **String** | Text of your message |
-| **time** | **Number** | The duration (in ms) of the single message display |
+| **time** | **Number** | Duration (in ms) of the single message display |
 | **icon** | **Boolean** |  If you would like to use icons for this single message|
 | **flashMessageStyle** | **Object** | style Object for flashMessage block |
 | **iconStyle** | **Object** | style Object for icon block. You can pass your own icon as 'backgroundImage' |
@@ -101,7 +101,7 @@ Example:
 
 ### Callbacks
 
-As second argument you can pass object with two properies "mounted" and "destroyed".
+As second argument you can pass object with two properties: "mounted" and "destroyed".
 
 | Property | Type | Description |
 | ------ | ------ | ------ |
@@ -125,7 +125,14 @@ Example:
             setTimeout( () => this.text = '', 3000);
         },
         clickHandler() {
-            this.flashMessage.info({title: 'Ooooooops!', message: 'Do you see this text? Wtf?'})
+            this.flashMessage.info({
+                title: 'Ooooooops!',
+                message: 'Do you see this text? Wtf?'
+            },
+            {
+                mounted: showText,
+                destroyed: clearText
+            })
         }
     }
 ```
