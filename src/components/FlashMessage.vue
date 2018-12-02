@@ -5,7 +5,7 @@
             v-if="message.length > 0"
             :style="style.flashMessageStyle"
             :class="classObj"
-            @click="clearData">
+            @click="clickHandler">
                 <div v-if="icon" class="icon" :style="style.iconStyle">
                 </div>
                 <div class="content" :style="style.contentStyle">
@@ -43,6 +43,10 @@ export default {
         overflow: hidden;
         cursor: pointer;
         transition: all .3s ease-in;
+
+        &.unclickable {
+            cursor: auto;
+        }
 
         & .icon {
             width: 20%;

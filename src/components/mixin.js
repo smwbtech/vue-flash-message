@@ -10,6 +10,7 @@ export function createMixin(config) {
                     title: '', //  message title
                     message: '', // message text
                     icon: config.icon, // display icon
+                    clickable: true, //can be removed by click
                     style: {
                         flashMessageStyle: null,
                         iconStyle: null,
@@ -35,6 +36,7 @@ export function createMixin(config) {
                         error: this.status === 'error',
                         warning: this.status === 'warning',
                         info: this.status === 'info',
+                        unclickable: !this.clickable,
                         'error-body': true
                     }
                 }
@@ -56,6 +58,7 @@ export function createMixin(config) {
                         this.title = data.title;
                         this.message = data.message;
                         this.icon = data.icon === undefined ? config.icon : data.icon;
+                        this.clickable = data.icon === undefined ? true : false;
                         this.style.flashMessageStyle = data.flashMessageStyle ? data.flashMessageStyle : null;
                         this.style.iconStyle = data.iconStyle ? data.iconStyle : null;
                         this.style.contentStyle = data.contentStyle ? data.contentStyle : null;
@@ -90,12 +93,17 @@ export function createMixin(config) {
                         this.title = '';
                         this.message = '';
                         this.icon = true;
+                        this.clickable = true;
                         this.style.flashMessageStyle = null;
                         this.style.iconStyle = null;
                         this.style.contentStyle = null;
                         this.style.titleStyle = null;
                         this.style.textStyle = null;
                         this[config.name].msgDestroyed();
+                },
+
+                clickHandler() {
+                    if(this.clickable) this.clearData(); 
                 }
             },
 

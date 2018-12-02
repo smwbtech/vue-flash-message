@@ -4,7 +4,7 @@
       <button @click="flashMessage.warning({title: 'Warning Title', message: text})">WARNING</button>
       <button @click="flashMessage.success({title: 'Success Title', message: text})">SUCCESS</button>
       <button @click="flashMessage.info({title: 'Info Title', message: text})">INFO</button>
-      <button @click="flashMessage.error({title: 'Message Without Icon', message: text, icon: false})">WITHOUT ICON</button>
+      <button @click="flashMessage.error({title: 'Message Without Icon', message: text, icon: false, clickable: false})">WITHOUT ICON</button>
       <button @click="flashMessage.show({title: 'Custom Styled Message', message: text, flashMessageStyle: customStyle.flashMessageStyle, iconStyle: customStyle.iconStyle}, {mounted: showText, destroyed: clearText})">CUSTOM STYLE MESSAGE</button>
       <p>{{ callbackText }}</p>
       <FlashMessage></FlashMessage>
