@@ -66,6 +66,7 @@ The first argument - is data object.
 | **message** | **String** | Text of your message |
 | **time** | **Number** | Duration (in ms) of the single message display |
 | **icon** | **Boolean** |  If you would like to use icons for this single message|
+| **clickable** | **Boolean** |  Allows to control whether the user can remove message by click on it or not.|
 | **flashMessageStyle** | **Object** | style Object for flashMessage block |
 | **iconStyle** | **Object** | style Object for icon block. You can pass your own icon as 'backgroundImage' |
 | **contentStyle** | **Object** | Style of content block |
