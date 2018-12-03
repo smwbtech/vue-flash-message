@@ -5,7 +5,8 @@ export function createEventBus(config) {
                 mountedCalls: 0, // This property counts calls of msgMounted. VirtualDom update causes the apply of method in which this msgMounted calls
                 destroyedCalls: 0, // This property counts calls of msgDestroyed. VirtualDom update causes the apply of method in which this msgDestroyed calls
                 mountedCb: [],
-                destroyedCb: []
+                destroyedCb: [],
+                active: false
             }
         },
 
@@ -15,6 +16,10 @@ export function createEventBus(config) {
                     return config.strategy ? config.strategy : 'single';
                 }
                 throw new Error('[flashMessage] argument "config.strategy" should be an string and be equal to "single" or "multiple"');
+            },
+
+            isActive() {
+                return this.active;
             }
         },
 
@@ -43,6 +48,7 @@ export function createEventBus(config) {
             },
 
             msgMounted() {
+                this.active = true;
                 this.mountedCalls++;
                 if(this.mountedCalls <= 1 && this.mountedCb.length > 0) {
                     this.mountedCb[0]();
@@ -54,6 +60,7 @@ export function createEventBus(config) {
             },
 
             msgDestroyed() {
+                this.active = false;
                 this.destroyedCalls++;
                 if(this.destroyedCalls <= 1 && this.destroyedCb.length > 0) {
                     this.destroyedCb[0]();
