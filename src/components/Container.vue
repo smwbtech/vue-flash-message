@@ -1,7 +1,9 @@
 <template lang="html">
 
     <div v-if="strategy === 'single'">
-        <FlashMessage></FlashMessage>
+        <transition name="flash-message" mode="out-in">
+            <VueMessageBlock v-if="showMessage"></VueMessageBlock>
+        </transition>
     </div>
     <div v-else>
 

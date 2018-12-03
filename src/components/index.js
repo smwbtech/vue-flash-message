@@ -22,7 +22,7 @@ export default {
         }
 
         // Set up Event Bus
-        const EventBus = new Vue(eventBus);
+        const EventBus = new Vue( createEventBus(config) );
         // Global access to flashMessage property
         Vue.prototype[config.name] = EventBus;
 
@@ -32,10 +32,9 @@ export default {
         let FlashMessage = Message.extend( createMessageMixin(config) );
 
         //  Set up component
-        Vue.component(config.tag, FlashMessage);
+        Vue.component(config.tag, ContainerComponent);
+        Vue.component('VueMessageBlock', FlashMessage);
 
 
     }
 };
-
-export { FlashMessage };
