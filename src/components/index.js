@@ -1,6 +1,6 @@
-import { createMixin } from './mixin.js';
+import { createMixin } from './mixins/message.js';
+import Message from './extends/message.js';
 import eventBus from './eventbus.js';
-import Message from './message_extend.js';
 
 export default {
     install(Vue, config = {}) {
