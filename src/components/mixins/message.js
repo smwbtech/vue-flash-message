@@ -1,4 +1,4 @@
-export function createMixin(config) {
+export function createMessageMixin(config) {
     //If user choosed 'bus' strategy or didn't pass any args
         return {
 
@@ -103,7 +103,7 @@ export function createMixin(config) {
                 },
 
                 clickHandler() {
-                    if(this.clickable) this.clearData(); 
+                    if(this.clickable) this.clearData();
                 }
             },
 
