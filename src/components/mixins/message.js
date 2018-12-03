@@ -37,7 +37,7 @@ export function createMessageMixin(config) {
                         warning: this.status === 'warning',
                         info: this.status === 'info',
                         unclickable: !this.clickable,
-                        'error-body': true
+                        '_vue-flash-msg-body': true
                     }
                 }
             },

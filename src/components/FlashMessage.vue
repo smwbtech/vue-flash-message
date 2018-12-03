@@ -25,14 +25,9 @@ export default {
 
 <style lang="css" scoped>
 
-    .error-body {
-        position: fixed;
+    ._vue-flash-msg-body {
         display: flex;
-        z-index: 300;
-        bottom: 20px;
-        right: 20px;
-        width: 35%;
-        max-width: 35%;
+        width: 100%;
         border-radius: 5px;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
         background-color: #fff;
@@ -132,7 +127,7 @@ export default {
 
     /* Small Monitors */
     @media (1024px <= width <= 1200px) {
-        .error-body {
+        ._vue-flash-msg-body {
             max-width: 100%;
             width:50%;
             max-width: 50%;
@@ -144,7 +139,7 @@ export default {
 
     /* Mobile devices */
     @media (320px <= width < 1024px) {
-        .error-body {
+        ._vue-flash-msg-body {
             font-size: .9em;
             width: 90%;
             max-width: 90%;
