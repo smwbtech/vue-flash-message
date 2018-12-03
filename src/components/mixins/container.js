@@ -3,8 +3,12 @@ export function createContainerMixin(config) {
 
         return {
             computed: {
-                isVisible() {
-                    return false;
+                strategy() {
+                    return this.flashMessage.strategy;
+                },
+
+                showMessage() {
+                    return this.flashMessage.strategy;
                 }
             }
         }

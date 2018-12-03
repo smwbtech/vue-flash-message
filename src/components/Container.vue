@@ -18,16 +18,6 @@ import FlashMessage from './FlashMessage.vue';
 export default {
 
 
-    computed: {
-
-        strategy() {
-            return this.flashMessage.strategy;
-        },
-
-        showMessage() {
-            return this.flashMessage.strategy;
-        }
-    }
 }
 </script>
 
