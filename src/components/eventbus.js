@@ -6,6 +6,8 @@ export function createEventBus(config) {
                 destroyedCalls: 0, // This property counts calls of msgDestroyed. VirtualDom update causes the apply of method in which this msgDestroyed calls
                 mountedCb: [],
                 destroyedCb: [],
+                messages: [],
+                nextMessageId: 1,
                 active: false
             }
         },
@@ -20,6 +22,10 @@ export function createEventBus(config) {
 
             isActive() {
                 return this.active;
+            },
+
+            message() {
+                return this.messages.length > 0 ? this.messages[0] : false;
             }
         },
 
@@ -30,9 +36,20 @@ export function createEventBus(config) {
                     throw new Error('[flashMessage] argument should be an Object');
                 }
 
-                callbacks.mounted ? this.mountedCb.push(callbacks.mounted) : false;
-                callbacks.destroyed ? this.destroyedCb.push(callbacks.destroyed) : false;
-                this.$emit('show', data);
+                let message = {
+                    id: this.nextMessageId++
+                };
+                message = Object.assign(message, data, callbacks);
+
+                console.log(this.messages);
+                if(this.messages.length > 0) {
+                    this.messages.push(message);
+                    this.$emit('clearData');
+                }
+                else {
+                    this.active = true;
+                    this.messages.push(message);
+                }
             },
             error(data, callbacks) {
                 this.show(Object.assign(data, {status: 'error'}), callbacks);
@@ -47,29 +64,21 @@ export function createEventBus(config) {
                 this.show(Object.assign(data, {status: 'success'}), callbacks);
             },
 
-            msgMounted() {
-                this.active = true;
-                this.mountedCalls++;
-                if(this.mountedCalls <= 1 && this.mountedCb.length > 0) {
-                    this.mountedCb[0]();
-                    setTimeout( () => {
-                        this.mountedCalls = 0;
-                        this.mountedCb = this.mountedCb.slice(1);
-                    }, 0);
-                }
-            },
-
-            msgDestroyed() {
-                this.active = false;
-                this.destroyedCalls++;
-                if(this.destroyedCalls <= 1 && this.destroyedCb.length > 0) {
-                    this.destroyedCb[0]();
-                    setTimeout( () => {
-                        this.destroyedCalls = 0;
-                        this.destroyedCb = this.destroyedCb.slice(1);
-                    }, 0);
+            deleteMessage(id) {
+                if(config.strategy === 'single') {
+                    console.log(`delete message ${id}`);
+                    this.active = false;
+                    this.messages = this.messages.slice(1);
+                    if(this.messages.length > 0) {
+                        console.log('show must go on');
+                        setTimeout( () => this.active = true, 500);
+                    }
                 }
             }
+        },
+
+        created() {
+            this.$on('deleteMessage', this.deleteMessage);
         }
     }
 }

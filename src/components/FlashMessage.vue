@@ -1,8 +1,6 @@
 <template lang="html">
 
-    <transition name="flash-message">
         <div
-            v-if="message.length > 0"
             :style="style.flashMessageStyle"
             :class="classObj"
             @click="clickHandler">
@@ -13,7 +11,6 @@
                     <p :style="style.textStyle">{{ message }}</p>
                 </div>
         </div>
-    </transition>
 
 </template>
 

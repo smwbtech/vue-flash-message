@@ -30,6 +30,10 @@ export function createMessageMixin(config) {
                     return this.title ? this.title : this.status.toUpperCase() || 'HEY, LOOK AT ME';
                 },
 
+                getMessage() {
+                    return this[config.name].message;
+                },
+
                 classObj() {
                     return {
                         success: this.status === 'success',
@@ -53,7 +57,7 @@ export function createMessageMixin(config) {
                  */
                 setData(data) {
                     if(!this.message) {
-                        this[config.name].msgMounted();
+                        this.id = data.id;
                         this.status = data.status;
                         this.title = data.title;
                         this.message = data.message;
@@ -88,18 +92,7 @@ export function createMessageMixin(config) {
                  */
                 clearData() {
                         if(this.timeoutId) clearTimeout(this.timeoutId);
-                        this.timeoutId = undefined;
-                        this.status = '';
-                        this.title = '';
-                        this.message = '';
-                        this.icon = true;
-                        this.clickable = true;
-                        this.style.flashMessageStyle = null;
-                        this.style.iconStyle = null;
-                        this.style.contentStyle = null;
-                        this.style.titleStyle = null;
-                        this.style.textStyle = null;
-                        this[config.name].msgDestroyed();
+                        this[config.name].$emit('deleteMessage', this.id);
                 },
 
                 clickHandler() {
@@ -108,8 +101,14 @@ export function createMessageMixin(config) {
             },
 
             created() {
-                this[config.name].$on('show', this.setData);
-                this[config.name].$on('clear', this.clearData);
+                this.setData(this.getMessage);
+                this[config.name].$once('clearData', this.clearData);
+                console.log('created');
+            },
+
+
+            destroyed() {
+                console.log('destroyed')
             }
         }
 

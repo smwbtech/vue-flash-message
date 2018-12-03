@@ -3,12 +3,13 @@ export function createContainerMixin(config) {
 
         return {
             computed: {
+                // Get strategy
                 strategy() {
-                    return this.flashMessage.strategy;
+                    return this[config.name].strategy;
                 },
-
+                // Get status in single message mode
                 showMessage() {
-                    return this.flashMessage.strategy;
+                    return this[config.name].isActive;
                 }
             }
         }
