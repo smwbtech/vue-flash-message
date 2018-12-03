@@ -1,6 +1,6 @@
-import FlashMessage from './FlashMessage.vue';
 import { createMixin } from './mixin.js';
 import eventBus from './eventbus.js';
+import Message from './message_extend.js';
 
 export default {
     install(Vue, config = {}) {
@@ -20,15 +20,15 @@ export default {
 
         // Set up Event Bus
         const EventBus = new Vue(eventBus);
+        // Global access to flashMessage property
+        Vue.prototype[config.name] = EventBus;
 
-        // Set up component data as mixixn
-        Vue.mixin( createMixin(config) );
+        //Extend Flash Message component
+        let FlashMessage = Message.extend( createMixin(config) );
 
         //  Set up component
         Vue.component(config.tag, FlashMessage);
 
-        // Global access to flashMessage property
-        Vue.prototype[config.name] = EventBus;
 
     }
 };
