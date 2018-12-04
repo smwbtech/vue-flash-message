@@ -1,31 +1,35 @@
 {
   "name": "@smartweb/vue-flash-message",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "main": "./build/vue-flash-msg.common.js",
   "files": [
     "build/*",
-    "src/components/*",
     "*.json",
-    "*.js",
-    "*.css",
-    "*.svg"
-    ],
-    "description": "Vue flash message component",
-    "keywords": ["vue", "flash message", "flash", "vue message", "vue flash", "vue flash message"],
-    "repository": {
-        "type" : "git",
-        "url" : "https://github.com/smwbtech/vue-flash-message"
-    },
-    "license": "MIT",
-    "author": {
-        "name" : "Roman Privalov",
-        "email" : "roman.privalov@gmail.com",
-        "url" : "https://t.me/RomanPrivalov"
-    },
+    "*.js"
+  ],
+  "description": "Vue flash message component",
+  "keywords": [
+    "vue",
+    "flash message",
+    "flash",
+    "vue message",
+    "vue flash",
+    "vue flash message"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smwbtech/vue-flash-message"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Roman Privalov",
+    "email": "roman.privalov@gmail.com",
+    "url": "https://t.me/RomanPrivalov"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lib": "vue-cli-service build --target lib --name vue-flash-msg ./src/components/index.js --dest ./build",
+    "lib": "vue-cli-service build --mode production --target lib --name vue-flash-msg ./src/components/index.js --dest ./build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
@@ -44,6 +48,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "postcss-preset-env": "^6.4.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
