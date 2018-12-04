@@ -103,7 +103,7 @@ describe('Test FlashMessage Compoent', () => {
             it('"click" event should invoke component "clearData()" method', (done) => {
                 const stub = jest.fn();
                 cmp.setMethods({ clearData: stub });
-                let element  = cmp.find('._vue-flash-msg-body').trigger('click');
+                cmp.find('._vue-flash-msg-body').trigger('click');
                 cmp.vm.$nextTick( () => {
                     expect(stub).toBeCalled();
                     done();

@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue, mount } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import { createEventBus } from '@/components/eventbus.js';
 import Vue from 'vue';
 import MyPlugin from '@/components/index.js';
