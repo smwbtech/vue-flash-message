@@ -13,8 +13,6 @@
 
 <script>
 
-import FlashMessage from './FlashMessage.vue';
-
 export default {
 
 
