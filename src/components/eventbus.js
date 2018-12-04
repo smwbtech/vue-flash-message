@@ -82,7 +82,7 @@ export function createEventBus(config) {
             deleteMessage(id) {
                 if(config.strategy === 'single') {
                     this.active = false;
-                    this.messages = this.messages.slice(1);
+                    this.messages = this.messages.filter( v => v.id !== id);
                     if(this.messages.length > 0) {
                         setTimeout( () => this.active = true, 500);
                     }
