@@ -2,34 +2,46 @@ export function createEventBus(config) {
     return {
         data() {
             return {
-                mountedCalls: 0, // This property counts calls of msgMounted. VirtualDom update causes the apply of method in which this msgMounted calls
-                destroyedCalls: 0, // This property counts calls of msgDestroyed. VirtualDom update causes the apply of method in which this msgDestroyed calls
-                mountedCb: [],
-                destroyedCb: [],
-                messages: [],
-                nextMessageId: 1,
-                active: false
+                messages: [], // array of messages object
+                nextMessageId: 1, // id of next inserted message object
+                active: false // switch visibility status of message in 'single' mode
             }
         },
 
         computed: {
+            /**
+             * Return strategy
+             * @return {String}     - 'single' || 'multiple'
+             */
             strategy() {
                 if(config.strategy === undefined || (typeof config.strategy === 'string' && config.strategy === 'single' || config.strategy === 'multiple')) {
                     return config.strategy ? config.strategy : 'single';
                 }
                 throw new Error('[flashMessage] argument "config.strategy" should be an string and be equal to "single" or "multiple"');
             },
-
+            /**
+             * Retuen active status in 'single' mode
+             * @return {Boolean}
+             */
             isActive() {
                 return this.active;
             },
-
+            /**
+             * Return the first message in messages array in 'single mode'
+             * @return {Object}     - message Object
+             */
             message() {
                 return this.messages.length > 0 ? this.messages[0] : false;
             }
         },
 
         methods: {
+            /**
+             * Push new message Object into messages array and merge properties
+             * @param  {Object} data            - message object
+             * @param  {Object} [callbacks={}]  - object with callback functions
+             *
+             */
             show(data, callbacks = {}) {
 
                 if(typeof data !== 'object' || Array.isArray(data)) {
@@ -41,7 +53,6 @@ export function createEventBus(config) {
                 };
                 message = Object.assign(message, data, callbacks);
 
-                console.log(this.messages);
                 if(this.messages.length > 0) {
                     this.messages.push(message);
                     this.$emit('clearData');
@@ -64,13 +75,15 @@ export function createEventBus(config) {
                 this.show(Object.assign(data, {status: 'success'}), callbacks);
             },
 
+            /**
+             * Delete message from messages array
+             * @param  {Number} id      - message id
+             */
             deleteMessage(id) {
                 if(config.strategy === 'single') {
-                    console.log(`delete message ${id}`);
                     this.active = false;
                     this.messages = this.messages.slice(1);
                     if(this.messages.length > 0) {
-                        console.log('show must go on');
                         setTimeout( () => this.active = true, 500);
                     }
                 }
