@@ -1,11 +1,28 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
-import FlashMessage  from '@/components/FlashMessage.vue';
+import { createMessageMixin } from '@/components/mixins/message.js';
+import { createEventBus } from '@/components/eventbus.js';
+import Vue from 'vue';
+import FlashMessageExt from '@/components/extends/message.js';
 import MyPlugin from '@/components/index.js';
 
+// default config
 let config = {
     name: 'flashMessage',
-    strategy: 'bus'
+    tag: 'FlashMessage',
+    time: 8000,
+    icon: true,
+    strategy: 'single'
 };
+
+// Create an EventBus
+const EventBus = new Vue( createEventBus(config) );
+// Global access to flashMessage property
+Vue.prototype[config.name] = EventBus;
+
+let FlashMessage = FlashMessageExt.extend( createMessageMixin(config) );
+
+//Set up component
+
 let localVue = createLocalVue();
 localVue.use(MyPlugin, config);
 
@@ -15,7 +32,7 @@ describe('Test FlashMessage Compoent', () => {
 
     let cmp;
 
-    describe('FlashMesage with "bus" strategy', () => {
+    describe('FlashMesage with "single" strategy', () => {
 
         beforeEach( () => {
             cmp = shallowMount(FlashMessage, {
@@ -23,10 +40,15 @@ describe('Test FlashMessage Compoent', () => {
             });
         });
 
-        describe('Testing default data set', () => {
+        describe('Testing data object of mounted component', () => {
 
-            it('FlashMesage has property "timeoutId" and it is equal to "undefined"', () => {
-                expect(cmp.vm).toHaveProperty('timeoutId', undefined);
+            it('FlashMesage has property "id" and it is equal to "undefined"', () => {
+                   expect(cmp.vm).toHaveProperty('id', undefined);
+            });
+
+            it('FlashMesage has property "timeoutId" and it is typeof "number"', () => {
+                expect(cmp.vm).toHaveProperty('timeoutId');
+                expect(typeof cmp.vm.timeoutId).toBe('number');
             });
 
             it('FlashMesage has property "time" and it is equal to "8000"', () => {
@@ -49,78 +71,96 @@ describe('Test FlashMessage Compoent', () => {
                 expect(cmp.vm).toHaveProperty('icon', true);
             });
 
-            it('FlashMesage has property "style.flashMessageStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('style.flashMessageStyle', null);
+            it('FlashMesage has property "clickable" and it is equal to "true"', () => {
+                expect(cmp.vm).toHaveProperty('clickable', true);
             });
 
-            it('FlashMesage has property "style.iconStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('style.iconStyle', null);
+            it('FlashMesage has property "flashMessageStyle" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('flashMessageStyle', null);
+            });
+
+            it('FlashMesage has property "iconStyle" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('iconStyle', null);
             });
 
             it('FlashMesage has property "style.contentStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('style.contentStyle', null);
+                expect(cmp.vm).toHaveProperty('contentStyle', null);
             });
 
-            it('FlashMesage has property "style.titleStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('style.titleStyle', null);
+            it('FlashMesage has property "titleStyle" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('titleStyle', null);
             });
 
-            it('FlashMesage has property "style.textStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('style.textStyle', null);
-            });
-
-        });
-
-        describe('Testing calls of EventBus methods', () => {
-
-            it(`Component has access to the EventBus alias "${config.name}" => method "show()"`, () => {
-                expect(typeof cmp.vm[config.name].show).toBe('function');
-            });
-
-            it('Call method "show()" with arguments should change data in component',  (done) => {
-                cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
-                cmp.vm.$nextTick( () => {
-                    expect(cmp.vm.status).toBe('error');
-                    expect(cmp.vm.title).toBe('Error Title');
-                    expect(cmp.vm.message).toBe('Error Message Text')
-                    done();
-                });
+            it('FlashMesage has property "textStyle" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('textStyle', null);
             });
 
         });
+
 
         describe('Testing component events', () => {
 
             it('"click" event should invoke component "clearData()" method', (done) => {
                 const stub = jest.fn();
                 cmp.setMethods({ clearData: stub });
-                cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
+                let element  = cmp.find('._vue-flash-msg-body').trigger('click');
                 cmp.vm.$nextTick( () => {
-                    let element  = cmp.find('.error-body').trigger('click');
                     expect(stub).toBeCalled();
                     done();
                 });
-
             });
-
-            it('Component should be cleared after "click" event', (done) => {
-                cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
-                cmp.vm.$nextTick( () => {
-                    let element  = cmp.find('.error-body').trigger('click');
-                    expect(cmp.vm.message).toBe('');
-                    done();
-                });
-
-            });
-
         });
 
-
-
-
-
-
     });
-
-
 });
+
+        //
+        //
+        //
+
+        //
+        //
+        //
+        // describe('Testing calls of EventBus methods', () => {
+        //
+        //     it(`Component has access to the EventBus alias "${config.name}" => method "show()"`, () => {
+        //         expect(typeof cmp.vm[config.name].show).toBe('function');
+        //     });
+        //
+        //     it('Call method "show()" with arguments should change data in component',  (done) => {
+        //         cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
+        //         cmp.vm.$nextTick( () => {
+        //             expect(cmp.vm.status).toBe('error');
+        //             expect(cmp.vm.title).toBe('Error Title');
+        //             expect(cmp.vm.message).toBe('Error Message Text')
+        //             done();
+        //         });
+        //     });
+        //
+        // });
+        //
+        // describe('Testing component events', () => {
+        //
+        //     it('"click" event should invoke component "clearData()" method', (done) => {
+        //         const stub = jest.fn();
+        //         cmp.setMethods({ clearData: stub });
+        //         cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
+        //         cmp.vm.$nextTick( () => {
+        //             let element  = cmp.find('.error-body').trigger('click');
+        //             expect(stub).toBeCalled();
+        //             done();
+        //         });
+        //
+        //     });
+        //
+        //     it('Component should be cleared after "click" event', (done) => {
+        //         cmp.vm[config.name].show({status: 'error', title: 'Error Title', message: 'Error Message Text'});
+        //         cmp.vm.$nextTick( () => {
+        //             let element  = cmp.find('.error-body').trigger('click');
+        //             expect(cmp.vm.message).toBe('');
+        //             done();
+        //         });
+        //
+        //     });
+        //
+        // });
