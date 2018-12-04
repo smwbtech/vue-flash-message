@@ -1,14 +1,14 @@
 <template lang="html">
 
         <div
-            :style="style.flashMessageStyle"
+            :style="flashMessageStyle"
             :class="classObj"
             @click="clickHandler">
-                <div v-if="icon" class="icon" :style="style.iconStyle">
+                <div v-if="icon" class="icon" :style="iconStyle">
                 </div>
-                <div class="content" :style="style.contentStyle">
-                    <h3 :style="style.titleStyle">{{ getTitle }}</h3>
-                    <p :style="style.textStyle">{{ message }}</p>
+                <div class="content" :style="contentStyle">
+                    <h3 :style="titleStyle">{{ getTitle }}</h3>
+                    <p :style="textStyle">{{ message }}</p>
                 </div>
         </div>
 
