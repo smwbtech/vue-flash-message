@@ -4,7 +4,7 @@ export function createMessageMixin(config) {
 
             data() {
                 return {
-                    id: undefined,
+                    id: undefined, // message id
                     timeoutId: undefined, // id that will be returned by setTimeout() function
                     time: config.time, // defualt time for timeOut function
                     status: '', // message status: available 'error', 'warning', 'success', 'info'
@@ -12,11 +12,13 @@ export function createMessageMixin(config) {
                     message: '', // message text
                     icon: config.icon, // display icon
                     clickable: true, //can be removed by click
-                    flashMessageStyle: null,
-                    iconStyle: null,
-                    contentStyle: null,
-                    titleStyle: null,
-                    textStyle: null
+                    flashMessageStyle: null, // styles of flashMessage block
+                    iconStyle: null, // styles for icons
+                    contentStyle: null, // styles for content block
+                    titleStyle: null, // styles for title
+                    textStyle: null, // styles for text,
+                    mounted: null, // mounted callback function
+                    destroyed: null // destroyed hook callback function
                 }
             },
 
@@ -48,35 +50,26 @@ export function createMessageMixin(config) {
             methods: {
 
                 /**
-                 * Set messamge data
+                 * Set component data
                  * @param {Object} data     - message's data object
-                 *                          @param {String} data.status     - message status: 'error' || 'warning' || 'success' || 'info'
-                 *                          @param {String} [data.title]    - message title
-                 *                          @param {String} data.Message    - message text
                  */
                 setData(data) {
-                    if(!this.message) {
-                        for(let prop of Object.keys(data)) {
-                            switch (prop) {
-                                case 'icon':
-                                    this[prop] = data[prop] === undefined ? config.icon : data[prop];
-                                    break;
-                                case 'clickable':
-                                    this.clickable = data.clickable === undefined ? true : false;
-                                    break;
-                                case 'timeoutId':
-                                    this.timeoutId = this.setTimeout(this.clearData, data.time);
-                                    break;
-                                default:
-                                    this[prop] = data[prop];
-                            }
+                    for(let prop of Object.keys(data)) {
+                        switch (prop) {
+                            case 'icon':
+                                this[prop] = data[prop] === undefined ? config.icon : data[prop];
+                                break;
+                            case 'clickable':
+                                this.clickable = data.clickable === undefined ? true : false;
+                                break;
+                            case 'time':
+                                this[prop] = data[prop] ? data[prop] : config.time;
+                                break;
+                            default:
+                                this[prop] = data[prop];
                         }
                     }
-                    else {
-                        clearTimeout(this.timeoutId);
-                        this.clearData();
-                        this.setTimeout(this.setData.bind(this, data), 1000);
-                    }
+                    this.timeoutId = this.setTimeout(this.clearData.bind(this, false), data.time ? data.time : this.time);
                 },
 
                 /**
@@ -92,25 +85,36 @@ export function createMessageMixin(config) {
                 /**
                  * Set up default data
                  */
-                clearData() {
-                        if(this.timeoutId) clearTimeout(this.timeoutId);
+                clearData(clear = true) {
+                        if(this.timeoutId && clear) clearTimeout(this.timeoutId);
                         this[config.name].$emit('deleteMessage', this.id);
                 },
-
+                /**
+                 * Handle click event
+                 */
                 clickHandler() {
                     if(this.clickable) this.clearData();
                 }
             },
 
+            // Set up data
             created() {
                 this.setData(this.getMessage);
                 this[config.name].$once('clearData', this.clearData);
-                console.log('created');
             },
 
+            // Invoke mounted callback function if exist
+            mounted() {
+                if(this.mounted && typeof this.mounted === 'function') {
+                    this.mounted();
+                }
+            },
 
+            // Invoke destroyed callback function if exist
             destroyed() {
-                console.log('destroyed')
+                if(this.destroyed && typeof this.destroyed === 'function') {
+                    this.destroyed();
+                }
             }
         }
 
