@@ -77,7 +77,20 @@ describe('Testing EventBus', () => {
             expect(cmp.vm.messages[0]).toEqual({id: 1, status: 'error', title: 'Error Title', message: 'Message'});
         });
 
-        it('Method "deleteMessage()" should delete message object from "messages" array', () => {
+        it('Method "show()" should return id of the inserted message', () => {
+            let id = cmp.vm.show({});
+            expect(id).toBeDefined();
+            expect(typeof id).toBe('number');
+        });
+
+        it('Methods "deleteMessage()" should delete message from "messages" array', () => {
+            let id = cmp.vm.show({});
+            cmp.vm.deleteMessage(id);
+            expect(cmp.vm.messages.length).toBe(0);
+
+        });
+
+        it('Event "deleteMessage" should delete message object from "messages" array', () => {
             cmp.vm.show({status: 'error', title: 'Error Title', message: 'Message'});
             cmp.vm.$emit('deleteMessage', 1);
             expect(cmp.vm.messages.length).toBe(0);
