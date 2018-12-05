@@ -1,5 +1,9 @@
 # vue-flash-message
 
+[![vue](https://img.shields.io/badge/Vue-2.x-green.svg)](https://vuejs.org/index.html)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/smwbtech/vue-flash-message/blob/master/LICENSE.md)
+
+
 The component to display single flash message to user. It has styles presets, but can be easily customized by passing style object as argument.
 
 **[Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)**
