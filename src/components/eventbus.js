@@ -61,18 +61,19 @@ export function createEventBus(config) {
                     this.active = true;
                     this.messages.push(message);
                 }
+                return message.id;
             },
             error(data, callbacks) {
-                this.show(Object.assign(data, {status: 'error'}), callbacks);
+                return this.show(Object.assign(data, {status: 'error'}), callbacks);
             },
             warning(data, callbacks) {
-                this.show(Object.assign(data, {status: 'warning'}), callbacks);
+                return this.show(Object.assign(data, {status: 'warning'}), callbacks);
             },
             info(data, callbacks) {
-                this.show(Object.assign(data, {status: 'info'}), callbacks);
+                return this.show(Object.assign(data, {status: 'info'}), callbacks);
             },
             success(data, callbacks) {
-                this.show(Object.assign(data, {status: 'success'}), callbacks);
+                return this.show(Object.assign(data, {status: 'success'}), callbacks);
             },
 
             /**
