@@ -50,7 +50,7 @@ this.flashMessage.show({status: 'error', title: 'Error Message Title', message: 
 
 ### Methods
 
-#### Display
+### Display
 
 Every display message method will return the id of the message instance
 
@@ -68,7 +68,7 @@ this.flashMessage.success({title: 'Success Message Title', message: 'Hoorah, it 
 ```
 You can pass the data object to configure a message instance.
 
-##### Data Object
+#### Data Object
 
 The first argument - is data object.
 
@@ -113,7 +113,7 @@ The first argument - is data object.
     }
 ```
 
-##### Callbacks
+#### Callbacks
 
 As second argument you can pass object with two properties: "mounted" and "destroyed".
 
@@ -151,7 +151,7 @@ As second argument you can pass object with two properties: "mounted" and "destr
     }
 ```
 
-#### Delete
+### Delete
 
 You can delete message programmatically using deleteMessage method
 
