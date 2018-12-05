@@ -2,7 +2,7 @@
 
 The component to display single flash message to user. It has styles presets, but can be easily customized by passing style object as argument.
 
-[Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)
+**[Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)**
 
 ## Setup
 ```
@@ -46,6 +46,14 @@ this.flashMessage.show({status: 'error', title: 'Error Message Title', message: 
 
 ### Methods
 
+#### Display
+
+Every display message method will return the id of the message instance
+
+```javascript
+this.flashMessage.show({status: 'error', title: 'Error Message Title', message: 'Oh, you broke my heart! Shame on you!'})
+```
+
 You also can use shorthands without status property.
 
 ```javascript
@@ -54,8 +62,9 @@ this.flashMessage.warning({title: 'Warning Message Title', message: 'Don\'t stop
 this.flashMessage.info({title: 'Info Message Title', message: 'Just want you to know, that Vue is so cool'});
 this.flashMessage.success({title: 'Success Message Title', message: 'Hoorah, it is my fist npm package and it works!'});
 ```
+You can pass the data object to configure a message instance.
 
-### Data Object
+##### Data Object
 
 The first argument - is data object.
 
@@ -73,7 +82,7 @@ The first argument - is data object.
 | **titleStyle** | **Object** | Styles for title |
 | **textStyle** | **Object** |  Styles for text |
 
-Example:
+**Example:**
 
 ```javascript
     methods: {
@@ -100,7 +109,7 @@ Example:
     }
 ```
 
-### Callbacks
+##### Callbacks
 
 As second argument you can pass object with two properties: "mounted" and "destroyed".
 
@@ -109,7 +118,7 @@ As second argument you can pass object with two properties: "mounted" and "destr
 | **mounted** | **Function** | Will be invoked, when flashMessage appears |
 | **destroyed** | **Function** | Will be invoked, when flashMessage gone |
 
-Example:
+**Example:**
 
 ```html
 <p>{{ text }}</p>
@@ -137,3 +146,18 @@ Example:
         }
     }
 ```
+
+#### Delete
+
+You can delete message programmatically using deleteMessage method
+
+**Example:**
+
+```javascript
+    let id = this.flashMessage.info({title: 'Hey, man. Time for beer!', message: 'It is Friday. Time to have a little party.'})
+    this.flashMessage.deleteMessage(id);
+```
+
+## LICENSE
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
