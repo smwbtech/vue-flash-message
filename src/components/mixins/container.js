@@ -2,6 +2,13 @@ export function createContainerMixin(config) {
     if(!config.strategy || config.strategy === 'single') {
 
         return {
+            //
+            props: {
+                containerStyles: {
+                    type: Object,
+                    default: null
+                }
+            },
             computed: {
                 // Get strategy
                 strategy() {
