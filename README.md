@@ -6,7 +6,7 @@
 
 The component to display single flash message to user. It has styles presets, but can be easily customized by passing style object as argument.
 
-####[Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)
+#### [Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)
 
 ## Setup
 ```
