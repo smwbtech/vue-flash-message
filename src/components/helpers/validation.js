@@ -1,41 +1,43 @@
-export function validation(obj) {
+export function configValidation(obj) {
 
     let check = {
         status: true,
         message: ''
     };
 
-    for(const prop in obj) {
-        check = obj[prop] typeof properties[prop] && properties[prop].pattern ? properties[prop].pattern.test(obj[prop]) : true;
-        if(!check)ckeck.message = properties[prop].message;
+    if(typeof obj !== 'object' || Array.isArray(obj)) {
+        throw new Error('[vue-flash-msg]: cofig must be an Object');
     }
 
-    return check;
+    for(const prop in obj) {
+        check.status = typeof obj[prop] === properties[prop].type && properties[prop].pattern ? properties[prop].pattern.test(obj[prop]) : true;
+        if(!check.status) throw new Error(properties[prop].message);
+    }
 }
 
 const properties = {
     name: {
         type: 'string',
         pattern: /^.+$/ig,
-        message: '[vue-flash-message] Property "name" should be a "Sring" and not empty'
+        message: '[vue-flash-message] Property "name" of the "config object" should be a "Sring" and not empty'
     },
     tag: {
         type: 'string',
         pattern: /^.+$/ig,
-        message: '[vue-flash-message] Property "tag" should be a "Sring" and not empty'
+        message: '[vue-flash-message] Property "tag" of the "config object" should be a "Sring" and not empty'
     },
     time: {
         type: 'number',
-        message: '[vue-flash-message] Property "time" should be a "Number"'
+        message: '[vue-flash-message] Property "time" of the "config object" should be a "Number"'
     },
     icon: {
         type: 'boolean',
-        message: '[vue-flash-message] Property "icon" should be a "Boolean"'
+        message: '[vue-flash-message] Property "icon" of the "config object" should be a "Boolean"'
     },
     strategy: {
         type: 'string',
         pattern: /^(single|multiple)$/ig,
-        message: '[vue-flash-message] Property "strategy" should be a "Sring" and be equal to "single" or "multiple"'
+        message: '[vue-flash-message] Property "strategy" of the "config object" should be a "Sring" and be equal to "single" or "multiple"'
     },
 
 }
