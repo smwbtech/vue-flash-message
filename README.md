@@ -25,14 +25,18 @@ You can pass configuration object as second argument
 ```javascript
 Vue.use(FlashMessage, config);
 ```
-### Configuration object
 
+
+### Configuration object
+------
 | Property | Type | Description | Default |
 | ------ | ------ | ------ | ------ |
 | **name** | **String** | It is a name of the component and alias for the EventBus global property. | 'flashMessage' |
 | **tag** | **String** | Custom tag for the component to use in your application. | 'FlashMesage' |
 | **time** | **Number** | Duration (in ms) of the message display (can be customized during message call). | 8000  |
 | **icon** | **Boolean** | If you would like to use icons as default. | true  |
+
+
 
 ## Usage
 
@@ -41,16 +45,22 @@ Put the component into your template
 ```html
 <FlashMessage></FlashMessage>
 ```
+You can pass Style Object in attribute :styles of component to configure the block, where flash message will appear
 
-Now you can access it by using global EventBus alias (that is "flashMessage" by default) of your Vue instance
+```html
+<FlashMessage :styles="{your styles goes here}"></FlashMessage>
+```
+
+Now you can access flash message by using global EventBus alias (that is "flashMessage" by default) of your Vue instance
 
 ```javascript
 this.flashMessage.show({status: 'error', title: 'Error Message Title', message: 'Oh, you broke my heart! Shame on you!'})
 ```
 
-### Methods
+## Methods
 
-### Display
+### Display Methods
+------
 
 Every display message method will return the id of the message instance
 
@@ -68,8 +78,9 @@ this.flashMessage.success({title: 'Success Message Title', message: 'Hoorah, it 
 ```
 You can pass the data object to configure a message instance.
 
-#### Data Object
 
+#### Data Object
+------
 The first argument - is data object.
 
 | Property | Type | Description |
@@ -85,6 +96,8 @@ The first argument - is data object.
 | **contentStyle** | **Object** | Style of content block |
 | **titleStyle** | **Object** | Styles for title |
 | **textStyle** | **Object** |  Styles for text |
+------
+
 
 **Example:**
 
@@ -113,7 +126,9 @@ The first argument - is data object.
     }
 ```
 
+
 #### Callbacks
+------
 
 As second argument you can pass object with two properties: "mounted" and "destroyed".
 
@@ -121,6 +136,8 @@ As second argument you can pass object with two properties: "mounted" and "destr
 | ------ | ------ | ------ |
 | **mounted** | **Function** | Will be invoked, when flashMessage appears |
 | **destroyed** | **Function** | Will be invoked, when flashMessage gone |
+------
+
 
 **Example:**
 
@@ -151,9 +168,13 @@ As second argument you can pass object with two properties: "mounted" and "destr
     }
 ```
 
-### Delete
+
+### Delete Methods
+------
 
 You can delete message programmatically using deleteMessage method
+
+
 
 **Example:**
 
@@ -161,6 +182,7 @@ You can delete message programmatically using deleteMessage method
     let id = this.flashMessage.info({title: 'Hey, man. Time for beer!', message: 'It is Friday. Time to have a little party.'})
     this.flashMessage.deleteMessage(id);
 ```
+
 
 ## LICENSE
 
