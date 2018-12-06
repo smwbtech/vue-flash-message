@@ -54,7 +54,7 @@
       CUSTOM STYLE MESSAGE
     </button>
     <p>{{ callbackText }}</p>
-    <FlashMessage :styles="customBlockStyles"></FlashMessage>
+    <FlashMessage></FlashMessage>
   </div>
 </template>
 
