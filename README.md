@@ -6,7 +6,7 @@
 
 The component to display single flash message to user. It has styles presets, but can be easily customized by passing style object as argument.
 
-**[Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)**
+####[Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)
 
 ## Setup
 ```
@@ -20,7 +20,7 @@ import FlashMessage from '@smartweb/vue-flash-message';
 Vue.use(FlashMessage);
 ```
 
-You can pass configuration object as second argument
+You can pass [configuration object](#configuration-object) as second argument
 
 ```javascript
 Vue.use(FlashMessage, config);
@@ -76,10 +76,10 @@ this.flashMessage.warning({title: 'Warning Message Title', message: 'Don\'t stop
 this.flashMessage.info({title: 'Info Message Title', message: 'Just want you to know, that Vue is so cool'});
 this.flashMessage.success({title: 'Success Message Title', message: 'Hoorah, it is my fist npm package and it works!'});
 ```
-You can pass the data object to configure a message instance.
+You can pass the [data object](#data-object) to configure a message instance.
 
 
-#### Data Object
+### Data Object
 ------
 The first argument - is data object.
 
@@ -127,7 +127,7 @@ The first argument - is data object.
 ```
 
 
-#### Callbacks
+### Callbacks
 ------
 
 As second argument you can pass object with two properties: "mounted" and "destroyed".
@@ -173,7 +173,6 @@ As second argument you can pass object with two properties: "mounted" and "destr
 ------
 
 You can delete message programmatically using deleteMessage method
-
 
 
 **Example:**
