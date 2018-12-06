@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div v-if="strategy === 'single'" class="_vue-flash-msg-container">
+    <div v-if="strategy === 'single'" class="_vue-flash-msg-container" :style="styles">
         <transition name="flash-message" mode="out-in">
             <VueMessageBlock v-if="showMessage"></VueMessageBlock>
         </transition>
