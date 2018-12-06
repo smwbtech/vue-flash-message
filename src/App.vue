@@ -1,13 +1,60 @@
 <template>
   <div id="app">
-      <button @click="flashMessage.error({title: 'Error Title', message: text })">ERROR</button>
-      <button @click="flashMessage.warning({title: 'Warning Title', message: text})">WARNING</button>
-      <button @click="flashMessage.success({title: 'Success Title', message: text})">SUCCESS</button>
-      <button @click="flashMessage.info({title: 'Info Title', message: text})">INFO</button>
-      <button @click="flashMessage.error({title: 'Message Without Icon', message: text, icon: false, clickable: false})">WITHOUT ICON</button>
-      <button @click="flashMessage.show({title: 'Custom Styled Message', message: text, flashMessageStyle: customStyle.flashMessageStyle, iconStyle: customStyle.iconStyle}, {mounted: showText, destroyed: clearText})">CUSTOM STYLE MESSAGE</button>
-      <p>{{ callbackText }}</p>
-      <FlashMessage></FlashMessage>
+    <button
+      class="error"
+      @click="flashMessage.error({ title: 'Error Title', message: text });"
+    >
+      ERROR
+    </button>
+    <button
+      class="warning"
+      @click="flashMessage.warning({ title: 'Warning Title', message: text });"
+    >
+      WARNING
+    </button>
+    <button
+      class="success"
+      @click="flashMessage.success({ title: 'Success Title', message: text });"
+    >
+      SUCCESS
+    </button>
+    <button
+      class="info"
+      @click="flashMessage.info({ title: 'Info Title', message: text });"
+    >
+      INFO
+    </button>
+    <button
+      class="empty"
+      @click="
+        flashMessage.error({
+          title: 'Message Without Icon',
+          message: text,
+          icon: false,
+          clickable: false
+        });
+      "
+    >
+      WITHOUT ICON AND UNCKLICKABE
+    </button>
+    <button
+      class="custom"
+      @click="
+        flashMessage.show(
+          {
+            title: 'Custom Styled Message',
+            message: text,
+            flashMessageStyle: customStyle.flashMessageStyle,
+            iconStyle: customStyle.iconStyle
+          },
+          { mounted: showText, destroyed: clearText }
+        );
+      "
+    >
+      CUSTOM STYLE MESSAGE
+    </button>
+    <p>{{ callbackText }}</p>
+    <FlashMessage :styles="customBlockStyles"></FlashMessage>
   </div>
 </template>
 
@@ -26,6 +73,11 @@ export default {
                 iconStyle: {
                     backgroundImage: `url("${require('@/assets/img/poop.svg')}")`
                 }
+            },
+            customBlockStyles: {
+                top: `20px`,
+                right: `20px`,
+                minHeight: '0%'
             }
         }
     },
@@ -44,20 +96,59 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 
-  & button {
-      margin-bottom: 20px;
-      max-width: 35%;
-  }
+    & button {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 20px;
+        max-width: 50%;
+        width: 50%;
+        padding: 10px;
+        border: 2px solid;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &.error {
+        background-color: rgba(241, 34, 34, 0.68);
+        border-color: #f12222;
+        }
+
+        &.warning {
+          background-color: rgba(241, 139, 34, 0.68);
+          border-color: #f18b22;
+        }
+
+        &.success {
+          background-color: rgba(1, 148, 122, 0.68);
+          border-color: #01947a;
+        }
+
+        &.info {
+          background-color: rgba(16, 135, 194, 0.68);
+          border-color: #1087c2;
+        }
+
+        &.empty {
+          background-color: #fff;
+          border-color: #1087c2;
+        }
+
+        &.custom {
+          background: linear-gradient(0.2turn, #e66465, #9198e5);
+          border-color: #e66465;
+          color: #fff;
+        }
+
+    }
 }
 
 </style>
