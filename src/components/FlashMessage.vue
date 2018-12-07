@@ -1,15 +1,14 @@
 <template lang="html">
 
         <div
-            :style="flashMessageStyle"
             :class="classObj"
             @click="clickHandler">
-                <div v-if="icon" class="_vue-flash-msg-boyd__icon" :style="iconStyle">
+                <div v-if="icon" class="_vue-flash-msg-boyd__icon">
                     <img :src="icon" alt="">
                 </div>
-                <div class="_vue-flash-msg-boyd__content" :style="contentStyle">
-                    <h3 :style="titleStyle">{{ getTitle }}</h3>
-                    <p :style="textStyle">{{ message }}</p>
+                <div class="_vue-flash-msg-boyd__content">
+                    <h3>{{ getTitle }}</h3>
+                    <p>{{ message }}</p>
                 </div>
         </div>
 
@@ -21,7 +20,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 
     ._vue-flash-msg-body {
         display: flex;

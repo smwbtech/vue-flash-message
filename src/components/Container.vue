@@ -1,6 +1,6 @@
 <template lang="html">
 
-    <div v-if="strategy === 'single'" class="_vue-flash-msg-container" :style="styles">
+    <div v-if="strategy === 'single'" class="_vue-flash-msg-container">
         <transition name="flash-message" mode="out-in">
             <VueMessageBlock v-if="showMessage"></VueMessageBlock>
         </transition>
@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 
     ._vue-flash-msg-container {
         position: fixed;

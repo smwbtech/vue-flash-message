@@ -77,27 +77,6 @@ const validObj = {
         },
         clickable: {
             type: 'boolean'
-        },
-        flashMessageStyle: {
-            type: 'object'
-        },
-        iconStyle: {
-            type: 'object'
-        },
-        contentStyle: {
-            type: 'object'
-        },
-        titleStyle: {
-            type: 'object'
-        },
-        textStyle: {
-            type: 'object'
-        },
-        mounted: {
-            type: 'function'
-        },
-        destroyed: {
-            type: 'function'
         }
     }
 }
