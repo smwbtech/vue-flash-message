@@ -12,11 +12,9 @@ export function createMessageMixin(config) {
                     message: '', // message text
                     icon: '', // display icon
                     clickable: true, //can be removed by click
-                    flashMessageStyle: null, // styles of flashMessage block
-                    iconStyle: null, // styles for icons
-                    contentStyle: null, // styles for content block
-                    titleStyle: null, // styles for title
-                    textStyle: null, // styles for text,
+                    blockClass: null, // class of flashMessage block
+                    iconClass: null, // class for icons
+                    contentClass: null, // class for content block
                     mounted: null, // mounted callback function
                     destroyed: null // destroyed hook callback function
                 }
@@ -42,7 +40,7 @@ export function createMessageMixin(config) {
                         '_vue-flash-msg-body_warning': this.status === 'warning',
                         '_vue-flash-msg-body_info': this.status === 'info',
                         '_vue-flash-msg-body_unclickabe': !this.clickable,
-                        '_vue-flash-msg-body': true
+                        '_vue-flash-msg-body': true,
                     }
                 }
             },
