@@ -8,7 +8,7 @@
     </button>
     <button
       class="warning"
-      @click="flashMessage.warning({ title: 'Warning Title', message: text });"
+      @click="flashMessage.warning({ title: 'Warning Title', message: text, time: 12300000 });"
     >
       WARNING
     </button>
@@ -44,8 +44,9 @@
           {
             title: 'Custom Styled Message',
             message: text,
-            flashMessageStyle: customStyle.flashMessageStyle,
-            iconStyle: customStyle.iconStyle
+            icon: customIcon,
+            blockClass: 'custom_message_style',
+            time: 120000000
           },
           { mounted: showText, destroyed: clearText }
         );
@@ -66,19 +67,7 @@ export default {
         return {
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. ',
             callbackText: '',
-            customStyle: {
-                flashMessageStyle: {
-                    background: 'linear-gradient(#e66465, #9198e5)'
-                },
-                iconStyle: {
-                    backgroundImage: `url("${require('@/assets/img/poop.svg')}")`
-                }
-            },
-            customBlockStyles: {
-                top: `20px`,
-                right: `20px`,
-                minHeight: '0%'
-            }
+            customIcon: require('@/assets/img/poop.svg')
         }
     },
 
@@ -148,6 +137,28 @@ export default {
           color: #fff;
         }
 
+    }
+}
+
+.custom_message_style {
+    background: linear-gradient(#e66465, #9198e5);
+
+    & ._vue-flash-msg-body__content {
+
+        & h3 {
+            position: relative;
+
+            &:after {
+                display: block;
+                width: calc(100% + 20px);
+                height: 3px;
+                position: absolute;
+                content: "";
+                left: -20px;
+                bottom: -10px;
+                background: linear-gradient(0.25turn, rgb(255, 255, 255), rgba(255, 255, 255, 0.1));;
+            }
+        }
     }
 }
 

@@ -33,9 +33,7 @@ export default {
     /* Small Monitors */
     @media (1024px <= width <= 1200px) {
         ._vue-flash-msg-container {
-            max-width: 100%;
             width:50%;
-            max-width: 50%;
         }
     }
 
@@ -49,7 +47,7 @@ export default {
         }
     }
 
-    /* Анимация FlashMessage */
+    /* FlashMessage animation */
     .flash-message-enter-active {
       animation: fromBottom .5s forwards;
     }
