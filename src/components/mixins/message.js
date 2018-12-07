@@ -10,7 +10,7 @@ export function createMessageMixin(config) {
                     status: '', // message status: available 'error', 'warning', 'success', 'info'
                     title: '', //  message title
                     message: '', // message text
-                    icon: config.icon, // display icon
+                    icon: '', // display icon
                     clickable: true, //can be removed by click
                     flashMessageStyle: null, // styles of flashMessage block
                     iconStyle: null, // styles for icons
@@ -56,9 +56,6 @@ export function createMessageMixin(config) {
                 setData(data) {
                     for(let prop of Object.keys(data)) {
                         switch (prop) {
-                            case 'icon':
-                                this[prop] = data[prop] === undefined ? config.icon : data[prop];
-                                break;
                             case 'clickable':
                                 this.clickable = data.clickable === undefined ? true : false;
                                 break;
