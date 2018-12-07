@@ -29,7 +29,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lib": "vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.js --dest ./build",
+    "lib": "cross-env NODE_ENV=production vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.js --dest ./build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit --silent"
   },
@@ -45,10 +45,11 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "postcss-preset-env": "^6.4.0",
-    "uglifyjs-webpack-plugin": "^2.0.1",
+    "terser-webpack-plugin": "^1.1.0",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
