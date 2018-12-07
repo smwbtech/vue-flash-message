@@ -16,20 +16,6 @@ export function createEventBus(config) {
             strategy() {
                 return config.strategy ? config.strategy : 'single';
             },
-            /**
-             * Retuen active status in 'single' mode
-             * @return {Boolean}
-             */
-            isActive() {
-                return this.active;
-            },
-            /**
-             * Return the first message in messages array in 'single mode'
-             * @return {Object}     - message Object
-             */
-            message() {
-                return this.messages.length > 0 ? this.messages[0] : false;
-            }
         },
 
         methods: {
@@ -42,13 +28,18 @@ export function createEventBus(config) {
             show(data, callbacks = {}) {
 
                 let message = {
-                    id: this.nextMessageId++
+                    id: this.nextMessageId++,
+                    time: config.time,
+                    status: '',
+                    message: '',
+                    icon: '',
+                    clickable: true
                 };
                 message = Object.assign(message, data, callbacks);
 
                 if(this.messages.length > 0) {
                     this.messages.push(message);
-                    this.$emit('clearData');
+                    if(this.strategy === 'single') this.$emit('clearData');
                 }
                 else {
                     this.active = true;
@@ -74,12 +65,10 @@ export function createEventBus(config) {
              * @param  {Number} id      - message id
              */
             deleteMessage(id) {
-                if(config.strategy === 'single') {
-                    this.active = false;
-                    this.messages = this.messages.filter( v => v.id !== id);
-                    if(this.messages.length > 0) {
-                        setTimeout( () => this.active = true, 500);
-                    }
+                this.active = false;
+                this.messages = this.messages.filter( v => v.id !== id);
+                if(config.strategy === 'single' && this.messages.length > 0) {
+                    setTimeout( () => this.active = true, 500);
                 }
             }
         },
