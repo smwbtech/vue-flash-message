@@ -12,7 +12,6 @@ export default {
             name: 'flashMessage',
             tag: 'FlashMessage',
             time: 8000,
-            icon: true,
             strategy: 'single'
         };
 
