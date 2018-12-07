@@ -1,5 +1,3 @@
-import  validation from './helpers/validation.js';
-
 export function createEventBus(config) {
     return {
         data() {
@@ -47,8 +45,6 @@ export function createEventBus(config) {
                     id: this.nextMessageId++
                 };
                 message = Object.assign(message, data, callbacks);
-
-                validation(message, 'dataObject');
 
                 if(this.messages.length > 0) {
                     this.messages.push(message);
