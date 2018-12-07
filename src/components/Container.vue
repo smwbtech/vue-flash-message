@@ -2,12 +2,15 @@
 
     <div v-if="strategy === 'single'" class="_vue-flash-msg-container">
         <transition name="flash-message" mode="out-in">
-            <VueMessageBlock v-if="showMessage"></VueMessageBlock>
+            <VueMessageBlock
+                v-if="showMessage"
+                :messageObj="message"
+            ></VueMessageBlock>
         </transition>
     </div>
-    <div v-else>
-
-    </div>
+    <transition-group v-else name="flash-message" tag="div" class="_vue-flash-msg-container">
+        <VueMessageBlock v-for="message in messages" :key="message.id" :messageObj="message"></VueMessageBlock>
+    </transition-group>
 
 </template>
 
@@ -23,6 +26,8 @@ export default {
 
     ._vue-flash-msg-container {
         position: fixed;
+        display: flex;
+        flex-flow: column;
         z-index: 300;
         bottom: 20px;
         right: 20px;
@@ -49,18 +54,23 @@ export default {
 
     /* FlashMessage animation */
     .flash-message-enter-active {
-      animation: fromBottom .5s forwards;
+        animation: fromBottom .5s forwards;
     }
     .flash-message-leave-active {
-      animation: toRight .5s forwards;
+        transform-origin: center center;
+        animation: toRight .8s forwards;
     }
+    .flash-message-move {
+        transition: transform .5s;
+    }
+
     @keyframes fromBottom {
       0% {
           transform: translateY(240px);
           opacity: 0;
       }
       70% {
-          transform: translateY(-50px);
+          transform: translateY(-20px);
           opacity: 0.8;
       }
       100% {
@@ -72,14 +82,22 @@ export default {
       0% {
           transform: translateX(0);
           opacity: 1;
+          max-height: 20vh;
       }
       30% {
-          transform: translateX(-50px);
+          transform: translateX(-20px);
           opacity: 0.8;
+          max-height: 20vh;
+      }
+      70% {
+          transform: translateX(240px);
+          opacity: 0;
+          max-height: 20vh;
       }
       100% {
           transform: translateX(240px);
           opacity: 0;
+          max-height: 0vh;
       }
     }
 
