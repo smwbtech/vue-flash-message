@@ -1,14 +1,14 @@
 <template lang="html">
 
         <div
-            :class="[classObj, blockClass]"
+            :class="[classObj, messageObj.blockClass]"
             @click="clickHandler">
-                <div v-if="icon" :class="['_vue-flash-msg-body__icon', iconClass]">
-                    <img :src="icon" alt="">
+                <div v-if="messageObj.icon" :class="['_vue-flash-msg-body__icon', messageObj.iconClass]">
+                    <img :src="messageObj.icon" alt="">
                 </div>
-                <div :class="['_vue-flash-msg-body__content', contentClass]">
-                    <h3>{{ getTitle }}</h3>
-                    <p>{{ message }}</p>
+                <div :class="['_vue-flash-msg-body__content', messageObj.contentClass]">
+                    <h3>{{ messageObj.title }}</h3>
+                    <p>{{ messageObj.message }}</p>
                 </div>
         </div>
 
@@ -25,6 +25,7 @@ export default {
     ._vue-flash-msg-body {
         display: flex;
         width: 100%;
+        margin-bottom: 20px;
         border-radius: 5px;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
         background-color: #fff;
@@ -33,6 +34,7 @@ export default {
         overflow: hidden;
         cursor: pointer;
         transition: all .3s ease-in;
+        max-height: 20vh;
 
         &._vue-flash-msg-body_unclickabe {
             cursor: auto;
