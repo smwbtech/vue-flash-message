@@ -6,10 +6,7 @@ module.exports = {
     },
     configureWebpack: {
     plugins: [
-      new UglifyJsPlugin({
-          test: /\.js(\?.*)?$/i,
-          extractComments: 'all'
-      })
+      new UglifyJsPlugin()
     ]
   }
 }
