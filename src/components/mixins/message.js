@@ -37,11 +37,11 @@ export function createMessageMixin(config) {
 
                 classObj() {
                     return {
-                        success: this.status === 'success',
-                        error: this.status === 'error',
-                        warning: this.status === 'warning',
-                        info: this.status === 'info',
-                        unclickable: !this.clickable,
+                        '_vue-flash-msg-body_success': this.status === 'success',
+                        '_vue-flash-msg-body_error': this.status === 'error',
+                        '_vue-flash-msg-body_warning': this.status === 'warning',
+                        '_vue-flash-msg-body_info': this.status === 'info',
+                        '_vue-flash-msg-body_unclickabe': !this.clickable,
                         '_vue-flash-msg-body': true
                     }
                 }
