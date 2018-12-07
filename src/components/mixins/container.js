@@ -1,5 +1,4 @@
 export function createContainerMixin(config) {
-    if(!config.strategy || config.strategy === 'single') {
 
         return {
             computed: {
@@ -9,10 +8,14 @@ export function createContainerMixin(config) {
                 },
                 // Get status in single message mode
                 showMessage() {
-                    return this[config.name].isActive;
+                    return this[config.name].active;
+                },
+                message() {
+                    return this[config.name].messages[0];
+                },
+                messages() {
+                    return this[config.name].messages;
                 }
             }
         }
-
-    }
 }
