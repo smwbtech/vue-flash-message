@@ -36,22 +36,10 @@ describe('Test FlashMessage Compoent', () => {
         });
     });
 
-    it('Test container "styles" prop', () => {
-        cmp.setProps({
-            styles: {
-                top: '20px'
-            }
-        });
-        expect(cmp.props().styles.top).toBe('20px');
-    });
-
-    it('Test container "style" attribute', () => {
-        cmp.setProps({
-            styles: {
-                top: '20px'
-            }
-        });
-        expect(cmp.attributes().style).toContain('20px');
+    it('is exist and has properties', () => {
+        expect(cmp.exists()).toBe(true);
+        expect(cmp.vm.strategy).toBe('single');
+        expect(cmp.vm.showMessage).toBe(false);
     });
 
 });

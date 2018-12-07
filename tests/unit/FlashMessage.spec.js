@@ -68,35 +68,45 @@ describe('Test FlashMessage Compoent', () => {
             });
 
             it('FlashMesage has property "icon" and it is equal to "true"', () => {
-                expect(cmp.vm).toHaveProperty('icon', true);
+                expect(cmp.vm).toHaveProperty('icon', '');
             });
 
             it('FlashMesage has property "clickable" and it is equal to "true"', () => {
                 expect(cmp.vm).toHaveProperty('clickable', true);
             });
 
-            it('FlashMesage has property "flashMessageStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('flashMessageStyle', null);
+            it('FlashMesage has property "blockClass" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('blockClass', null);
             });
 
-            it('FlashMesage has property "iconStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('iconStyle', null);
+            it('FlashMesage has property "iconClass" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('iconClass', null);
             });
 
-            it('FlashMesage has property "style.contentStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('contentStyle', null);
+            it('FlashMesage has property "contentClass" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('contentClass', null);
             });
 
-            it('FlashMesage has property "titleStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('titleStyle', null);
+            it('FlashMesage has property "mounted" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('mounted', null);
             });
 
-            it('FlashMesage has property "textStyle" and it is an qual to "null"', () => {
-                expect(cmp.vm).toHaveProperty('textStyle', null);
+            it('FlashMesage has property "destroyed" and it is an qual to "null"', () => {
+                expect(cmp.vm).toHaveProperty('destroyed', null);
             });
 
         });
 
+        describe('Test classes', () => {
+
+            it('When user set "iconClass" element sould have specified class', () => {
+                cmp.setData({blockClass: 'custom-user-class'});
+                let elem = cmp.find('._vue-flash-msg-body');
+                expect(elem.is('div')).toBe(true);
+                expect(elem.classes()).toContain('custom-user-class');
+            });
+
+        });
 
         describe('Testing component events', () => {
 
