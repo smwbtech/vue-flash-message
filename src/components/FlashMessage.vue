@@ -1,12 +1,12 @@
 <template lang="html">
 
         <div
-            :class="classObj"
+            :class="[classObj, blockClass]"
             @click="clickHandler">
-                <div v-if="icon" class="_vue-flash-msg-boyd__icon">
+                <div v-if="icon" :class="['_vue-flash-msg-body__icon', iconClass]">
                     <img :src="icon" alt="">
                 </div>
-                <div class="_vue-flash-msg-boyd__content">
+                <div :class="['_vue-flash-msg-body__content', contentClass]">
                     <h3>{{ getTitle }}</h3>
                     <p>{{ message }}</p>
                 </div>
@@ -38,7 +38,8 @@ export default {
             cursor: auto;
         }
 
-        & ._vue-flash-msg-boyd__icon {
+        & ._vue-flash-msg-body__icon {
+            display: flex;
             width: 20%;
             min-width: 20%;
             min-height: 100%;
@@ -52,7 +53,7 @@ export default {
             }
         }
 
-        & ._vue-flash-msg-boyd__content {
+        & ._vue-flash-msg-body__content {
             padding-left: 20px;
         }
 
@@ -63,6 +64,9 @@ export default {
             &:hover {
                 background-color: rgba(var(--dark-green-rgb), 1);
             }
+            & ._vue-flash-msg-body__content {
+                border-left: 5px solid var(--dark-green);
+            }
         }
 
 
@@ -71,6 +75,9 @@ export default {
             background-color: rgba(var(--dark-blue-rgb), 0.68);
             &:hover {
                 background-color: rgba(var(--dark-blue-rgb), 1);
+            }
+            & ._vue-flash-msg-body__content {
+                border-left: 5px solid var(--dark-blue);
             }
         }
 
@@ -81,6 +88,9 @@ export default {
             &:hover {
                 background-color: rgba(var(--red-rgb), 1);
             }
+            & ._vue-flash-msg-body__content {
+                border-left: 5px solid var(--red);
+            }
         }
 
 
@@ -90,16 +100,17 @@ export default {
             &:hover {
                 background-color: rgba(var(--orange-rgb), 1);
             }
+            & ._vue-flash-msg-body__content {
+                border-left: 5px solid var(--orange);
+            }
         }
     }
 
     /* Small Monitors */
     @media (1024px <= width <= 1200px) {
         ._vue-flash-msg-body {
-            max-width: 100%;
-            width:50%;
-            max-width: 50%;
-            & ._vue-flash-msg-boyd__content {
+            width: 100%;
+            & ._vue-flash-msg-body__content {
                 padding: 15px;
             }
         }
@@ -109,11 +120,10 @@ export default {
     @media (320px <= width < 1024px) {
         ._vue-flash-msg-body {
             font-size: .9em;
-            width: 90%;
-            max-width: 90%;
+            width: 100%;
             right: 5%;
 
-            & ._vue-flash-msg-boyd__content {
+            & ._vue-flash-msg-body__content {
                 padding: 10px;
             }
         }
