@@ -1,6 +1,6 @@
 {
   "name": "@smartweb/vue-flash-message",
-  "version": "0.3.2",
+  "version": "0.3.21",
   "main": "./build/vue-flash-msg.common.js",
   "files": [
     "build/*",
@@ -29,7 +29,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lib": "vue-cli-service build --mode production --target lib --name vue-flash-msg ./src/components/index.js --dest ./build",
+    "lib": "vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.js --dest ./build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit --silent"
   },
