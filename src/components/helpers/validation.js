@@ -52,9 +52,6 @@ const validObj = {
         time: {
             type: 'number',
         },
-        icon: {
-            type: 'boolean',
-        },
         strategy: {
             type: 'string',
             pattern: /^(single|multiple)$/ig,
@@ -76,7 +73,7 @@ const validObj = {
             type: 'number',
         },
         icon: {
-            type: 'boolean'
+            type: 'string'
         },
         clickable: {
             type: 'boolean'
