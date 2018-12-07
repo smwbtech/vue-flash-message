@@ -1,3 +1,5 @@
+import  validation from './helpers/validation.js';
+
 export function createEventBus(config) {
     return {
         data() {
@@ -14,10 +16,7 @@ export function createEventBus(config) {
              * @return {String}     - 'single' || 'multiple'
              */
             strategy() {
-                if(config.strategy === undefined || (typeof config.strategy === 'string' && config.strategy === 'single' || config.strategy === 'multiple')) {
-                    return config.strategy ? config.strategy : 'single';
-                }
-                throw new Error('[flashMessage] argument "config.strategy" should be an string and be equal to "single" or "multiple"');
+                return config.strategy ? config.strategy : 'single';
             },
             /**
              * Retuen active status in 'single' mode
@@ -44,14 +43,12 @@ export function createEventBus(config) {
              */
             show(data, callbacks = {}) {
 
-                if(typeof data !== 'object' || Array.isArray(data)) {
-                    throw new Error('[flashMessage] argument should be an Object');
-                }
-
                 let message = {
                     id: this.nextMessageId++
                 };
                 message = Object.assign(message, data, callbacks);
+
+                validation(message, 'dataObject');
 
                 if(this.messages.length > 0) {
                     this.messages.push(message);

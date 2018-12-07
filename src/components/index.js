@@ -3,7 +3,7 @@ import Container from './extends/container.js';
 import { createContainerMixin } from './mixins/container.js';
 import Message from './extends/message.js';
 import { createMessageMixin } from './mixins/message.js';
-import { configValidation } from './helpers/validation.js';
+import  validation from './helpers/validation.js';
 
 export default {
     install(Vue, config = {}) {
@@ -17,8 +17,8 @@ export default {
         };
 
         config = Object.assign(defaultSettings, config);
-        // Validate config 
-        configValidation(config);
+        // Validate config
+        validation(config, 'configObject');
         // Set up Event Bus
         const EventBus = new Vue( createEventBus(config) );
         // Global access to flashMessage property
