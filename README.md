@@ -146,6 +146,8 @@ As second argument you can pass object with two properties: "mounted" and "destr
 <button @click="clickHandler" type="button" name="button">Show Text!</button>
 ```
 
+For example you can add some sound which will be played when message appears
+
 ```javascript
     methods: {
         showText() {
@@ -153,12 +155,14 @@ As second argument you can pass object with two properties: "mounted" and "destr
         },
         clearText() {
             this.text = 'Bye... 1, ..2, ..3';
+            let sound = new Audio('audio surce'); // add sound source
+            sound.play(); // and play it
             setTimeout( () => this.text = '', 3000);
         },
         clickHandler() {
             this.flashMessage.info({
                 title: 'Ooooooops!',
-                message: 'Do you see this text? Wtf?'
+                message: 'Do you see this text and hear this sound? Wtf?'
             },
             {
                 mounted: showText,
