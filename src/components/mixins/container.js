@@ -1,6 +1,18 @@
 export function createContainerMixin(config) {
 
         return {
+
+            props: {
+                position: {
+                    type: String,
+                    default: 'right bottom',
+                    validator: (v) => {
+                        return v.split(' ')
+                                .every( v => ['top', 'left', 'right', 'bottom']);
+                    }
+                }
+            },
+
             computed: {
                 // Get strategy
                 strategy() {
@@ -15,6 +27,10 @@ export function createContainerMixin(config) {
                 },
                 messages() {
                     return this[config.name].messages;
+                },
+                positionClass() {
+                    let [x,y] = this.position.split(' ');
+                    return `_vue-flash-msg-container_${x}-${y}`;
                 }
             }
         }
