@@ -97,6 +97,16 @@ describe('Testing EventBus', () => {
 
         });
 
+        it('Method "setStrategy()" should set up strategy if it is equal to "single" or "multiple" and return Boolean as result', () => {
+            expect(cmp.vm.setStrategy('multiple')).toBe(true);
+            expect(cmp.vm.strategy).toBe('multiple');
+        });
+
+        it('Method "setStrategy()" should ignore all other values and return false if they are not equal to "single" or "multiple"', () => {
+            expect(cmp.vm.setStrategy('dddddddd')).toBe(false);
+            expect(cmp.vm.strategy).toBe('single');
+        });
+
 
     });
 
