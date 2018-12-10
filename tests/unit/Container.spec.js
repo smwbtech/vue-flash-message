@@ -36,10 +36,25 @@ describe('Test FlashMessage Compoent', () => {
         });
     });
 
-    it('is exist and has properties', () => {
+    it('Component should exist', () => {
         expect(cmp.exists()).toBe(true);
-        expect(cmp.vm.strategy).toBe('single');
-        expect(cmp.vm.showMessage).toBe(false);
+    });
+
+    it('Component has computed property "strategy" and it is equal to "single"', () => {
+        expect(cmp.vm).toHaveProperty('strategy', 'single');
+    });
+
+    it('Component has computed property "showMessage" and it is equal to "false"', () => {
+        expect(cmp.vm).toHaveProperty('showMessage', false);
+    });
+
+    it('Component has computed property "message" and it is equal to "undefined"', () => {
+        expect(cmp.vm).toHaveProperty('message', undefined);
+    });
+
+    it('Component has computed property "messages" and it is equal to "[]"', () => {
+        expect(cmp.vm).toHaveProperty('messages');
+        expect(cmp.vm.messages).toEqual([]);
     });
 
 });

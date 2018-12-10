@@ -31,7 +31,7 @@
     "build": "vue-cli-service build",
     "lib": "cross-env NODE_ENV=production vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.js --dest ./build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit --silent"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "vue": "^2.5.17"
