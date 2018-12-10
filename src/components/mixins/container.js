@@ -8,7 +8,7 @@ export function createContainerMixin(config) {
                     default: 'right bottom',
                     validator: (v) => {
                         return v.split(' ')
-                                .every( v => ['top', 'left', 'right', 'bottom']);
+                                .every( val => ['top', 'left', 'right', 'bottom'].indexOf(val) >= 0);
                     }
                 }
             },
