@@ -4,62 +4,74 @@
     <h1>Vue Flash Messages</h1>
     <p>An easy way to notify your users </p>
 
-    <button
-      class="error"
-      @click="flashMessage.error({ title: 'Error Title', message: text });"
-    >
-      ERROR
-    </button>
-    <button
-      class="warning"
-      @click="flashMessage.warning({ title: 'Warning Title', message: text });"
-    >
-      WARNING
-    </button>
-    <button
-      class="success"
-      @click="flashMessage.success({ title: 'Success Title', message: text, icon: succesIcon, time: 10000000 });"
-    >
-      SUCCESS
-    </button>
-    <button
-      class="info"
-      @click="flashMessage.info({ title: 'Info Title', message: text });"
-    >
-      INFO
-    </button>
-    <button
-      class="empty"
-      @click="
-        flashMessage.error({
-          title: 'Message Without Icon',
-          message: text,
-          icon: false,
-          clickable: false
-        });
-      "
-    >
-      WITHOUT ICON AND UNCKLICKABE
-    </button>
-    <button
-      class="custom"
-      @click="
-        flashMessage.show(
-          {
-            title: 'Custom Styled Message',
-            message: text,
-            icon: customMessageIcon,
-            blockClass: 'custom_msg'
-          },
-          {
-              mounted: showText,
-              destroyed: clearText
-          }
-        );
-      "
-    >
-      CUSTOM STYLE MESSAGE
-    </button>
+    <aside class="settings">
+
+        <div class="settings-presets">
+
+            <h3>Preset Styles</h3>
+            <button
+                class="error"
+                @click="flashMessage.error({ title: 'Error Title', message: text });"
+            >
+                ERROR
+            </button>
+            <button
+                class="warning"
+                @click="flashMessage.warning({ title: 'Warning Title', message: text });"
+            >
+            WARNING
+            </button>
+            <button
+                class="success"
+                @click="flashMessage.success({ title: 'Success Title', message: text, icon: succesIcon, time: 10000000 });"
+            >
+            SUCCESS
+            </button>
+            <button
+                class="info"
+                @click="flashMessage.info({ title: 'Info Title', message: text });"
+            >
+            INFO
+        </button>
+        <button
+            class="empty"
+            @click="
+            flashMessage.error({
+                title: 'Message Without Icon',
+                message: text,
+                icon: false,
+                clickable: false
+            });"
+        >
+        WITHOUT ICON AND UNCKLICKABE
+        </button>
+        <button
+            class="custom"
+            @click="
+                flashMessage.show(
+                    {
+                        title: 'Custom Styled Message',
+                        message: text,
+                        icon: customMessageIcon,
+                        blockClass: 'custom_msg'
+                    },
+                    {
+                        mounted: showText,
+                        destroyed: clearText
+                    }
+                );"
+            >
+            CUSTOM STYLE MESSAGE
+        </button>
+
+
+        </div>
+
+        <h2>Customize your own message</h2>
+
+
+    </aside>
+
     <p>{{ callbackText }}</p>
     <FlashMessage></FlashMessage>
   </div>
@@ -74,6 +86,7 @@ export default {
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. ',
             callbackText: '',
             customMessageIcon: `${require('@/assets/img/poop.svg')}`,
+            succesIcon: `${require('@/assets/img/success.svg')}`
         }
     },
 
@@ -107,15 +120,38 @@ export default {
         color: #fff;
     }
 
+    & .settings {
+        width: 40vw;
+        min-width: 425px;
+        margin-left: 40px;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.5);
+        box-shadow: var(--block-shadow);
+        align-self: flex-start;
+
+        & .settings-presets {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            & h3 {
+                width: 100%;
+                color: #fff;
+            }
+        }
+    }
+
     & button {
-        font-weight: bold;
         display: block;
         margin-bottom: 20px;
         max-width: 50%;
-        width: 50%;
+        width: 40%;
         padding: 10px;
         border: 2px solid;
         border-radius: 5px;
+        font-size: .8rem;
+        font-weight: bold;
         cursor: pointer;
 
         &.error {
