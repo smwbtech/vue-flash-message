@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+
+    <h1>Vue Flash Messages</h1>
+    <p>An easy way to notify your users </p>
+
     <button
       class="error"
       @click="flashMessage.error({ title: 'Error Title', message: text });"
@@ -8,13 +12,13 @@
     </button>
     <button
       class="warning"
-      @click="flashMessage.warning({ title: 'Warning Title', message: text, time: 12300000 });"
+      @click="flashMessage.warning({ title: 'Warning Title', message: text });"
     >
       WARNING
     </button>
     <button
       class="success"
-      @click="flashMessage.success({ title: 'Success Title', message: text });"
+      @click="flashMessage.success({ title: 'Success Title', message: text, icon: succesIcon, time: 10000000 });"
     >
       SUCCESS
     </button>
@@ -44,11 +48,13 @@
           {
             title: 'Custom Styled Message',
             message: text,
-            icon: customIcon,
-            blockClass: 'custom_message_style',
-            time: 120000000
+            icon: customMessageIcon,
+            blockClass: 'custom_msg'
           },
-          { mounted: showText, destroyed: clearText }
+          {
+              mounted: showText,
+              destroyed: clearText
+          }
         );
       "
     >
@@ -67,7 +73,7 @@ export default {
         return {
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. ',
             callbackText: '',
-            customIcon: require('@/assets/img/poop.svg')
+            customMessageIcon: `${require('@/assets/img/poop.svg')}`,
         }
     },
 
@@ -85,15 +91,21 @@ export default {
 
 <style>
 #app {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(.25turn, #a224dc, #3624dc);
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
     display: flex;
     flex-flow: column;
     align-items: center;
+
+    & h1, & p {
+        color: #fff;
+    }
 
     & button {
         font-weight: bold;
@@ -140,26 +152,8 @@ export default {
     }
 }
 
-.custom_message_style {
+.custom_msg {
     background: linear-gradient(#e66465, #9198e5);
-
-    & ._vue-flash-msg-body__content {
-
-        & h3 {
-            position: relative;
-
-            &:after {
-                display: block;
-                width: calc(100% + 20px);
-                height: 3px;
-                position: absolute;
-                content: "";
-                left: -20px;
-                bottom: -10px;
-                background: linear-gradient(0.25turn, rgb(255, 255, 255), rgba(255, 255, 255, 0.1));;
-            }
-        }
-    }
 }
 
 </style>
