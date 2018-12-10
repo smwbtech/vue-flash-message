@@ -4,21 +4,24 @@ export function createEventBus(config) {
             return {
                 messages: [], // array of messages object
                 nextMessageId: 1, // id of next inserted message object
-                active: false // switch visibility status of message in 'single' mode
+                active: false, // switch visibility status of message in 'single' mode
+                strategy: config.strategy
             }
         },
 
-        computed: {
-            /**
-             * Return strategy
-             * @return {String}     - 'single' || 'multiple'
-             */
-            strategy() {
-                return config.strategy ? config.strategy : 'single';
-            },
-        },
-
         methods: {
+            /**
+             * change the strategy of showing messages
+             * @param {String} strategy     - 'single' or 'multiple'
+             * @return {Boolean}            - if strategy is changed it will return true, otherwise false
+             */
+            setStrategy(strategy) {
+                if(/^(single)|(multiple)$/i.test(strategy)) {
+                    this.strategy = strategy;
+                    return true;
+                }
+                return false;
+            },
             /**
              * Push new message Object into messages array and merge properties
              * @param  {Object} data            - message object
