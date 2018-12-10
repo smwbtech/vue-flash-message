@@ -1,7 +1,7 @@
 <template lang="html">
 
     <div v-if="strategy === 'single'" :class="['_vue-flash-msg-container',positionClass]">
-        <transition name="flash-message" mode="out-in">
+        <transition :name="positionClass" mode="out-in">
             <VueMessageBlock
                 v-if="showMessage"
                 :messageObj="message"
