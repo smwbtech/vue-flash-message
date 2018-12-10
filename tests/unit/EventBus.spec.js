@@ -74,7 +74,7 @@ describe('Testing EventBus', () => {
         it('Method "show()" should add new message object into "messages" array', () => {
             cmp.vm.show({status: 'error', title: 'Error Title', message: 'Message'});
             expect(cmp.vm.messages.length).toBe(1);
-            expect(cmp.vm.messages[0]).toEqual({id: 1, status: 'error', title: 'Error Title', message: 'Message'});
+            expect(cmp.vm.messages[0]).toEqual({id: 1, status: 'error', title: 'Error Title', message: 'Message', clickable: true, time: 8000, icon: ''});
         });
 
         it('Method "show()" should return id of the inserted message', () => {
