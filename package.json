@@ -1,6 +1,6 @@
 {
   "name": "@smartweb/vue-flash-message",
-  "version": "0.3.22",
+  "version": "0.4.0-rc1",
   "main": "./build/vue-flash-msg.common.js",
   "files": [
     "build/*",
@@ -14,7 +14,9 @@
     "flash",
     "vue message",
     "vue flash",
-    "vue flash message"
+    "vue flash message",
+    "vue notify",
+    "vue notifications"
   ],
   "repository": {
     "type": "git",
