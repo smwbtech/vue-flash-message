@@ -14,7 +14,7 @@ export default {
             strategy: 'single'
         };
 
-        let Container = MessageExt(Vue);
+        let Container = ContainerExt(Vue);
         let Message = MessageExt(Vue);
 
         config = Object.assign(defaultSettings, config);
