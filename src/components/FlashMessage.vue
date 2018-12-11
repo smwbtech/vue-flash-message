@@ -42,21 +42,25 @@ export default {
 
         & ._vue-flash-msg-body__icon {
             display: flex;
-            width: 20%;
-            min-width: 20%;
-            min-height: 100%;
-            padding: 0px 10px;
+            justify-content: center;
+            max-width: 20%;
+            align-items: center;
+            padding: 10px;
             background-color: #fff;
+            overflow: hidden;
 
             & img {
-                display: block;
-                width: 90%;
-                margin: 0 auto;
+                width: 80%;
+                height: auto;
             }
         }
 
         & ._vue-flash-msg-body__content {
             padding-left: 20px;
+        }
+
+        &._vue-flash-msg-body_default {
+            color: #000;
         }
 
         &._vue-flash-msg-body_success {
