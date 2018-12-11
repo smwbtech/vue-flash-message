@@ -4,9 +4,9 @@
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/smwbtech/vue-flash-message/blob/master/LICENSE.md)
 
 
-The component to display single flash message to user. It has styles presets, but can be easily customized by passing style object as argument.
+The component to display single flash message or multiple flash messages to user. It has styles presets, but can be easily customized by passing style object as argument.
 
-#### [Live Demo](https://codesandbox.io/s/ovoyyy4om6?view=preview)
+#### [Live Demo](https://smwbtech.github.io/vue-flash-message/)
 
 ## Setup
 ```
@@ -34,7 +34,7 @@ Vue.use(FlashMessage, config);
 | **name** | **String** | It is a name of the component and alias for the EventBus global property. | 'flashMessage' |
 | **tag** | **String** | Custom tag for the component to use in your application. | 'FlashMesage' |
 | **time** | **Number** | Duration (in ms) of the message display (can be customized during message call). | 8000  |
-| **icon** | **Boolean** | If you would like to use icons as default. | true  |
+| **strategy** | **String** | You can pass 'single' or 'multiple'  to choose the default strategy. It can be changed in process. | 'single'  |
 
 
 
@@ -45,10 +45,10 @@ Put the component into your template
 ```html
 <FlashMessage></FlashMessage>
 ```
-You can pass Style Object in attribute :styles of component to configure the block, where flash message will appear
+You can pass a string as position property to set up default position of messages block. Valid values: **'right bottom'**, **'right top'**, **'left bottom'**, **'left top'**.
 
 ```html
-<FlashMessage :styles="{your styles goes here}"></FlashMessage>
+<FlashMessage :position="right bottom"></FlashMessage>
 ```
 
 Now you can access flash message by using global EventBus alias (that is "flashMessage" by default) of your Vue instance
@@ -89,13 +89,11 @@ The first argument - is data object.
 | **title** | **String** | Title of your message |
 | **message** | **String** | Text of your message |
 | **time** | **Number** | Duration (in ms) of the single message display |
-| **icon** | **Boolean** |  If you would like to use icons for this single message|
+| **icon** | **String** |  A URL for icon or image to display |
 | **clickable** | **Boolean** |  Allows to control whether the user can remove message by click on it or not.|
-| **flashMessageStyle** | **Object** | style Object for flashMessage block |
-| **iconStyle** | **Object** | style Object for icon block. You can pass your own icon as 'backgroundImage' |
-| **contentStyle** | **Object** | Style of content block |
-| **titleStyle** | **Object** | Styles for title |
-| **textStyle** | **Object** |  Styles for text |
+| **blockClass** | **String** | custom class name for flashMessage block. |
+| **iconClass** | **String** | custom class name for icon block. |
+| **contentClass** | **String** | custom class name for content block |
 ------
 
 
@@ -184,6 +182,16 @@ You can delete message programmatically using deleteMessage method
 ```javascript
     let id = this.flashMessage.info({title: 'Hey, man. Time for beer!', message: 'It is Friday. Time to have a little party.'})
     this.flashMessage.deleteMessage(id);
+```
+
+### Set Strategy
+------
+
+You can update default strategy using setStrategy method.
+
+```javascript
+    /* Will return {Boolean} as result */
+    this.flashMessage.setStrategy('multiple'); // strategy changed to multiple
 ```
 
 
