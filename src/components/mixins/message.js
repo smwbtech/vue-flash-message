@@ -23,6 +23,7 @@ export function createMessageMixin(config) {
                         '_vue-flash-msg-body_error': this.messageObj.status === 'error',
                         '_vue-flash-msg-body_warning': this.messageObj.status === 'warning',
                         '_vue-flash-msg-body_info': this.messageObj.status === 'info',
+                        '_vue-flash-msg-body_default': this.messageObj.status === 'default',
                         '_vue-flash-msg-body_unclickabe': !this.messageObj.clickable,
                         '_vue-flash-msg-body': true,
                     }
