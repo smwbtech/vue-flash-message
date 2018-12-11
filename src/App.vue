@@ -11,25 +11,25 @@
             <h3>Preset Styles</h3>
             <button
                 class="error"
-                @click="flashMessage.error({ title: 'Error Title', message: text });"
+                @click="flashMessage.error({ title: 'Error Title', message: text, icon: errorIcon });"
             >
                 ERROR
             </button>
             <button
                 class="warning"
-                @click="flashMessage.warning({ title: 'Warning Title', message: text });"
+                @click="flashMessage.warning({ title: 'Warning Title', message: text, icon: warningIcon });"
             >
             WARNING
             </button>
             <button
                 class="success"
-                @click="flashMessage.success({ title: 'Success Title', message: text, icon: succesIcon, time: 10000000 });"
+                @click="flashMessage.success({ title: 'Success Title', message: text, icon: succesIcon});"
             >
             SUCCESS
             </button>
             <button
                 class="info"
-                @click="flashMessage.info({ title: 'Info Title', message: text });"
+                @click="flashMessage.info({ title: 'Info Title', message: text, icon: infoIcon});"
             >
             INFO
         </button>
@@ -63,17 +63,45 @@
             >
             CUSTOM STYLE MESSAGE
         </button>
+        </div>
 
+        <div class="custom-settings">
+
+            <h3>Customize your own message</h3>
+
+            <form action="">
+                <label for="">Strategy</label>
+                <label for="">Position</label>
+                <select name="" id="" @change="flashMessage.setStrategy($event.target.value)" v-model="userData.strategy">
+                    <option value="single" selected>single</option>
+                    <option value="multiple">multiple</option>
+                </select>
+                <select name="" id="" v-model="userData.position">
+                    <option value="right bottom " selected>right bottom</option>
+                    <option value="right top">right top</option>
+                    <option value="left bottom">left bottom</option>
+                    <option value="left top">left top</option>
+                </select>
+                <label for="">Title</label>
+                <label for="">Message</label>
+                <input type="text" name="" id="" placeholder="Message Title" v-model="userData.title">
+                <input type="text" name="" id="" placeholder="Message Text" v-model="userData.message">
+                <label for="">Icon</label>
+                <label for="">Duration in ms</label>
+                <input type="text" name="" id="" placeholder="URL to image" v-model="userData.icon">
+                <input type="text" name="" id="" placeholder="Time the message will live in ms" v-model.number="userData.time">
+                <button type="button" name="button" @click="showUserMessage">Show Message</button>
+            </form>
 
         </div>
 
-        <h2>Customize your own message</h2>
+
 
 
     </aside>
 
     <p>{{ callbackText }}</p>
-    <FlashMessage></FlashMessage>
+    <FlashMessage :position="userData.position"></FlashMessage>
   </div>
 </template>
 
@@ -86,7 +114,18 @@ export default {
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem. ',
             callbackText: '',
             customMessageIcon: `${require('@/assets/img/poop.svg')}`,
-            succesIcon: `${require('@/assets/img/success.svg')}`
+            succesIcon: `${require('@/assets/img/success.svg')}`,
+            warningIcon: `${require('@/assets/img/light-bulb.svg')}`,
+            errorIcon: `${require('@/assets/img/warning.svg')}`,
+            infoIcon: `${require('@/assets/img/information.svg')}`,
+            userData: {
+                position: 'right bottom',
+                strategy: 'single',
+                title: '',
+                message: '',
+                icon: '',
+                time: 8000
+            }
         }
     },
 
@@ -97,6 +136,10 @@ export default {
         clearText() {
             this.callbackText = 'My time has passed! I will disappear in 3 second...';
             setTimeout( () => this.callbackText = '', 3000);
+        },
+        showUserMessage() {
+            let { title, message, icon, time } = this.userData;
+            this.flashMessage.show({title, message, icon, time});
         }
     }
 }
@@ -104,19 +147,20 @@ export default {
 
 <style>
 #app {
-    width: 100vw;
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
     background: linear-gradient(.25turn, #a224dc, #3624dc);
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
     display: flex;
     flex-flow: column;
     align-items: center;
 
-    & h1, & p {
+    & > h1, & > p {
         color: #fff;
     }
 
@@ -140,6 +184,46 @@ export default {
                 color: #fff;
             }
         }
+
+        & .custom-settings {
+
+            & h3 {
+                width: 100%;
+                color: #fff;
+            }
+
+            & form {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            & label {
+                display: block;
+                font-weight: 300;
+                letter-spacing: 1.3px;
+                min-width: 40%;
+                margin-bottom: 20px;
+                color: #fff;
+            }
+
+            & input, & select {
+                display: block;
+                min-width: 40%;
+                margin-bottom: 20px;
+                border: none;
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 5px;
+            }
+
+            & button {
+                display: block;
+                max-width: 40%;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+        }
     }
 
     & button {
@@ -153,43 +237,69 @@ export default {
         font-size: .8rem;
         font-weight: bold;
         cursor: pointer;
+        transition: background-color .2s ease-in;
 
         &.error {
         background-color: rgba(241, 34, 34, 0.68);
         border-color: #f12222;
+
+            &:hover {
+                background-color: rgba(241, 34, 34, 1);
+            }
         }
 
         &.warning {
           background-color: rgba(241, 139, 34, 0.68);
           border-color: #f18b22;
+
+            &:hover {
+                background-color: rgba(241, 139, 34, 1);
+            }
+
         }
 
         &.success {
           background-color: rgba(1, 148, 122, 0.68);
           border-color: #01947a;
+
+            &:hover {
+                background-color: rgba(1, 148, 122, 1);
+            }
         }
 
         &.info {
           background-color: rgba(16, 135, 194, 0.68);
           border-color: #1087c2;
+
+            &:hover {
+                background-color: rgba(16, 135, 194, 1);
+            }
+
         }
 
         &.empty {
-          background-color: #fff;
-          border-color: #1087c2;
+          background-color: rgba(191, 39, 222, 0.68);
+          border-color: rgba(191, 39, 222, 1);
+
+            &:hover {
+                 background-color: rgba(191, 39, 222, 1);
+            }
+
         }
 
         &.custom {
-          background: linear-gradient(0.2turn, #e66465, #9198e5);
+          background-image: linear-gradient(0.2turn, rgba(230, 100, 101, 1), rgba(46, 63, 250, 1));
           border-color: #e66465;
           color: #fff;
         }
+
+
 
     }
 }
 
 .custom_msg {
-    background: linear-gradient(#e66465, #9198e5);
+    background: linear-gradient(0.2turn, rgba(247, 19, 204, 1), rgba(23, 123, 255, 1));
 }
 
 </style>
