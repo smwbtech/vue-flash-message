@@ -1,4 +1,5 @@
-import Vue from 'vue';
 import FlashMessage from './../FlashMessage.vue';
 
-export default Vue.extend(FlashMessage)
+export default function(Vue) {
+    return Vue.extend(FlashMessage)
+}

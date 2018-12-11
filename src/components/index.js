@@ -1,7 +1,7 @@
 import { createEventBus } from './eventbus.js';
-import Container from './extends/container.js';
+import ContainerExt from './extends/container.js';
 import { createContainerMixin } from './mixins/container.js';
-import Message from './extends/message.js';
+import MessageExt from './extends/message.js';
 import { createMessageMixin } from './mixins/message.js';
 
 export default {
@@ -13,6 +13,9 @@ export default {
             time: 8000,
             strategy: 'single'
         };
+
+        let Container = MessageExt(Vue);
+        let Message = MessageExt(Vue);
 
         config = Object.assign(defaultSettings, config);
 
