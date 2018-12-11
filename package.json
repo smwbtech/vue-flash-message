@@ -1,6 +1,6 @@
 {
   "name": "@smartweb/vue-flash-message",
-  "version": "0.4.0-rc1",
+  "version": "0.4.0",
   "main": "./build/vue-flash-msg.common.js",
   "files": [
     "build/*",
@@ -10,6 +10,7 @@
   "description": "Vue flash message component",
   "keywords": [
     "vue",
+    "vuejs",
     "flash message",
     "flash",
     "vue message",
@@ -21,6 +22,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/smwbtech/vue-flash-message"
+  },
+  "homepage": "https://smwbtech.github.io/vue-flash-message/",
+  "bugs": {
+    "url": "https://github.com/smwbtech/vue-flash-message/issues"
   },
   "license": "MIT",
   "author": {
