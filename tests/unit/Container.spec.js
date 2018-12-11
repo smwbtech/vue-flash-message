@@ -19,7 +19,8 @@ const EventBus = new Vue( createEventBus(config) );
 // Global access to flashMessage property
 Vue.prototype[config.name] = EventBus;
 
-let Container = ContainerExt.extend( createContainerMixin(config) );
+let InstallContainer = ContainerExt(Vue);
+let Container = InstallContainer.extend( createContainerMixin(config) );
 
 //Set up component
 

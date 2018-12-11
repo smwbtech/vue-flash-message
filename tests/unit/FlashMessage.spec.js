@@ -2,7 +2,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils';
 import { createMessageMixin } from '@/components/mixins/message.js';
 import { createEventBus } from '@/components/eventbus.js';
 import Vue from 'vue';
-import FlashMessageExt from '@/components/extends/message.js';
+import FlashMessageInstall from '@/components/extends/message.js';
 import MyPlugin from '@/components/index.js';
 
 // default config
@@ -19,6 +19,7 @@ const EventBus = new Vue( createEventBus(config) );
 // Global access to flashMessage property
 Vue.prototype[config.name] = EventBus;
 
+let FlashMessageExt = FlashMessageInstall(Vue);
 let FlashMessage = FlashMessageExt.extend( createMessageMixin(config) );
 
 //Set up component
