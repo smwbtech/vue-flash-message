@@ -61,7 +61,28 @@
                     }
                 );"
             >
-            CUSTOM STYLE MESSAGE
+            CUSTOM STYLE MESSAGE WITH CALLBACKS
+        </button>
+        <button
+            class="custom_two"
+            @click="
+                flashMessage.show(
+                    {
+                        title: 'Custom Styled Message',
+                        message: text,
+                        icon: doveIcon,
+                        blockClass: 'custom_msg_two',
+                        position: 'left bottom',
+                        x: 300,
+                        y: 400
+                    },
+                    {
+                        mounted: showText,
+                        destroyed: clearText
+                    }
+                );"
+            >
+            MESSAGE WITH POSITION PROP
         </button>
         </div>
 
@@ -118,6 +139,11 @@ export default {
             warningIcon: `${require('@/assets/img/light-bulb.svg')}`,
             errorIcon: `${require('@/assets/img/warning.svg')}`,
             infoIcon: `${require('@/assets/img/information.svg')}`,
+            doveIcon: `${require('@/assets/img/dove.svg')}`,
+            sounds: {
+                message: `${require('@/assets/sounds/message.mp3')}`,
+                delete: `${require('@/assets/sounds/delete.mp3')}`
+            },
             userData: {
                 position: 'right bottom',
                 strategy: 'single',
@@ -131,9 +157,13 @@ export default {
 
     methods: {
         showText() {
+            let sound = new Audio(this.sounds.message);
+            sound.play();
             this.callbackText = 'Hello from callback! FlashMessage is appear'
         },
         clearText() {
+            let sound = new Audio(this.sounds.delete);
+            sound.play();
             this.callbackText = 'My time has passed! I will disappear in 3 second...';
             setTimeout( () => this.callbackText = '', 3000);
         },
@@ -295,6 +325,15 @@ export default {
           background-image: linear-gradient(0.2turn, rgba(230, 100, 101, 1), rgba(46, 63, 250, 1));
           border-color: #e66465;
           color: #fff;
+        }
+
+        &.custom_two {
+            background-color: rgba(222, 39, 176, 0.68);
+            border-color: rgba(222, 39, 176, 1);
+
+              &:hover {
+                   background-color: rgba(222, 39, 176, 1);
+              }
         }
 
 
