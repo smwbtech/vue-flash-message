@@ -311,4 +311,35 @@ export default {
 
 }
 
+/* Small Monitors */
+@media (1024px <= width <= 1200px) {
+
+}
+
+/* Mobile devices */
+@media (320px <= width < 1024px) {
+    #app {
+
+        & button {
+            width: 45%;
+            max-width: 45%;
+            font-size: .6rem;
+        }
+
+        & .settings {
+            width: 90%;
+            min-width: 90%;
+            margin: 0 auto;
+
+            & form {
+
+                & input, & select {
+                    width: 35%;
+                    max-width: 35%;
+                }
+            }
+        }
+    }
+}
+
 </style>
