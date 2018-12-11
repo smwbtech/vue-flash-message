@@ -164,6 +164,10 @@ export default {
         color: #fff;
     }
 
+    & > p {
+        margin-bottom: 60px;
+    }
+
     & .settings {
         width: 40vw;
         min-width: 425px;
@@ -300,6 +304,11 @@ export default {
 
 .custom_msg {
     background: linear-gradient(0.2turn, rgba(247, 19, 204, 1), rgba(23, 123, 255, 1));
+
+    &._vue-flash-msg-body ._vue-flash-msg-body__icon {
+        width: 100%;
+    }
+
 }
 
 </style>
