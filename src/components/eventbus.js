@@ -33,7 +33,7 @@ export function createEventBus(config) {
                 let message = {
                     id: this.nextMessageId++,
                     time: config.time,
-                    status: '',
+                    status: 'default',
                     message: '',
                     icon: '',
                     clickable: true
