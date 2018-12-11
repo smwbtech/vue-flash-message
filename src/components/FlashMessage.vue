@@ -1,7 +1,8 @@
 <template lang="html">
 
         <div
-            :class="[classObj, messageObj.blockClass]"
+            :class="[classObj, position.class, messageObj.blockClass]"
+            :style="[position.style]"
             @click="clickHandler">
                 <div v-if="messageObj.icon" :class="['_vue-flash-msg-body__icon', messageObj.iconClass]">
                     <img :src="messageObj.icon" alt="">
@@ -38,6 +39,10 @@ export default {
 
         &._vue-flash-msg-body_unclickabe {
             cursor: auto;
+        }
+
+        &._vue-flash-msg-body_flying {
+            max-width: 35%;
         }
 
         & ._vue-flash-msg-body__icon {

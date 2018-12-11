@@ -11,7 +11,7 @@ export function createMessageMixin(config) {
 
             data() {
                 return {
-                    timeoutId: undefined // id that will be returned by setTimeout() function
+                    timeoutId: undefined, // id that will be returned by setTimeout() function
                 }
             },
 
@@ -27,6 +27,23 @@ export function createMessageMixin(config) {
                         '_vue-flash-msg-body_unclickabe': !this.messageObj.clickable,
                         '_vue-flash-msg-body': true,
                     }
+                },
+
+                position() {
+                    if( (this.messageObj.position && typeof this.messageObj.position === 'string') && (this.messageObj.x && this.messageObj.y) && (typeof this.messageObj.x === 'number' && typeof this.messageObj.y === 'number') ) {
+
+                        return {
+                            style: {
+                                position: 'fixed',
+                                [this.messageObj.position.split(' ')[0]]: `${this.messageObj.x}px`,
+                                [this.messageObj.position.split(' ')[1]]: `${this.messageObj.y}px`,
+                            },
+                            class: {
+                                '_vue-flash-msg-body_flying': true
+                            }
+                        }
+                    }
+                    else return {style: '', class: ''};
                 }
             },
 
