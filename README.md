@@ -95,6 +95,9 @@ The first argument - is data object.
 | **blockClass** | **String** | custom class name for flashMessage block. |
 | **iconClass** | **String** | custom class name for icon block. |
 | **contentClass** | **String** | custom class name for content block |
+| **position** | **String** | in case, when you want to set up custom "fixed" position relative to viewport, you can pass string 'left/right-top/bottom'. Available positions: 'top left', 'top right', 'bottom left', 'bottom right'. |
+| **x** | **Number** | Amount of pixels to position your message relating to the 'X' axis |
+| **y** | **Number** | Amount of pixels to position your message relating to the 'Y' axis |
 ------
 
 
@@ -111,9 +114,7 @@ The first argument - is data object.
                             title: 'Don\'t Warry',
                             message: 'Be Happy!',
                             time: 5000,
-                            flashMessageStyle: {
-                                backgroundColor: 'linear-gradient(#e66465, #9198e5)'
-                            }
+                            blockClass: 'custom-block-class'
                         });
                     }
                     else {
@@ -154,7 +155,7 @@ For example you can add some sound which will be played when message appears
         },
         clearText() {
             this.text = 'Bye... 1, ..2, ..3';
-            let sound = new Audio('audio surce'); // add sound source
+            let sound = new Audio('audio source'); // add sound source
             sound.play(); // and play it
             setTimeout( () => this.text = '', 3000);
         },
