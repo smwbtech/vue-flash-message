@@ -1,8 +1,12 @@
 <template>
   <div id="app">
 
-    <h1>Vue Flash Messages</h1>
-    <p>An easy way to notify your users </p>
+    <section>
+        <h1>Vue Flash Messages</h1>
+        <p>An easy way to notify your users </p>
+        <p class="callback-text">{{ callbackText }}</p>
+    </section>
+
 
     <aside class="settings">
 
@@ -72,13 +76,9 @@
                         message: text,
                         icon: doveIcon,
                         blockClass: 'custom_msg_two',
-                        position: 'left bottom',
-                        x: 300,
-                        y: 400
-                    },
-                    {
-                        mounted: showText,
-                        destroyed: clearText
+                        position: 'left top',
+                        x: $event.clientX + 20,
+                        y: $event.clientY + 20
                     }
                 );"
             >
@@ -120,8 +120,6 @@
 
 
     </aside>
-
-    <p>{{ callbackText }}</p>
     <FlashMessage :position="userData.position"></FlashMessage>
   </div>
 </template>
@@ -177,6 +175,9 @@ export default {
 
 <style>
 #app {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     min-width: 100vw;
     min-height: 100vh;
     background: linear-gradient(.25turn, #a224dc, #3624dc);
@@ -186,17 +187,30 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
 
-    & > h1, & > p {
-        color: #fff;
+    & section {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 40vw;
+
+        & > h1, & > p {
+            color: #fff;
+        }
+
+        & > p {
+            margin-bottom: 60px;
+        }
+
+        & .callback-text {
+            min-height: 2.5rem;
+        }
     }
 
-    & > p {
-        margin-bottom: 60px;
-    }
+
 
     & .settings {
         width: 40vw;
@@ -206,7 +220,6 @@ export default {
         border-radius: 5px;
         background-color: rgba(0, 0, 0, 0.5);
         box-shadow: var(--block-shadow);
-        align-self: flex-start;
 
         & .settings-presets {
             display: flex;
@@ -359,13 +372,21 @@ export default {
 @media (320px <= width < 1024px) {
     #app {
 
+        flex-direction: column;
+
         & button {
             width: 45%;
             max-width: 45%;
             font-size: .6rem;
         }
 
+        & section {
+            order: 1;
+            width: 90%;
+        }
+
         & .settings {
+            order: 2;
             width: 90%;
             min-width: 90%;
             margin: 0 auto;
@@ -377,6 +398,11 @@ export default {
                     max-width: 35%;
                 }
             }
+        }
+
+        & .custom_msg_two {
+            width: 100%;
+            max-width: 100%;
         }
     }
 }
