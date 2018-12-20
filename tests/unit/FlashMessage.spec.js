@@ -116,16 +116,46 @@ describe('Test FlashMessage Compoent', () => {
 
         });
 
-        // describe('Test classes', () => {
-        //
-        //     it('When user set "iconClass" element sould have specified class', () => {
-        //         cmp.setData({blockClass: 'custom-user-class'});
-        //         let elem = cmp.find('._vue-flash-msg-body');
-        //         expect(elem.is('div')).toBe(true);
-        //         expect(elem.classes()).toContain('custom-user-class');
-        //     });
-        //
-        // });
+        describe('Test classes', () => {
+
+            it('When user set "blockClass" element sould have specified class', () => {
+                cmp.setProps({
+                    messageObj: {
+                        blockClass: 'custom-user-class',
+                    }
+                });
+                cmp.vm.$forceUpdate();
+                let elem = cmp.find('._vue-flash-msg-body');
+                expect(elem.is('div')).toBe(true);
+                expect(elem.classes()).toContain('custom-user-class');
+            });
+
+            it('When user set "iconClass" element sould have specified class', () => {
+                cmp.setProps({
+                    messageObj: {
+                        icon: 'iconUrl',
+                        iconClass: 'custom-icon-class'
+                    }
+                });
+                cmp.vm.$forceUpdate();
+                let elem = cmp.find('._vue-flash-msg-body__icon');
+                expect(elem.is('div')).toBe(true);
+                expect(elem.classes()).toContain('custom-icon-class');
+            });
+
+            it('When user set "contentClass" element sould have specified class', () => {
+                cmp.setProps({
+                    messageObj: {
+                        contentClass: 'custom-content-class'
+                    }
+                });
+                cmp.vm.$forceUpdate();
+                let elem = cmp.find('._vue-flash-msg-body__content');
+                expect(elem.is('div')).toBe(true);
+                expect(elem.classes()).toContain('custom-content-class');
+            });
+
+        });
 
         // describe('Testing component events', () => {
         //
