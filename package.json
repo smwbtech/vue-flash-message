@@ -38,6 +38,7 @@
     "build": "vue-cli-service build",
     "lib": "cross-env NODE_ENV=production vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.js --dest ./build",
     "lint": "vue-cli-service lint",
+    "update-gh-pages": "push-dir --dir=dist --branch=gh-pages",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
@@ -56,6 +57,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "postcss-preset-env": "^6.4.0",
+    "push-dir": "^0.4.1",
     "terser-webpack-plugin": "^1.1.0",
     "vue-template-compiler": "^2.5.17"
   },
