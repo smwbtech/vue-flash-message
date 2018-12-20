@@ -157,18 +157,24 @@ describe('Test FlashMessage Compoent', () => {
 
         });
 
-        // describe('Testing component events', () => {
-        //
-        //     it('"click" event should invoke component "clearData()" method', (done) => {
-        //         const stub = jest.fn();
-        //         cmp.setMethods({ clearData: stub });
-        //         cmp.find('._vue-flash-msg-body').trigger('click');
-        //         cmp.vm.$nextTick( () => {
-        //             expect(stub).toBeCalled();
-        //             done();
-        //         });
-        //     });
-        // });
+        describe('Test custom position of message', () => {
+
+            it('When user set "x" and "y" props, message block should have inline style with position fixed and coords', () => {
+                cmp.setProps({
+                    messageObj: {
+                        position: 'left top',
+                        x: 100,
+                        y: 200
+                    }
+                });
+                cmp.vm.$forceUpdate();
+                let elem = cmp.find('._vue-flash-msg-body');
+                expect(elem.element.style.position).toBe('fixed');
+                expect(elem.element.style.left).toBe('100px');
+                expect(elem.element.style.top).toBe('200px');
+            });
+
+        });
 
     });
 });
