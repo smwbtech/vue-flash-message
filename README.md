@@ -2,6 +2,7 @@
 
 [![vue](https://img.shields.io/badge/Vue-2.x-green.svg)](https://vuejs.org/index.html)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/smwbtech/vue-flash-message/blob/master/LICENSE.md)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsmwbtech%2Fvue-flash-message.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsmwbtech%2Fvue-flash-message?ref=badge_shield)
 
 ![Gif Image](https://raw.githubusercontent.com/smwbtech/vue-flash-message/master/public/vue-flash-mesage.gif)
 
@@ -200,3 +201,6 @@ You can update default strategy using setStrategy method.
 ## LICENSE
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsmwbtech%2Fvue-flash-message.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsmwbtech%2Fvue-flash-message?ref=badge_large)
