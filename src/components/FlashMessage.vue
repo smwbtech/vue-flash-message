@@ -8,8 +8,8 @@
                     <img :src="messageObj.icon" alt="">
                 </div>
                 <div :class="['_vue-flash-msg-body__content', messageObj.contentClass]">
-                    <h3>{{ messageObj.title }}</h3>
-                    <p>{{ messageObj.message }}</p>
+                    <h3><span :v-html="messageObj.title"></span></h3>
+                    <p><span :v-html="messageObj.message"></span></p>
                 </div>
         </div>
 
