@@ -1,5 +1,5 @@
 import FlashMessage from './../FlashMessage.vue';
 
 export default function(Vue) {
-    return Vue.extend(FlashMessage)
+	return Vue.extend(FlashMessage);
 }
