@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
-vue.config.js
 /dist
+/coverage
+package-lock.json
 
 # local env files
 .env.local
