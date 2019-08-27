@@ -1,8 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import { createContainerMixin } from '@/components/mixins/container.js';
 import { createEventBus } from '@/components/eventbus.js';
+import ContainerElem from '@/components/Container.vue';
 import Vue from 'vue';
-import ContainerExt from '@/components/extends/container.js';
 import MyPlugin from '@/components/index.js';
 
 // default config
@@ -14,13 +14,13 @@ let config = {
 	strategy: 'single'
 };
 
+const flashMessageStub = '<div class="flash-message-stub"></div>';
+
+const Container = Object.assign(ContainerElem, createContainerMixin(config));
 // Create an EventBus
 const EventBus = new Vue(createEventBus(config));
 // Global access to flashMessage property
 Vue.prototype[config.name] = EventBus;
-
-let InstallContainer = ContainerExt(Vue);
-let Container = InstallContainer.extend(createContainerMixin(config));
 
 //Set up component
 
@@ -32,7 +32,11 @@ describe('Test FlashMessage Compoent', () => {
 
 	beforeEach(() => {
 		cmp = shallowMount(Container, {
-			localVue
+			localVue,
+			stubs: {
+				'vue-message-block': flashMessageStub,
+				transition: '<div class="transition-stub"><slot></slot></div>'
+			}
 		});
 	});
 
