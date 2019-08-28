@@ -5,6 +5,8 @@ import { createEventBus } from '@/components/eventbus.js';
 import Vue from 'vue';
 import MyPlugin from '@/components/index.js';
 
+jest.useFakeTimers();
+
 // default config
 let config = {
 	name: 'flashMessage',
@@ -14,16 +16,7 @@ let config = {
 	strategy: 'single'
 };
 
-// Create an EventBus
-const EventBus = new Vue(createEventBus(config));
-// Global access to flashMessage property
-Vue.prototype[config.name] = EventBus;
-
 let FlashMessage = Object.assign(FlashMessageElem, createMessageMixin(config));
-
-//Set up component
-let localVue = createLocalVue();
-localVue.use(MyPlugin, config);
 
 describe('Test FlashMessage Compoent', () => {
 	let cmp;
@@ -31,7 +24,6 @@ describe('Test FlashMessage Compoent', () => {
 	describe('FlashMesage with "single" strategy', () => {
 		beforeEach(() => {
 			cmp = shallowMount(FlashMessage, {
-				localVue,
 				propsData: {
 					messageObj: {
 						id: 1,
@@ -46,6 +38,12 @@ describe('Test FlashMessage Compoent', () => {
 						contentClass: null,
 						mounted: null,
 						destroyed: null
+					}
+				},
+				mocks: {
+					flashMessage: {
+						$emit: jest.fn(),
+						$once: jest.fn()
 					}
 				}
 			});
@@ -145,6 +143,23 @@ describe('Test FlashMessage Compoent', () => {
 				let elem = cmp.find('._vue-flash-msg-body__content');
 				expect(elem.is('div')).toBe(true);
 				expect(elem.classes()).toContain('custom-content-class');
+			});
+		});
+
+		describe('Test components methods', () => {
+			it('methods.setTimeout should take invoke setTimeout function with two args "cb" and "time"', () => {
+				expect(cmp.vm.setTimeout).toBeInstanceOf(Function);
+				cmp.vm.setTimeout(1);
+				expect(setTimeout).toHaveBeenCalledWith(1, 8000);
+				setTimeout.mockClear();
+			});
+
+			it('methods.clearData should invoke clearTimeout method if data.timeoutId to be truthly and argument clear === true', () => {
+				expect(cmp.vm.clearData).toBeInstanceOf(Function);
+				cmp.setData({ timeoutId: 1 });
+				cmp.vm.clearData();
+				expect(clearTimeout).toHaveBeenCalledWith(1);
+				clearTimeout.mockClear();
 			});
 		});
 
