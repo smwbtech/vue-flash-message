@@ -81,7 +81,10 @@ export function createEventBus(config) {
 				this.active = false;
 				this.messages = this.messages.filter(v => v.id !== id);
 				if (config.strategy === 'single' && this.messages.length > 0) {
-					setTimeout(() => (this.active = true), 500);
+					setTimeout(
+						/* istanbul ignore next */ () => (this.active = true),
+						500
+					);
 				}
 			}
 		},
