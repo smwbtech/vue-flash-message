@@ -1,9 +1,6 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { createMessageMixin } from '@/components/mixins/message.js';
 import FlashMessageElem from '@/components/FlashMessage.vue';
-import { createEventBus } from '@/components/eventbus.js';
-import Vue from 'vue';
-import MyPlugin from '@/components/index.js';
 
 jest.useFakeTimers();
 
@@ -154,12 +151,93 @@ describe('Test FlashMessage Compoent', () => {
 				setTimeout.mockClear();
 			});
 
-			it('methods.clearData should invoke clearTimeout method if data.timeoutId to be truthly and argument clear === true', () => {
+			it('methods.clearData should invoke clearTimeout method if data.timeoutId to be truthly and argument "clear" === true', () => {
 				expect(cmp.vm.clearData).toBeInstanceOf(Function);
 				cmp.setData({ timeoutId: 1 });
 				cmp.vm.clearData();
 				expect(clearTimeout).toHaveBeenCalledWith(1);
 				clearTimeout.mockClear();
+			});
+
+			it('methods.clearData should emit EventBus "deleteMessage" if data.timeoutId or argument "clear" are falsy', () => {
+				cmp.setData({ timeoutId: undefined });
+				cmp.vm.clearData();
+				expect(cmp.vm.flashMessage.$emit).toHaveBeenCalledWith(
+					'deleteMessage',
+					1
+				);
+			});
+
+			it('methods.clickHandler should invoke methods.clearData if props.messageObj.clickable is truthly', () => {
+				cmp.setMethods({ clearData: jest.fn() });
+				cmp.vm.clickHandler();
+				expect(cmp.vm.clearData).toHaveBeenCalled();
+			});
+
+			it('methods.clickHandler should not invoke methods.clearData if props.messageObj.clickable is falsy', () => {
+				cmp.setMethods({ clearData: jest.fn() });
+				cmp.setProps({
+					messageObj: {
+						clickable: false
+					}
+				});
+				cmp.vm.clickHandler();
+				expect(cmp.vm.clearData).not.toHaveBeenCalled();
+			});
+		});
+
+		describe("Test component's lifecycle hooks", () => {
+			let hooksCmp;
+			let mountedSpy = jest.fn();
+			let destroyedSpy = jest.fn();
+
+			beforeEach(() => {
+				hooksCmp = shallowMount(FlashMessage, {
+					propsData: {
+						messageObj: {
+							id: 1,
+							status: 'error',
+							title: 'error title',
+							message: 'error message',
+							clickable: true,
+							icon: 'www.icon-link.ru',
+							time: 8000,
+							blockClass: null,
+							iconClass: null,
+							contentClass: null,
+							mounted: mountedSpy,
+							destroyed: destroyedSpy
+						}
+					},
+					mocks: {
+						flashMessage: {
+							$emit: jest.fn(),
+							$once: jest.fn()
+						}
+					}
+				});
+			});
+
+			it('If props.messageObj.mounted is Function should invoke props.messageObj.mounted in "mounted" lifecycle hook', () => {
+				expect(mountedSpy).toHaveBeenCalled();
+				mountedSpy.mockClear();
+			});
+
+			it('If props.messageObj.destroyed is Function should invoke props.messageObj.destroyed in "destroyed" lifecycle hook', () => {
+				hooksCmp.destroy();
+				expect(destroyedSpy).toHaveBeenCalled();
+				destroyedSpy.mockClear();
+			});
+
+			it('If props.messageObj.destroyed is notFunction should not invoke props.messageObj.destroyed in "destroyed" lifecycle hook', () => {
+				hooksCmp.setProps({
+					messageObj: {
+						destroyed: null
+					}
+				});
+				hooksCmp.destroy();
+				expect(destroyedSpy).not.toHaveBeenCalled();
+				destroyedSpy.mockClear();
 			});
 		});
 
