@@ -3,7 +3,6 @@ import { createContainerMixin } from '@/components/mixins/container.js';
 import { createEventBus } from '@/components/eventbus.js';
 import ContainerElem from '@/components/Container.vue';
 import Vue from 'vue';
-import MyPlugin from '@/components/index.js';
 
 // default config
 let config = {
@@ -25,7 +24,7 @@ Vue.prototype[config.name] = EventBus;
 //Set up component
 
 let localVue = createLocalVue();
-localVue.use(MyPlugin, config);
+localVue.use(EventBus);
 
 describe('Test FlashMessage Compoent', () => {
 	let cmp;
