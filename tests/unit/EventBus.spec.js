@@ -48,22 +48,6 @@ describe('Testing EventBus', () => {
 		});
 	});
 
-	// describe('Testing emitted events', () => {
-	// it('"deleteMessage" event test', () => {
-	// 	cmp.vm.flashMessage.$emit('deleteMessage', 1123);
-	// 	expect(cmp.vm.flashMessage.deleteMessage).toBeCalled();
-	// });
-
-	// TODO: Crashes with message 'Cannot read property '$options' of undefined'
-	// it('Emitted "deleteMessage" event should invoke "deleteMessage" callback', async () => {
-	//     let stub = jest.fn();
-	//     cmp.setMethods( {deleteMessage: stub} );
-	//     cmp.vm.flashMessage.$emit('deleteMessage', 1123);
-	//     await cmp.vm.flashMessage.$nextTick();
-	//     expect(stub).toBeCalled();
-	// });
-	// });
-
 	describe('Testing methods', () => {
 		it('Method "show()" should add new message object into "messages" array', () => {
 			cmp.vm.flashMessage.show({
