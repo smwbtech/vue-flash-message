@@ -3,8 +3,7 @@ export function createMessageMixin(config) {
 	return {
 		props: {
 			messageObj: {
-				type: Object,
-				required: true
+				type: Object
 			}
 		},
 
