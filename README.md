@@ -3,7 +3,7 @@
 [![vue](https://img.shields.io/badge/Vue-2.x-green.svg)](https://vuejs.org/index.html)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/smwbtech/vue-flash-message/blob/master/LICENSE.md)
 [![Build Status](https://travis-ci.org/smwbtech/vue-flash-message.svg?branch=master)](https://travis-ci.org/smwbtech/vue-flash-message)
-[![Coverage Status](https://coveralls.io/repos/github/smwbtech/vue-flash-message/badge.svg?branch=dev_travis-ci)](https://coveralls.io/github/smwbtech/vue-flash-message?branch=dev_travis-ci)
+[![Coverage Status](https://coveralls.io/repos/github/smwbtech/vue-flash-message/badge.svg?branch=master)](https://coveralls.io/github/smwbtech/vue-flash-message?branch=master)
 [![Size](https://badgen.net/bundlephobia/minzip/@smartweb/vue-flash-message)](https://bundlephobia.com/result?p=@smartweb/vue-flash-message@latest)
 ![npm](https://img.shields.io/npm/dt/@smartweb/vue-flash-message)
 
