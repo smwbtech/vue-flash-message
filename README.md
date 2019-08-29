@@ -35,6 +35,27 @@ You can pass [configuration object](#configuration-object) as second argument
 Vue.use(FlashMessage, config);
 ```
 
+### Nuxt.js
+
+Create vue-flasg-message.js file in plugins directory and put the following code:
+
+```javascript
+import Vue from 'vue';
+import VueFlashMessage from '@smartweb/vue-flash-message';
+
+Vue.use(VueFlashMessage);
+```
+
+In your nuxt.config.js file register your plugin
+
+```javascript
+ {
+	 /*  Since Nuxt.js 2.4, mode has been introduced as option of plugins to specify plugin type, possible value are: client or server. ssr: false will be adapted to mode: 'client' and deprecated in next major release.
+	 More info: https://nuxtjs.org/guide/plugins#client-side-only */
+	 plugins: [{ src: '~/plugins/flash-message.js', mode: 'client' }]
+ },
+```
+
 ### Configuration object
 
 ---
