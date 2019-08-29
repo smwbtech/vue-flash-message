@@ -1,6 +1,11 @@
 <template lang="html">
 	<div
-		:class="[classObj, position.class, messageObj.blockClass]"
+		:class="[
+			classObj, // all classes set
+			positionClass, // default position
+			position.class, // x, y position
+			messageObj.blockClass
+		]"
 		:style="[position.style]"
 		@click="clickHandler"
 	>
@@ -24,8 +29,9 @@ export default {};
 <style lang="css">
 
 ._vue-flash-msg-body {
+	position: fixed;
     display: flex;
-    width: 100%;
+    width: 35%;
     margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
@@ -35,14 +41,35 @@ export default {};
     overflow: hidden;
     cursor: pointer;
     transition: all .3s ease-in;
-    max-height: 20vh;
 
+	/* If user set prop.unclickabe === true */
     &._vue-flash-msg-body_unclickabe {
         cursor: auto;
     }
-
+	/* WTF?????? */
     &._vue-flash-msg-body_flying {
         max-width: 35%;
+    }
+
+	&._vue-flash-msg-_right-bottom {
+        right: 20px;
+        bottom: 20px;
+    }
+
+    &._vue-flash-msg-_right-top {
+        right: 20px;
+        top: 20px;
+    }
+
+    &._vue-flash-msg-_left-bottom {
+        left: 20px;
+        bottom: 20px;
+    }
+
+    &._vue-flash-msg-_left-top {
+        left: 20px;
+        top: 20px;
+        flex-direction: column-reverse;
     }
 
     & ._vue-flash-msg-body__icon {
