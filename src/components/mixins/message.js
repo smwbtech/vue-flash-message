@@ -4,6 +4,10 @@ export function createMessageMixin(config) {
 		props: {
 			messageObj: {
 				type: Object
+			},
+			positionString: {
+				type: String,
+				default: 'right bottom'
 			}
 		},
 
@@ -30,6 +34,11 @@ export function createMessageMixin(config) {
 						.clickable,
 					'_vue-flash-msg-body': true
 				};
+			},
+
+			positionClass() {
+				const [x, y] = this.positionString.split(' ');
+				return `_vue-flash-msg-_${x}-${y}`;
 			},
 
 			position() {
