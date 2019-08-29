@@ -1,26 +1,12 @@
 <template lang="html">
-	<div
-		v-if="strategy === 'single'"
-		:class="['_vue-flash-msg-container', positionClass]"
-	>
-		<transition :name="positionClass" mode="out-in">
-			<VueMessageBlock
-				v-if="showMessage"
-				:messageObj="message"
-			></VueMessageBlock>
-		</transition>
-	</div>
-	<transition-group
-		v-else
-		:name="positionClass"
-		tag="div"
-		:class="['_vue-flash-msg-container', positionClass]"
-	>
+	<transition-group tag="div" :name="positionClass">
 		<VueMessageBlock
-			v-for="message in messages"
-			:key="message.id"
+			v-for="(message, index) in messages"
+			:key="`${message.id}-fm`"
+			:index="index"
 			:messageObj="message"
-		></VueMessageBlock>
+			:positionString="position"
+		/>
 	</transition-group>
 </template>
 
@@ -30,56 +16,7 @@ export default {};
 
 <style lang="css">
 
-._vue-flash-msg-container {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    z-index: 300;
-    width: 35%;
-    max-width: 35%;
-
-    &._vue-flash-msg-container_right-bottom {
-        right: 20px;
-        bottom: 20px;
-    }
-
-    &._vue-flash-msg-container_right-top {
-        right: 20px;
-        top: 20px;
-        flex-direction: column-reverse;
-    }
-
-    &._vue-flash-msg-container_left-bottom {
-        left: 20px;
-        bottom: 20px;
-    }
-
-    &._vue-flash-msg-container_left-top {
-        left: 20px;
-        top: 20px;
-        flex-direction: column-reverse;
-    }
-
-}
-
-/* Small Monitors */
-@media (1024px <= width <= 1200px) {
-    ._vue-flash-msg-container {
-        width:50%;
-    }
-}
-
-/* Mobile devices */
-@media (320px <= width < 1024px) {
-    ._vue-flash-msg-container {
-        font-size: .9em;
-        width: 90%;
-        max-width: 90%;
-        right: 5%;
-    }
-}
-
-/* FlashMessage animation */
+/* FlashMessage animations of appear */
 ._vue-flash-msg-container_right-bottom-enter-active,
 ._vue-flash-msg-container_left-bottom-enter-active {
     animation: fromBottom .5s forwards;
