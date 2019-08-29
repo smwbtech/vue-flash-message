@@ -17,7 +17,12 @@
 		"vue flash",
 		"vue flash message",
 		"vue notify",
-		"vue notifications"
+		"vue notifications",
+		"nuxt notify",
+		"nuxt notifications",
+		"nuxt message",
+		"nuxt flash",
+		"nuxt flash message"
 	],
 	"repository": {
 		"type": "git",
