@@ -2,6 +2,10 @@
 
 [![vue](https://img.shields.io/badge/Vue-2.x-green.svg)](https://vuejs.org/index.html)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/smwbtech/vue-flash-message/blob/master/LICENSE.md)
+[![Build Status](https://travis-ci.org/smwbtech/vue-flash-message.svg?branch=master)](https://travis-ci.org/smwbtech/vue-flash-message)
+[![Coverage Status](https://coveralls.io/repos/github/smwbtech/vue-flash-message/badge.svg?branch=dev_travis-ci)](https://coveralls.io/github/smwbtech/vue-flash-message?branch=dev_travis-ci)
+[![Size](https://badgen.net/bundlephobia/minzip/@smartweb/vue-flash-message)](https://bundlephobia.com/result?p=@smartweb/vue-flash-message@latest)
+![npm](https://img.shields.io/npm/dt/@smartweb/vue-flash-message)
 
 ![Gif Image](https://raw.githubusercontent.com/smwbtech/vue-flash-message/master/public/vue-flash-mesage.gif)
 
@@ -20,8 +24,8 @@ npm i @smartweb/vue-flash-message
 Register the component in your app entry point (main.js or as you called it)
 
 ```javascript
-import Vue from "vue";
-import FlashMessage from "@smartweb/vue-flash-message";
+import Vue from 'vue';
+import FlashMessage from '@smartweb/vue-flash-message';
 Vue.use(FlashMessage);
 ```
 
@@ -60,9 +64,9 @@ Now you can access flash message by using global EventBus alias (that is "flashM
 
 ```javascript
 this.flashMessage.show({
-  status: "error",
-  title: "Error Message Title",
-  message: "Oh, you broke my heart! Shame on you!"
+	status: 'error',
+	title: 'Error Message Title',
+	message: 'Oh, you broke my heart! Shame on you!'
 });
 ```
 
@@ -76,9 +80,9 @@ Every display message method will return the id of the message instance
 
 ```javascript
 this.flashMessage.show({
-  status: "error",
-  title: "Error Message Title",
-  message: "Oh, you broke my heart! Shame on you!"
+	status: 'error',
+	title: 'Error Message Title',
+	message: 'Oh, you broke my heart! Shame on you!'
 });
 ```
 
@@ -86,20 +90,20 @@ You also can use shorthands without status property.
 
 ```javascript
 this.flashMessage.error({
-  title: "Error Message Title",
-  message: "Oh, you broke my heart! Shame on you!"
+	title: 'Error Message Title',
+	message: 'Oh, you broke my heart! Shame on you!'
 });
 this.flashMessage.warning({
-  title: "Warning Message Title",
-  message: "Don't stop me nooooow....!"
+	title: 'Warning Message Title',
+	message: "Don't stop me nooooow....!"
 });
 this.flashMessage.info({
-  title: "Info Message Title",
-  message: "Just want you to know, that Vue is so cool"
+	title: 'Info Message Title',
+	message: 'Just want you to know, that Vue is so cool'
 });
 this.flashMessage.success({
-  title: "Success Message Title",
-  message: "Hoorah, it is my fist npm package and it works!"
+	title: 'Success Message Title',
+	message: 'Hoorah, it is my fist npm package and it works!'
 });
 ```
 
@@ -209,8 +213,8 @@ You can delete message programmatically using deleteMessage method
 
 ```javascript
 let id = this.flashMessage.info({
-  title: "Hey, man. Time for beer!",
-  message: "It is Friday. Time to have a little party."
+	title: 'Hey, man. Time for beer!',
+	message: 'It is Friday. Time to have a little party.'
 });
 this.flashMessage.deleteMessage(id);
 ```
@@ -223,7 +227,7 @@ You can update default strategy using setStrategy method.
 
 ```javascript
 /* Will return {Boolean} as result */
-this.flashMessage.setStrategy("multiple"); // strategy changed to multiple
+this.flashMessage.setStrategy('multiple'); // strategy changed to multiple
 ```
 
 ## LICENSE
