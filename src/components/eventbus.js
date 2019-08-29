@@ -4,8 +4,8 @@ export function createEventBus(config) {
 			return {
 				messages: [], // array of messages object
 				nextMessageId: 1, // id of next inserted message object
-				active: false, // switch visibility status of message in 'single' mode
-				strategy: config.strategy
+				strategy: config.strategy,
+				timeoutId: undefined
 			};
 		},
 
@@ -39,13 +39,15 @@ export function createEventBus(config) {
 				};
 				message = Object.assign(message, data, callbacks);
 
-				if (this.messages.length > 0) {
-					this.messages.push(message);
-					if (this.strategy === 'single') this.$emit('clearData');
-				} else {
-					this.active = true;
-					this.messages.push(message);
-				}
+				if (this.messages.length > 0 && this.strategy === 'single') {
+					this.messages = [];
+					clearTimeout(this.timeoutId);
+					this.timeoutId = setTimeout(
+						() => this.messages.push(message),
+						600
+					);
+				} else this.messages.push(message);
+
 				return message.id;
 			},
 			error(data, callbacks) {
@@ -78,14 +80,7 @@ export function createEventBus(config) {
 			 * @param  {Number} id      - message id
 			 */
 			deleteMessage(id) {
-				this.active = false;
 				this.messages = this.messages.filter(v => v.id !== id);
-				if (config.strategy === 'single' && this.messages.length > 0) {
-					setTimeout(
-						/* istanbul ignore next */ () => (this.active = true),
-						500
-					);
-				}
 			}
 		},
 
