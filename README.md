@@ -5,7 +5,6 @@
 [![Build Status](https://travis-ci.org/smwbtech/vue-flash-message.svg?branch=master)](https://travis-ci.org/smwbtech/vue-flash-message)
 [![Coverage Status](https://coveralls.io/repos/github/smwbtech/vue-flash-message/badge.svg?branch=master)](https://coveralls.io/github/smwbtech/vue-flash-message?branch=master)
 [![Size](https://badgen.net/bundlephobia/minzip/@smartweb/vue-flash-message)](https://bundlephobia.com/result?p=@smartweb/vue-flash-message@latest)
-![npm](https://img.shields.io/npm/dt/@smartweb/vue-flash-message)
 
 ![Gif Image](https://raw.githubusercontent.com/smwbtech/vue-flash-message/master/public/vue-flash-mesage.gif)
 
