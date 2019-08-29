@@ -36,7 +36,7 @@ Vue.use(FlashMessage, config);
 
 ### Nuxt.js
 
-Create vue-flasg-message.js file in plugins directory and put the following code:
+Create vue-flash-message.js file in plugins directory and put the following code:
 
 ```javascript
 import Vue from 'vue';
