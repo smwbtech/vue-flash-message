@@ -38,14 +38,16 @@ export function createEventBus(config) {
 					clickable: true
 				};
 				message = Object.assign(message, data, callbacks);
-
-				if (this.messages.length > 0 && this.strategy === 'single') {
-					this.messages = [];
+				// If some message is showing
+				// clear messages array
+				// clear timeout and set new one
+				if (this.strategy === 'single' && this.messages.length > 0) {
 					clearTimeout(this.timeoutId);
-					this.timeoutId = setTimeout(
-						() => this.messages.push(message),
-						600
-					);
+					this.messages = [];
+					this.timeoutId = setTimeout(() => {
+						this.messages.length > 0 ? (this.messages = []) : false;
+						this.messages.push(message);
+					}, 600);
 				} else this.messages.push(message);
 
 				return message.id;
