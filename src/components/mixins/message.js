@@ -13,7 +13,8 @@ export function createMessageMixin(config) {
 
 		data() {
 			return {
-				timeoutId: undefined // id that will be returned by setTimeout() function
+				timeoutId: undefined, // id that will be returned by setTimeout() function
+				yAxis: 0
 			};
 		},
 
@@ -41,7 +42,7 @@ export function createMessageMixin(config) {
 				return `_vue-flash-msg-_${x}-${y}`;
 			},
 
-			position() {
+			positionStyleObj() {
 				if (
 					this.messageObj.position &&
 					typeof this.messageObj.position === 'string' &&
@@ -49,21 +50,27 @@ export function createMessageMixin(config) {
 					(typeof this.messageObj.x === 'number' &&
 						typeof this.messageObj.y === 'number')
 				) {
-					return {
-						style: {
-							position: 'fixed',
-							[this.messageObj.position.split(' ')[0]]: `${
-								this.messageObj.x
-							}px`,
-							[this.messageObj.position.split(' ')[1]]: `${
-								this.messageObj.y
-							}px`
-						},
-						class: {
-							'_vue-flash-msg-body_flying': true
-						}
+					const style = {
+						[this.messageObj.position.split(' ')[0]]: `${
+							this.messageObj.x
+						}px`,
+						[this.messageObj.position.split(' ')[1]]: `${
+							this.messageObj.y
+						}px`
 					};
-				} else return { style: '', class: '' };
+					return style;
+				} else if (this.yAxis) {
+					const yPos = this.positionString.split(' ')[1];
+					if (yPos === 'bottom') {
+						return {
+							bottom: `${this.yAxis}px`
+						};
+					} else {
+						return {
+							top: `${this.yAxis}px`
+						};
+					}
+				}
 			}
 		},
 
@@ -79,17 +86,33 @@ export function createMessageMixin(config) {
 			},
 
 			/**
-			 * Set up default data
+			 * Clear timeoutId in "single" strategy
+			 * Invoke deleteMessage on EventBus
+			 * @param  {Boolean} [clear=true] - true - timeout will be cleared
+			 * @return {undefined}
 			 */
 			clearData(clear = true) {
 				if (this.timeoutId && clear) clearTimeout(this.timeoutId);
 				this[config.name].$emit('deleteMessage', this.messageObj.id);
 			},
+
 			/**
-			 * Handle click event
+			 * Handle event when user click on message block
+			 * @return {undefined}
 			 */
 			clickHandler() {
 				if (this.messageObj.clickable) this.clearData();
+			},
+
+			/**
+			 * Change message position,
+			 * previous message was destroyed
+			 * @param  {[Number} height - previous message height
+			 * @param  {Number} id      - previous message id
+			 * @return {undefined}
+			 */
+			changePositionHandler({ height, id }) {
+				if (this.messageObj.id > id) this.yAxis -= height;
 			}
 		},
 
@@ -100,16 +123,32 @@ export function createMessageMixin(config) {
 				this.messageObj.time
 			);
 			this[config.name].$once('clearData', this.clearData);
+			this[config.name].$on('changePosition', this.changePositionHandler);
 		},
 
 		// Invoke mounted callback function if exist
 		mounted() {
+			this.yAxis =
+				this[config.name].messages.length === 1
+					? this[config.name].currentHeight
+					: this[config.name].currentHeight + 20;
+			this[config.name].$_vueFlashMessage_setDimensions(
+				this.$el.offsetHeight
+			);
 			if (
 				this.messageObj.mounted &&
 				typeof this.messageObj.mounted === 'function'
 			) {
 				this.messageObj.mounted();
 			}
+		},
+
+		beforeDestroy() {
+			this.$off('changePosition');
+			this[config.name].$emit('destroy', {
+				height: -this.$el.offsetHeight,
+				id: this.messageObj.id
+			});
 		},
 
 		// Invoke destroyed callback function if exist
