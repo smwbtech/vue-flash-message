@@ -3,10 +3,9 @@
 		:class="[
 			classObj, // all classes set
 			positionClass, // default position
-			position.class, // x, y position
 			messageObj.blockClass
 		]"
-		:style="[position.style]"
+		:style="positionStyleObj"
 		@click="clickHandler"
 	>
 		<div
@@ -32,7 +31,6 @@ export default {};
 	position: fixed;
     display: flex;
     width: 35%;
-    margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
     background-color: #fff;
