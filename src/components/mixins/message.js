@@ -14,7 +14,8 @@ export function createMessageMixin(config) {
 		data() {
 			return {
 				timeoutId: undefined, // id that will be returned by setTimeout() function
-				yAxis: 0
+				yAxis: 0,
+				heightWithoutImage: 0
 			};
 		},
 
@@ -59,7 +60,7 @@ export function createMessageMixin(config) {
 						}px`
 					};
 					return style;
-				} else if (this.yAxis) {
+				} else {
 					const yPos = this.positionString.split(' ')[1];
 					if (yPos === 'bottom') {
 						return {
@@ -111,8 +112,24 @@ export function createMessageMixin(config) {
 			 * @param  {Number} id      - previous message id
 			 * @return {undefined}
 			 */
-			changePositionHandler({ height, id }) {
-				if (this.messageObj.id > id) this.yAxis -= height;
+			changePositionHandler({ height, id, img }) {
+				if (this.messageObj.id > id && !img) this.yAxis -= height;
+				else if (this.messageObj.id > id && img) this.yAxis += height;
+			},
+
+			/**
+			 * Will invoke 'image' event on EventBus
+			 * when image is loaded to change position
+			 * of blocks from above
+			 * @return {undefined}
+			 */
+			imageLoadedHandler() {
+				const diff = this.$el.offsetHeight - this.heightWithoutImage;
+				this[config.name].$emit('image', {
+					height: diff,
+					id: this.messageObj.id,
+					img: true
+				});
 			}
 		},
 
@@ -128,12 +145,10 @@ export function createMessageMixin(config) {
 
 		// Invoke mounted callback function if exist
 		mounted() {
-			this.yAxis =
-				this[config.name].messages.length === 1
-					? this[config.name].currentHeight
-					: this[config.name].currentHeight + 20;
+			this.heightWithoutImage = this.$el.offsetHeight;
+			this.yAxis = this[config.name].currentHeight + 20;
 			this[config.name].$_vueFlashMessage_setDimensions({
-				height: this.$el.offsetHeight
+				height: this.$el.offsetHeight + 20
 			});
 			if (
 				this.messageObj.mounted &&
@@ -144,9 +159,9 @@ export function createMessageMixin(config) {
 		},
 
 		beforeDestroy() {
-			this.$off('changePosition');
+			this.$off('changePosition', this.changePositionHandler);
 			this[config.name].$emit('destroy', {
-				height: -this.$el.offsetHeight,
+				height: -(this.$el.offsetHeight + 20),
 				id: this.messageObj.id
 			});
 		},
