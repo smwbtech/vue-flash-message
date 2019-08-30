@@ -132,9 +132,9 @@ export function createMessageMixin(config) {
 				this[config.name].messages.length === 1
 					? this[config.name].currentHeight
 					: this[config.name].currentHeight + 20;
-			this[config.name].$_vueFlashMessage_setDimensions(
-				this.$el.offsetHeight
-			);
+			this[config.name].$_vueFlashMessage_setDimensions({
+				height: this.$el.offsetHeight
+			});
 			if (
 				this.messageObj.mounted &&
 				typeof this.messageObj.mounted === 'function'
