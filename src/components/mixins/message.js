@@ -53,14 +53,12 @@ export function createMessageMixin(config) {
 				return `_vue-flash-msg-_${x}-${y}`;
 			},
 
+			/**
+			 * Return style object with message block positions
+			 * @return {Object}
+			 */
 			positionStyleObj() {
-				if (
-					this.messageObj.position &&
-					typeof this.messageObj.position === 'string' &&
-					(this.messageObj.x && this.messageObj.y) &&
-					(typeof this.messageObj.x === 'number' &&
-						typeof this.messageObj.y === 'number')
-				) {
+				if (this.isCustom) {
 					const style = {
 						[this.messageObj.position.split(' ')[0]]: `${
 							this.messageObj.x

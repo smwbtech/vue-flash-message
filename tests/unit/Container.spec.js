@@ -47,16 +47,15 @@ describe('Test FlashMessage Compoent', () => {
 		expect(cmp.vm).toHaveProperty('strategy', 'single');
 	});
 
-	it('Component has computed property "showMessage" and it is equal to "false"', () => {
-		expect(cmp.vm).toHaveProperty('showMessage', false);
-	});
-
-	it('Component has computed property "message" and it is equal to "undefined"', () => {
-		expect(cmp.vm).toHaveProperty('message', undefined);
-	});
-
 	it('Component has computed property "messages" and it is equal to "[]"', () => {
 		expect(cmp.vm).toHaveProperty('messages');
 		expect(cmp.vm.messages).toEqual([]);
+	});
+
+	it('Component has computed property "positionClass" and it is equal to "right bottom" by default', () => {
+		expect(cmp.vm).toHaveProperty('positionClass');
+		expect(cmp.vm.positionClass).toEqual(
+			'_vue-flash-msg-container_right-bottom'
+		);
 	});
 });

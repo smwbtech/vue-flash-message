@@ -13,7 +13,10 @@ let config = {
 	strategy: 'single'
 };
 
-let FlashMessage = Object.assign(FlashMessageElem, createMessageMixin(config));
+const FlashMessage = Object.assign(
+	FlashMessageElem,
+	createMessageMixin(config)
+);
 
 describe('Test FlashMessage Compoent', () => {
 	let cmp;
@@ -21,6 +24,15 @@ describe('Test FlashMessage Compoent', () => {
 	describe('FlashMesage with "single" strategy', () => {
 		beforeEach(() => {
 			cmp = shallowMount(FlashMessage, {
+				mocks: {
+					flashMessage: {
+						$emit: jest.fn(),
+						$once: jest.fn(),
+						$on: jest.fn(),
+						$_vueFlashMessage_setDimensions: jest.fn(),
+						currentHeight: 0
+					}
+				},
 				propsData: {
 					messageObj: {
 						id: 1,
@@ -35,12 +47,6 @@ describe('Test FlashMessage Compoent', () => {
 						contentClass: null,
 						mounted: null,
 						destroyed: null
-					}
-				},
-				mocks: {
-					flashMessage: {
-						$emit: jest.fn(),
-						$once: jest.fn()
 					}
 				}
 			});
@@ -83,24 +89,38 @@ describe('Test FlashMessage Compoent', () => {
 				expect(cmp.vm.messageObj.clickable).toBe(true);
 			});
 
-			it('FlashMesage has property "blockClass" and it is an qual to "null"', () => {
+			it('FlashMesage has property "blockClass" and it is equal to "null"', () => {
 				expect(cmp.vm.messageObj.blockClass).toBe(null);
 			});
 
-			it('FlashMesage has property "iconClass" and it is an qual to "null"', () => {
+			it('FlashMesage has property "iconClass" and it is equal to "null"', () => {
 				expect(cmp.vm.messageObj.iconClass).toBe(null);
 			});
 
-			it('FlashMesage has property "contentClass" and it is an qual to "null"', () => {
+			it('FlashMesage has property "contentClass" and it is equal to "null"', () => {
 				expect(cmp.vm.messageObj.contentClass).toBe(null);
 			});
 
-			it('FlashMesage has property "mounted" and it is an qual to "null"', () => {
+			it('FlashMesage has property "mounted" and it is equal to "null"', () => {
 				expect(cmp.vm.messageObj.mounted).toBe(null);
 			});
 
-			it('FlashMesage has property "destroyed" and it is an qual to "null"', () => {
+			it('FlashMesage has property "destroyed" and it is equal to "null"', () => {
 				expect(cmp.vm.messageObj.destroyed).toBe(null);
+			});
+
+			it('FlashMesage has computed property "isCustom" and it is equal to "false" by default', () => {
+				expect(cmp.vm.isCustom).toBe(false);
+			});
+
+			it('FlashMesage has computed property "isCustom" and it is equal to "true" if user pass props.x and props.y', () => {
+				cmp.setProps({ messageObj: { x: 10, y: 30 } });
+				expect(cmp.vm.isCustom).toBe(true);
+			});
+
+			it('FlashMesage has computed property "positionStyleObj" and it should return style object with message positions', () => {
+				cmp.setProps({ positionString: 'right top' });
+				expect(typeof cmp.vm.positionStyleObj.top).toBe('string');
 			});
 		});
 
@@ -184,6 +204,18 @@ describe('Test FlashMessage Compoent', () => {
 				cmp.vm.clickHandler();
 				expect(cmp.vm.clearData).not.toHaveBeenCalled();
 			});
+
+			it('methods.changePositionHandler should decrease data.yAxis if "img" arg is falsy', () => {
+				cmp.setData({ yAxis: 30 });
+				cmp.vm.changePositionHandler({ height: 10, id: 0 });
+				expect(cmp.vm.yAxis).toBe(20);
+			});
+
+			it('methods.changePositionHandler should increase data.yAxis if "img" arg is truthly', () => {
+				cmp.setData({ yAxis: 30 });
+				cmp.vm.changePositionHandler({ height: 10, id: 0, img: true });
+				expect(cmp.vm.yAxis).toBe(40);
+			});
 		});
 
 		describe("Test component's lifecycle hooks", () => {
@@ -212,7 +244,10 @@ describe('Test FlashMessage Compoent', () => {
 					mocks: {
 						flashMessage: {
 							$emit: jest.fn(),
-							$once: jest.fn()
+							$once: jest.fn(),
+							$on: jest.fn(),
+							$_vueFlashMessage_setDimensions: jest.fn(),
+							currentHeight: 0
 						}
 					}
 				});
@@ -252,7 +287,6 @@ describe('Test FlashMessage Compoent', () => {
 				});
 				cmp.vm.$forceUpdate();
 				let elem = cmp.find('._vue-flash-msg-body');
-				expect(elem.element.style.position).toBe('fixed');
 				expect(elem.element.style.left).toBe('100px');
 				expect(elem.element.style.top).toBe('200px');
 			});
