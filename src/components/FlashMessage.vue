@@ -36,7 +36,6 @@ export default {};
     background-color: #fff;
     color: #fff;
     text-align: left;
-    overflow: hidden;
     cursor: pointer;
     transition: all .3s ease-in;
 
@@ -44,10 +43,7 @@ export default {};
     &._vue-flash-msg-body_unclickabe {
         cursor: auto;
     }
-	/* WTF?????? */
-    &._vue-flash-msg-body_flying {
-        max-width: 35%;
-    }
+
 
 	&._vue-flash-msg-_right-bottom {
         right: 20px;
