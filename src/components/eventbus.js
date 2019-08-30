@@ -116,7 +116,7 @@ export function createEventBus(config) {
 		created() {
 			this.$on('deleteMessage', this.deleteMessage);
 			this.$on('destroy', this.$_vueFlashMessage_setDimensions);
-			this.$on('image', this.$_vueFlashMessage_setDimensions);
+			this.$on('imageLoaded', this.$_vueFlashMessage_setDimensions);
 		}
 	};
 }
