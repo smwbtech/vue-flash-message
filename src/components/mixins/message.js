@@ -20,6 +20,16 @@ export function createMessageMixin(config) {
 		},
 
 		computed: {
+			/**
+			 * Is it message with custom position or not
+			 * @return {Boolean} true - custom | false not custom
+			 */
+			isCustom() {
+				return (
+					typeof this.messageObj.x === 'number' &&
+					typeof this.messageObj.y === 'number'
+				);
+			},
 			classObj() {
 				return {
 					'_vue-flash-msg-body_success':
@@ -124,12 +134,15 @@ export function createMessageMixin(config) {
 			 * @return {undefined}
 			 */
 			imageLoadedHandler() {
-				const diff = this.$el.offsetHeight - this.heightWithoutImage;
-				this[config.name].$emit('image', {
-					height: diff,
-					id: this.messageObj.id,
-					img: true
-				});
+				if (!this.isCustom) {
+					const diff =
+						this.$el.offsetHeight - this.heightWithoutImage;
+					this[config.name].$emit('image', {
+						height: diff,
+						id: this.messageObj.id,
+						img: true
+					});
+				}
 			}
 		},
 
@@ -147,9 +160,15 @@ export function createMessageMixin(config) {
 		mounted() {
 			this.heightWithoutImage = this.$el.offsetHeight;
 			this.yAxis = this[config.name].currentHeight + 20;
-			this[config.name].$_vueFlashMessage_setDimensions({
-				height: this.$el.offsetHeight + 20
-			});
+
+			// If this is not an object with custom position
+			if (!this.isCustom) {
+				this[config.name].$_vueFlashMessage_setDimensions({
+					height: this.$el.offsetHeight + 20
+				});
+			}
+
+			// If mounted callback was passed in props
 			if (
 				this.messageObj.mounted &&
 				typeof this.messageObj.mounted === 'function'
@@ -160,10 +179,13 @@ export function createMessageMixin(config) {
 
 		beforeDestroy() {
 			this.$off('changePosition', this.changePositionHandler);
-			this[config.name].$emit('destroy', {
-				height: -(this.$el.offsetHeight + 20),
-				id: this.messageObj.id
-			});
+			// If this is not message with custom position
+			if (!this.isCustom) {
+				this[config.name].$emit('destroy', {
+					height: -(this.$el.offsetHeight + 20),
+					id: this.messageObj.id
+				});
+			}
 		},
 
 		// Invoke destroyed callback function if exist
