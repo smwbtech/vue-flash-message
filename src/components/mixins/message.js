@@ -60,10 +60,10 @@ export function createMessageMixin(config) {
 			positionStyleObj() {
 				if (this.isCustom) {
 					const style = {
-						[this.messageObj.position.split(' ')[0]]: `${
+						[this.positionString.split(' ')[0]]: `${
 							this.messageObj.x
 						}px`,
-						[this.messageObj.position.split(' ')[1]]: `${
+						[this.positionString.split(' ')[1]]: `${
 							this.messageObj.y
 						}px`
 					};
@@ -135,7 +135,7 @@ export function createMessageMixin(config) {
 				if (!this.isCustom) {
 					const diff =
 						this.$el.offsetHeight - this.heightWithoutImage;
-					this[config.name].$emit('image', {
+					this[config.name].$emit('imageLoaded', {
 						height: diff,
 						id: this.messageObj.id,
 						img: true
@@ -150,7 +150,6 @@ export function createMessageMixin(config) {
 				this.clearData.bind(this, false),
 				this.messageObj.time
 			);
-			this[config.name].$once('clearData', this.clearData);
 			this[config.name].$on('changePosition', this.changePositionHandler);
 		},
 
