@@ -30,7 +30,10 @@ describe('Test FlashMessage Compoent', () => {
 						$once: jest.fn(),
 						$on: jest.fn(),
 						$_vueFlashMessage_setDimensions: jest.fn(),
-						currentHeight: 0
+						currentHeight: 0,
+						$el: {
+							offsetHeight: 200
+						}
 					}
 				},
 				propsData: {
@@ -213,8 +216,42 @@ describe('Test FlashMessage Compoent', () => {
 
 			it('methods.changePositionHandler should increase data.yAxis if "img" arg is truthly', () => {
 				cmp.setData({ yAxis: 30 });
-				cmp.vm.changePositionHandler({ height: 10, id: 0, img: true });
+				cmp.setProps({ messageObj: { id: 4 } });
+				cmp.vm.changePositionHandler({ height: 10, id: 3, img: true });
 				expect(cmp.vm.yAxis).toBe(40);
+			});
+
+			it('methods.changePositionHandler should not increase data.yAxis if "img" arg is falsy and id < then current ob id', () => {
+				cmp.setData({ yAxis: 30 });
+				cmp.setProps({ messageObj: { id: 2 } });
+				cmp.vm.changePositionHandler({ height: 10, id: 3 });
+				expect(cmp.vm.yAxis).toBe(30);
+			});
+
+			it('methods.changePositionHandler should not increase data.yAxis if "img" arg is truthly and id < then current ob id', () => {
+				cmp.setData({ yAxis: 30 });
+				cmp.setProps({ messageObj: { id: 2 } });
+				cmp.vm.changePositionHandler({ height: 10, id: 3, img: true });
+				expect(cmp.vm.yAxis).toBe(30);
+			});
+
+			it('methods.imageLoadedHandler should invoke imageLoaded event, if computed.isCustom !== true', () => {
+				cmp.vm.imageLoadedHandler();
+				expect(cmp.vm.flashMessage.$emit).toHaveBeenCalledWith(
+					'imageLoaded',
+					{
+						height: 0,
+						id: 1,
+						img: true
+					}
+				);
+				cmp.vm.flashMessage.$emit.mockClear();
+			});
+
+			it('methods.imageLoadedHandler should not invoke imageLoaded event, if computed.isCustom === true', () => {
+				cmp.setProps({ messageObj: { x: 10, y: 20 } });
+				expect(cmp.vm.flashMessage.$emit).not.toHaveBeenCalledWith();
+				cmp.vm.flashMessage.$emit.mockClear();
 			});
 		});
 
@@ -223,56 +260,127 @@ describe('Test FlashMessage Compoent', () => {
 			let mountedSpy = jest.fn();
 			let destroyedSpy = jest.fn();
 
-			beforeEach(() => {
-				hooksCmp = shallowMount(FlashMessage, {
-					propsData: {
+			describe('Message with default position', () => {
+				beforeEach(() => {
+					hooksCmp = shallowMount(FlashMessage, {
+						propsData: {
+							messageObj: {
+								id: 1,
+								status: 'error',
+								title: 'error title',
+								message: 'error message',
+								clickable: true,
+								icon: 'www.icon-link.ru',
+								time: 8000,
+								blockClass: null,
+								iconClass: null,
+								contentClass: null,
+								mounted: mountedSpy,
+								destroyed: destroyedSpy
+							},
+							positionString: 'right bottom'
+						},
+						mocks: {
+							flashMessage: {
+								$emit: jest.fn(),
+								$once: jest.fn(),
+								$on: jest.fn(),
+								$_vueFlashMessage_setDimensions: jest.fn(),
+								currentHeight: 0
+							},
+							$el: {
+								offsetHeight: 200
+							}
+						}
+					});
+				});
+
+				it('If props.messageObj.mounted is Function should invoke props.messageObj.mounted in "mounted" lifecycle hook', () => {
+					expect(mountedSpy).toHaveBeenCalled();
+					mountedSpy.mockClear();
+				});
+
+				it('Should invoke flashMessage.$_vueFlashMessage_setDimensions in "mounted" lifecycle hook', () => {
+					expect(
+						hooksCmp.vm.flashMessage.$_vueFlashMessage_setDimensions
+					).toHaveBeenCalledWith({ height: 20 });
+				});
+
+				it('Should emit "destroy" event in "beforeDestroy" lifecycle hook', () => {
+					hooksCmp.destroy();
+					expect(hooksCmp.vm.flashMessage.$emit).toHaveBeenCalled();
+					hooksCmp.vm.flashMessage.$emit.mockClear();
+				});
+
+				it('If props.messageObj.destroyed is Function should invoke props.messageObj.destroyed in "destroyed" lifecycle hook', () => {
+					hooksCmp.destroy();
+					expect(destroyedSpy).toHaveBeenCalled();
+					destroyedSpy.mockClear();
+				});
+
+				it('If props.messageObj.destroyed is notFunction should not invoke props.messageObj.destroyed in "destroyed" lifecycle hook', () => {
+					hooksCmp.setProps({
 						messageObj: {
-							id: 1,
-							status: 'error',
-							title: 'error title',
-							message: 'error message',
-							clickable: true,
-							icon: 'www.icon-link.ru',
-							time: 8000,
-							blockClass: null,
-							iconClass: null,
-							contentClass: null,
-							mounted: mountedSpy,
-							destroyed: destroyedSpy
+							destroyed: null
 						}
-					},
-					mocks: {
-						flashMessage: {
-							$emit: jest.fn(),
-							$once: jest.fn(),
-							$on: jest.fn(),
-							$_vueFlashMessage_setDimensions: jest.fn(),
-							currentHeight: 0
-						}
-					}
+					});
+					hooksCmp.destroy();
+					expect(destroyedSpy).not.toHaveBeenCalled();
+					destroyedSpy.mockClear();
 				});
 			});
 
-			it('If props.messageObj.mounted is Function should invoke props.messageObj.mounted in "mounted" lifecycle hook', () => {
-				expect(mountedSpy).toHaveBeenCalled();
-				mountedSpy.mockClear();
-			});
-
-			it('If props.messageObj.destroyed is Function should invoke props.messageObj.destroyed in "destroyed" lifecycle hook', () => {
-				hooksCmp.destroy();
-				expect(destroyedSpy).toHaveBeenCalled();
-				destroyedSpy.mockClear();
-			});
-
-			it('If props.messageObj.destroyed is notFunction should not invoke props.messageObj.destroyed in "destroyed" lifecycle hook', () => {
-				hooksCmp.setProps({
-					messageObj: {
-						destroyed: null
-					}
+			describe('Message with custom position', () => {
+				beforeEach(() => {
+					hooksCmp = shallowMount(FlashMessage, {
+						propsData: {
+							messageObj: {
+								id: 1,
+								status: 'error',
+								title: 'error title',
+								message: 'error message',
+								clickable: true,
+								icon: 'www.icon-link.ru',
+								time: 8000,
+								blockClass: null,
+								iconClass: null,
+								contentClass: null,
+								x: 20,
+								y: 20,
+								mounted: mountedSpy,
+								destroyed: destroyedSpy
+							},
+							positionString: 'right bottom'
+						},
+						mocks: {
+							flashMessage: {
+								$emit: jest.fn(),
+								$once: jest.fn(),
+								$on: jest.fn(),
+								$_vueFlashMessage_setDimensions: jest.fn(),
+								currentHeight: 0
+							},
+							$el: {
+								offsetHeight: 200
+							}
+						}
+					});
 				});
-				hooksCmp.destroy();
-				expect(destroyedSpy).not.toHaveBeenCalled();
-				destroyedSpy.mockClear();
+
+				it('Should not invoke flashMessage.$_vueFlashMessage_setDimensions in "mounted" lifecycle hook', () => {
+					expect(
+						hooksCmp.vm.flashMessage.$_vueFlashMessage_setDimensions
+					).not.toHaveBeenCalled();
+					mountedSpy.mockClear();
+				});
+
+				it('Should not emit "destroy" event in "beforeDestroy" lifecycle hook', () => {
+					hooksCmp.destroy();
+					expect(
+						hooksCmp.vm.flashMessage.$emit
+					).not.toHaveBeenCalled();
+					hooksCmp.vm.flashMessage.$emit.mockClear();
+				});
 			});
 		});
 
@@ -280,15 +388,14 @@ describe('Test FlashMessage Compoent', () => {
 			it('When user set "x" and "y" props, message block should have inline style with position fixed and coords', () => {
 				cmp.setProps({
 					messageObj: {
-						position: 'left top',
 						x: 100,
 						y: 200
 					}
 				});
 				cmp.vm.$forceUpdate();
 				let elem = cmp.find('._vue-flash-msg-body');
-				expect(elem.element.style.left).toBe('100px');
-				expect(elem.element.style.top).toBe('200px');
+				expect(elem.element.style.right).toBe('100px');
+				expect(elem.element.style.bottom).toBe('200px');
 			});
 		});
 	});

@@ -55,7 +55,7 @@ describe('Testing EventBus', () => {
 
 	describe('Testing methods', () => {
 		it('Method "$_vueFlashMessage_setDimensions" shoud change data.currentHeight if data.messages.length > 0', () => {
-			cmp.vm.flashMessage.messages = [1, 2, 3, 5];
+			cmp.vm.flashMessage.messages = [{ id: 1 }, { id: 2 }, { id: 3 }];
 			cmp.vm.flashMessage.$_vueFlashMessage_setDimensions({
 				height: 13,
 				id: 1
@@ -120,7 +120,7 @@ describe('Testing EventBus', () => {
 		});
 
 		it('Method "show()" should invoke "clearTimeout" in "single" strategy', () => {
-			cmp.vm.flashMessage.messages = [1, 2, 3, 4, 6];
+			cmp.vm.flashMessage.messages = [{ id: 1 }, { id: 2 }, { id: 3 }];
 			cmp.vm.flashMessage.strategy = 'single';
 			cmp.vm.flashMessage.show({});
 			expect(clearTimeout).toHaveBeenCalled();
@@ -134,22 +134,10 @@ describe('Testing EventBus', () => {
 			setTimeout.mockClear();
 		});
 
-		it('Method "show()" should not $emit "clearData" event in "multiple" strategy', () => {
-			cmp.vm.flashMessage.$emit = emitSpy;
+		it('Method "show()" should push message to array in "multiple" strategy', () => {
 			cmp.vm.flashMessage.strategy = 'multiple';
-			cmp.vm.flashMessage.messages.push({});
-			cmp.vm.flashMessage.show();
-			expect(emitSpy).not.toHaveBeenCalledWith('clearData');
-			emitSpy.mockClear();
-		});
-
-		it('Method "show()" should set data.active = true and push message to array in "multiple" strategy', () => {
-			cmp.vm.flashMessage.strategy = 'multiple';
-			cmp.vm.flashMessage.show();
-			expect(emitSpy).not.toHaveBeenCalledWith('clearData');
-			expect(cmp.vm.flashMessage.active).toBe(true);
-			cmp.vm.flashMessage.setStrategy('single');
-			emitSpy.mockClear();
+			cmp.vm.flashMessage.show({});
+			expect(cmp.vm.flashMessage.messages.length).toBe(1);
 		});
 
 		it('Method "error()" should call "show()" method and return message id', () => {
@@ -173,12 +161,6 @@ describe('Testing EventBus', () => {
 			let n = cmp.vm.flashMessage.messages.length;
 			cmp.vm.flashMessage.deleteMessage(id);
 			expect(cmp.vm.flashMessage.messages.length).toBe(n - 1);
-		});
-
-		it('Methods "deleteMessage()" should invoke setTimeout in "single" strategy', () => {
-			cmp.vm.flashMessage.messages.push({});
-			cmp.vm.flashMessage.deleteMessage(1);
-			expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 500);
 		});
 
 		it('Method "setStrategy()" should set up strategy if it is equal to "single" or "multiple" and return Boolean as result', () => {
