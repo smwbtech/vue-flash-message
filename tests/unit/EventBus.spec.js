@@ -30,10 +30,11 @@ describe('Testing EventBus', () => {
 				transition: '<div class="transition-stub"><slot></slot></div>'
 			}
 		});
+		cmp.vm.flashMessage.$emit = emitSpy;
 	});
 
 	describe('Testing data object of mounted EventBus', () => {
-		it('EventBus has property "messages" and it empty Array', () => {
+		it('EventBus has property "messages" and it is the empty Array', () => {
 			expect(cmp.vm.flashMessage).toHaveProperty('messages');
 			expect(Array.isArray(cmp.vm.flashMessage.messages)).toBe(true);
 			expect(cmp.vm.flashMessage.messages.length).toBe(0);
@@ -43,12 +44,57 @@ describe('Testing EventBus', () => {
 			expect(cmp.vm.flashMessage).toHaveProperty('nextMessageId', 1);
 		});
 
-		it('EventBus has property "active" and it equal to "false"', () => {
-			expect(cmp.vm.flashMessage).toHaveProperty('active', false);
+		it('EventBus has property "timeoutId" and it equal to "undefined"', () => {
+			expect(cmp.vm.flashMessage).toHaveProperty('active', undefined);
+		});
+
+		it('EventBus has property "currentHeight" and it equal to "undefined"', () => {
+			expect(cmp.vm.flashMessage).toHaveProperty('currentHeight', 0);
 		});
 	});
 
 	describe('Testing methods', () => {
+		it('Method "$_vueFlashMessage_setDimensions" shoud change data.currentHeight if data.messages.length > 0', () => {
+			cmp.vm.flashMessage.messages = [1, 2, 3, 5];
+			cmp.vm.flashMessage.$_vueFlashMessage_setDimensions({
+				height: 13,
+				id: 1
+			});
+			expect(cmp.vm.flashMessage.currentHeight).toBe(13);
+		});
+
+		it('Method "$_vueFlashMessage_setDimensions" shoud set data.currentHeight equal to 0 if data.messages.length === 0', () => {
+			cmp.vm.flashMessage.messages = [];
+			cmp.vm.flashMessage.$_vueFlashMessage_setDimensions({
+				height: 13,
+				id: 1
+			});
+			expect(cmp.vm.flashMessage.currentHeight).toBe(0);
+		});
+
+		it('Method "$_vueFlashMessage_setDimensions" shoud invoke "setTimeout" if height < 0', () => {
+			cmp.vm.flashMessage.messages = [];
+			cmp.vm.flashMessage.$_vueFlashMessage_setDimensions({
+				height: -13,
+				id: 1
+			});
+			expect(setTimeout).toHaveBeenCalled();
+			setTimeout.mockClear();
+		});
+
+		it('Method "$_vueFlashMessage_setDimensions" shoud emit "changePosition" event if height < 0', () => {
+			cmp.vm.flashMessage.messages = [];
+			cmp.vm.flashMessage.$_vueFlashMessage_setDimensions({
+				height: -13,
+				id: 1
+			});
+			expect(emitSpy).toHaveBeenCalledWith('changePosition', {
+				height: 13,
+				id: 1
+			});
+			emitSpy.mockClear();
+		});
+
 		it('Method "show()" should add new message object into "messages" array', () => {
 			cmp.vm.flashMessage.show({
 				status: 'error',
@@ -73,12 +119,19 @@ describe('Testing EventBus', () => {
 			expect(typeof id).toBe('number');
 		});
 
-		it('Method "show()" should $emit "clearData" event in "single" strategy', () => {
-			cmp.vm.flashMessage.$emit = emitSpy;
+		it('Method "show()" should invoke "clearTimeout" in "single" strategy', () => {
+			cmp.vm.flashMessage.messages = [1, 2, 3, 4, 6];
+			cmp.vm.flashMessage.strategy = 'single';
+			cmp.vm.flashMessage.show({});
+			expect(clearTimeout).toHaveBeenCalled();
+			clearTimeout.mockClear();
+		});
+
+		it('Method "show()" should invoke "setTimeout" in "single" strategy', () => {
 			cmp.vm.flashMessage.messages.push({});
-			cmp.vm.flashMessage.show();
-			expect(emitSpy).toHaveBeenCalledWith('clearData');
-			emitSpy.mockClear();
+			cmp.vm.flashMessage.show({});
+			expect(setTimeout).toHaveBeenCalled();
+			setTimeout.mockClear();
 		});
 
 		it('Method "show()" should not $emit "clearData" event in "multiple" strategy', () => {

@@ -24,6 +24,7 @@ export function createEventBus(config) {
 					: (this.currentHeight = 0);
 				// If we decreasing height
 				if (height < 0 && typeof id === 'number') {
+					/* istanbul ignore next */
 					setTimeout(() => {
 						this.$emit('changePosition', {
 							height: Math.abs(height),
@@ -69,6 +70,7 @@ export function createEventBus(config) {
 				if (this.strategy === 'single' && this.messages.length > 0) {
 					clearTimeout(this.timeoutId);
 					this.messages = [];
+					/* istanbul ignore next */
 					this.timeoutId = setTimeout(() => {
 						this.messages.length > 0 ? (this.messages = []) : false;
 						this.messages.push(message);
