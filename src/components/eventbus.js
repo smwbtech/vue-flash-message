@@ -19,7 +19,13 @@ export function createEventBus(config) {
 			 */
 			$_vueFlashMessage_setDimensions({ height, id }) {
 				this.currentHeight += height;
-				if (height < 0) this.$emit('changePosition', { height, id });
+				if (height < 0 && typeof id === 'number')
+					setTimeout(() => {
+						this.$emit('changePosition', {
+							height: Math.abs(height),
+							id
+						});
+					}, 500);
 			},
 
 			/**
