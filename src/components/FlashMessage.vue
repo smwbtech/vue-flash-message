@@ -134,7 +134,7 @@ export default {};
 /* Small Monitors */
 @media (1024px <= width <= 1200px) {
     ._vue-flash-msg-body {
-        width: 100%;
+        width: 60%;
         & ._vue-flash-msg-body__content {
             padding: 15px;
         }
@@ -145,8 +145,17 @@ export default {};
 @media (320px <= width < 1024px) {
     ._vue-flash-msg-body {
         font-size: .9em;
-        width: 100%;
-        right: 5%;
+        width: 90%;
+
+		&._vue-flash-msg-_right-bottom,
+		&._vue-flash-msg-_right-top {
+	        right: 5%;
+	    }
+
+	    &._vue-flash-msg-_left-bottom,
+		&._vue-flash-msg-_left-top {
+	        left: 5%;
+	    }
 
         & ._vue-flash-msg-body__content {
             padding: 10px;

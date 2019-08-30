@@ -78,22 +78,18 @@ export default {};
   0% {
       transform: translateX(0);
       opacity: 1;
-      max-height: 20vh;
   }
   30% {
       transform: translateX(-20px);
       opacity: 0.8;
-      max-height: 20vh;
   }
   70% {
       transform: translateX(240px);
       opacity: 0;
-      max-height: 20vh;
   }
   100% {
       transform: translateX(240px);
       opacity: 0;
-      max-height: 0vh;
   }
 }
 
@@ -101,22 +97,18 @@ export default {};
   0% {
       transform: translateX(0);
       opacity: 1;
-      max-height: 20vh;
   }
   30% {
       transform: translateX(20px);
       opacity: 0.8;
-      max-height: 20vh;
   }
   70% {
       transform: translateX(-240px);
       opacity: 0;
-      max-height: 20vh;
   }
   100% {
       transform: translateX(-240px);
       opacity: 0;
-      max-height: 0vh;
   }
 }
 </style>
