@@ -5,11 +5,23 @@ export function createEventBus(config) {
 				messages: [], // array of messages object
 				nextMessageId: 1, // id of next inserted message object
 				strategy: config.strategy,
-				timeoutId: undefined
+				timeoutId: undefined,
+				currentHeight: 0
 			};
 		},
 
 		methods: {
+			/**
+			 * Change data.currentHeight if new message added to array
+			 * or if message destroyed
+			 * @param {Number} height - height of the element
+			 * @param {Number} id     - id of the element
+			 */
+			$_vueFlashMessage_setDimensions({ height, id }) {
+				this.currentHeight += height;
+				if (height < 0) this.$emit('changePosition', { height, id });
+			},
+
 			/**
 			 * change the strategy of showing messages
 			 * @param {String} strategy     - 'single' or 'multiple'
@@ -88,6 +100,7 @@ export function createEventBus(config) {
 
 		created() {
 			this.$on('deleteMessage', this.deleteMessage);
+			this.$on('destroy', this.$_vueFlashMessage_setDimensions);
 		}
 	};
 }
