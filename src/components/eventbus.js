@@ -16,16 +16,23 @@ export function createEventBus(config) {
 			 * or if message destroyed
 			 * @param {Number} height - height of the element
 			 * @param {Number} id     - id of the element
+			 * @param {Boolean} img   - some element load image and we need to change positions of all elements above
 			 */
-			$_vueFlashMessage_setDimensions({ height, id }) {
-				this.currentHeight += height;
-				if (height < 0 && typeof id === 'number')
+			$_vueFlashMessage_setDimensions({ height, id, img }) {
+				this.messages.length > 0
+					? (this.currentHeight += height)
+					: (this.currentHeight = 0);
+				// If we decreasing height
+				if (height < 0 && typeof id === 'number') {
 					setTimeout(() => {
 						this.$emit('changePosition', {
 							height: Math.abs(height),
 							id
 						});
 					}, 500);
+				} else {
+					this.$emit('changePosition', { height, id, img });
+				}
 			},
 
 			/**
@@ -107,6 +114,7 @@ export function createEventBus(config) {
 		created() {
 			this.$on('deleteMessage', this.deleteMessage);
 			this.$on('destroy', this.$_vueFlashMessage_setDimensions);
+			this.$on('image', this.$_vueFlashMessage_setDimensions);
 		}
 	};
 }
