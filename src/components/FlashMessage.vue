@@ -12,7 +12,12 @@
 			v-if="messageObj.icon"
 			:class="['_vue-flash-msg-body__icon', messageObj.iconClass]"
 		>
-			<img :src="messageObj.icon" alt="" />
+			<img
+				:src="messageObj.icon"
+				alt=""
+				loading="lazy"
+				@load="imageLoadedHandler"
+			/>
 		</div>
 		<div :class="['_vue-flash-msg-body__content', messageObj.contentClass]">
 			<h3>{{ messageObj.title }}</h3>
@@ -44,26 +49,14 @@ export default {};
         cursor: auto;
     }
 
-
-	&._vue-flash-msg-_right-bottom {
+	&._vue-flash-msg-_right-bottom,
+	&._vue-flash-msg-_right-top {
         right: 20px;
-        bottom: 20px;
     }
 
-    &._vue-flash-msg-_right-top {
-        right: 20px;
-        top: 20px;
-    }
-
-    &._vue-flash-msg-_left-bottom {
+    &._vue-flash-msg-_left-bottom,
+	&._vue-flash-msg-_left-top {
         left: 20px;
-        bottom: 20px;
-    }
-
-    &._vue-flash-msg-_left-top {
-        left: 20px;
-        top: 20px;
-        flex-direction: column-reverse;
     }
 
     & ._vue-flash-msg-body__icon {
