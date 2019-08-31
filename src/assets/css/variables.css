@@ -1,14 +1,25 @@
 :root {
-
-    /* Цвета */
-    --grey: #7b7b7b;
-    --dark-green: #01947a;
-    --dark-green-rgb: 1, 148, 122;
-    --orange: #f18b22;
-    --orange-rgb: 241, 139, 34;
-    --dark-blue: #1087c2;
-    --dark-blue-rgb: 16, 135, 194;
-    --red: #f12222;
-    --red-rgb: 241, 34, 34;
-    --block-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+	/* Colors */
+	/* app colors */
+	--app-grey: #222831;
+	--app-blue: #0092ca;
+	/* preset colors */
+	--dark-green: #01947a;
+	--dark-green-rgb: 1, 148, 122;
+	--orange: #f18b22;
+	--orange-rgb: 241, 139, 34;
+	--dark-blue: #1087c2;
+	--dark-blue-rgb: 16, 135, 194;
+	--red: #f12222;
+	--red-rgb: 241, 34, 34;
+	--block-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+	/* Grid */
+	--side-padding: 20px;
+	--column: calc((100vw - (23 * 20px)) / 24);
+	--row: calc((100vh - (20px * 9)) / 10);
+	--gutter: 20px;
+	/* Grid mobile */
+	--m-column: calc((100vw - (11 * 10px)) / 12);
+	--m-row: calc((100vh - (10px * 9)) / 10);
+	--m-gutter: 10px;
 }
