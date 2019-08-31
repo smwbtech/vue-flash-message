@@ -1,33 +1,55 @@
 <template lang="html">
 	<section class="content">
-		<div class="message">
-			<picture class="message-avatar">
-				<source srcset="avatar.jpg" media="(max-width: 768px)" />
-				<source srcset="avatar@2x.jpg" />
-				<img srcset="avatar@2x.jpg" alt="Roman Privalov avatar" />
-			</picture>
-			<div class="message-text">
-				<h3 class="message-text__title">Hi there!</h3>
-				<p>
-					Glad to see you on this page! Please if you like this
-					project, leave me a
-					<a href="https://github.com/smwbtech/vue-flash-message"
-						>star on github</a
-					>. For any suggestions, bug reports and questions use
-					<a
-						href="https://github.com/smwbtech/vue-flash-message/issues"
-						>github issues</a
-					>.
-				</p>
+		<transition name="message-appear" mode="out-in">
+			<div class="message" v-show="showMessage">
+				<picture class="message-avatar">
+					<source srcset="avatar.jpg" media="(max-width: 768px)" />
+					<source srcset="avatar@2x.jpg" />
+					<img srcset="avatar@2x.jpg" alt="Roman Privalov avatar" />
+				</picture>
+				<div class="message-text">
+					<h3 class="message-text__title">Hi there!</h3>
+					<p>
+						Glad to see you on this page! Please if you like this
+						project, leave me a
+						<a href="https://github.com/smwbtech/vue-flash-message"
+							>star on github</a
+						>. For any suggestions, bug reports and questions use
+						<a
+							href="https://github.com/smwbtech/vue-flash-message/issues"
+							>github issues</a
+						>.
+					</p>
+				</div>
 			</div>
-		</div>
-
-		<button class="fm-btn" type="button" name="button">push me</button>
+		</transition>
+		<!-- Remove? -->
+		<!-- <transition name="btn-apper" mode="out-in">
+			<button
+				class="fm-btn"
+				type="button"
+				name="button"
+				v-show="showMessage"
+			>
+				push me
+			</button>
+		</transition> -->
 	</section>
 </template>
 
 <script>
-export default {};
+export default {
+	data() {
+		return {
+			showMessage: false
+		};
+	},
+
+	// Show message with appear transition
+	mounted() {
+		setTimeout(() => (this.showMessage = true), 500);
+	}
+};
 </script>
 
 <style lang="css" scoped>
@@ -117,5 +139,39 @@ export default {};
         margin-top: 100px;
         cursor: pointer;
     }
+}
+
+/* transition */
+
+.message-appear-enter,
+.message-appear-leave-to {
+	opacity: 0;
+	transform: translateY(-30px);
+	transform-origin: center;
+
+	&.message:after {
+		transform: scale(0);
+		transform-origin: center;
+	}
+}
+
+.message-appear-enter-active,
+.message-appear-leave-active {
+	transition: opacity .6s ease-in, transform .6s ease-out;
+
+	&.message:after {
+		transition: transform .6s ease-out;
+	}
+}
+
+.btn-apper-enter,
+.btn-apper-leave-to {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.btn-apper-enter-active,
+.btn-apper-leave-active {
+	transition: opacity .3s ease-in .5s, transform .3s ease-out .5s;
 }
 </style>
