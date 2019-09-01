@@ -19,18 +19,52 @@
 				</ul>
 			</div>
 			<!-- preset position -->
-			<div class="preset-item preset-item_styles">
+			<div class="preset-item">
 				<h3 class="preset-item__title">DEFAULT POSITIONS</h3>
 				<ul class="preset-list">
 					<li
 						v-for="item in defaultPositions"
+						:key="item"
 						:class="[
 							'preset-list-item',
-							item === currentPosition
-								? 'preset-list-item_active'
-								: ''
+							item === position ? 'preset-list-item_active' : ''
 						]"
-						@click="setPosition(item)"
+						@click="
+							$store.commit('flashMessage/setItem', {
+								position: item
+							})
+						"
+					>
+						{{ item }}
+					</li>
+				</ul>
+			</div>
+			<!-- preset strategy -->
+			<div class="preset-item preset-item_strategy">
+				<h3 class="preset-item__title">STRATEGY</h3>
+				<ul class="preset-list">
+					<li
+						v-for="item in strategyList"
+						:key="item"
+						:class="[
+							'preset-list-item',
+							item === strategy ? 'preset-list-item_active' : ''
+						]"
+						@click="strategyHandler(item)"
+					>
+						{{ item }}
+					</li>
+				</ul>
+			</div>
+			<!-- preset custom messages examples -->
+			<div class="preset-item preset-item_examples">
+				<h3 class="preset-item__title">EXAMPLES</h3>
+				<ul class="preset-list">
+					<li
+						v-for="item in examples"
+						:key="item"
+						:class="['preset-list-item', 'preset-list-item_active']"
+						@click="customMessagesHandler(item)"
 					>
 						{{ item }}
 					</li>
@@ -41,6 +75,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
 	props: {
 		isActive: {
@@ -57,14 +93,19 @@ export default {
 				'left bottom',
 				'left top'
 			],
-			strategy: ['single', 'multiple']
+			strategyList: ['single', 'multiple'],
+			examples: [
+				'unclickable without icon',
+				'custom position',
+				'custom styles'
+			],
+			lorem:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem.'
 		};
 	},
 
 	computed: {
-		currentPosition() {
-			return this.$store.getters['flashMessage/currentPosition'];
-		}
+		...mapGetters('flashMessage', ['position', 'strategy'])
 	},
 
 	methods: {
@@ -72,19 +113,67 @@ export default {
 			this.flashMessage[v]({
 				icon: `/${v}.svg`,
 				title: `Title for ${v} message`,
-				message:
-					'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem.'
+				message: this.lorem
 			});
 		},
 
-		setPosition(v) {
-			this.$store.commit('flashMessage/setPosition', v);
+		strategyHandler(strategy) {
+			this.flashMessage.setStrategy(strategy);
+			this.$store.commit('flashMessage/setItem', { strategy });
+		},
+
+		customMessagesHandler(v) {
+			switch (v) {
+				case 'unclickable without icon':
+					this.flashMessage.error({
+						title: 'Message Without Icon',
+						message: this.lorem,
+						icon: false,
+						clickable: false
+					});
+					break;
+				case 'custom position':
+					this.flashMessage.show({
+						title: 'Custom Position Message',
+						message: this.lorem,
+						icon: '/custom_position.svg',
+						blockClass: 'custom_msg_two',
+						position: 'left top',
+						x: 100,
+						y: 220
+					});
+					break;
+				case 'custom styles':
+					this.flashMessage.show(
+						{
+							title: 'Custom Styled Message',
+							message: this.lorem,
+							icon: '/custom_style.svg',
+							blockClass: 'custom_msg'
+						},
+						{
+							mounted: this.mountedSound,
+							destroyed: this.destroyedSound
+						}
+					);
+					break;
+			}
+		},
+
+		mountedSound() {
+			let sound = new Audio('/sounds/message.mp3');
+			sound.play();
+		},
+
+		destroyedSound() {
+			let sound = new Audio('/sounds/delete.mp3');
+			sound.play();
 		}
 	}
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 
 .presets {
     display: flex;
@@ -169,6 +258,18 @@ export default {
             }
         }/* preset styles list end*/
     } /* presets block end */
+}
+
+/* class for custom message */
+.custom_msg {
+	background: linear-gradient(
+		0.2turn,
+		rgba(247, 19, 204, 1),
+		rgba(23, 123, 255, 1)
+	);
+	&._vue-flash-msg-body ._vue-flash-msg-body__icon {
+		width: 100%;
+	}
 }
 
 /* Transition */

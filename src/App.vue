@@ -7,7 +7,7 @@
 		<!-- footer -->
 		<AppFooter />
 
-		<FlashMessage :position="currentPosition"></FlashMessage>
+		<FlashMessage :position="position"></FlashMessage>
 	</div>
 </template>
 
@@ -26,8 +26,8 @@ export default {
 	},
 
 	computed: {
-		currentPosition() {
-			return this.$store.getters['flashMessage/currentPosition'];
+		position() {
+			return this.$store.getters['flashMessage/position'];
 		}
 	}
 };

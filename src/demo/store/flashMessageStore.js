@@ -3,18 +3,25 @@ export const flashMessage = {
 
 	state: {
 		title: '',
-		containerPosition: 'right bottom'
+		position: 'right bottom',
+		strategy: 'single'
 	},
 
 	getters: {
-		currentPosition(state) {
-			return state.containerPosition;
+		position(state) {
+			return state.position;
+		},
+
+		strategy(state) {
+			return state.strategy;
 		}
 	},
 
 	mutations: {
-		setPosition(state, payload) {
-			state.containerPosition = payload;
+		setItem(state, payload) {
+			for (const [prop, val] of Object.entries(payload)) {
+				state[prop] = val;
+			}
 		}
 	}
 };
