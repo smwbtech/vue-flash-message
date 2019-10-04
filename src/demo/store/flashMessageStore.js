@@ -4,7 +4,9 @@ export const flashMessage = {
 	state: {
 		title: '',
 		position: 'right bottom',
-		strategy: 'single'
+		strategy: 'single',
+		shorthand: 'success',
+		exampleType: 'standart'
 	},
 
 	getters: {
@@ -14,6 +16,36 @@ export const flashMessage = {
 
 		strategy(state) {
 			return state.strategy;
+		},
+
+		exampleType(state) {
+			return state.exampleType;
+		},
+
+		standartCodeExample(state) {
+			return `<template>
+  <FlashMessage :position="'${state.position}'"/>
+</template>
+
+<script>
+  export default {
+    // ... some your code
+      methods: {
+	    someEventHandler() {
+		  /*
+		  * You shouldn't set up strategy every time
+		  * before "show" method call. It is just an
+		  * example.
+		  */
+		  this.flashMessage.setStrategy('${state.strategy}');
+		  this.flashMessage.${state.shorthand}({
+		    title: 'Title for ${state.shorthand} message',
+		    message: 'Lorem upsum...'
+		  });
+		}
+	  }
+  }
+</script>`;
 		}
 	},
 
