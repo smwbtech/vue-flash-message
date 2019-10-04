@@ -15,6 +15,7 @@
 					@click="toggleButtonHandler"
 				/>
 				<AppFooterPresets :isActive="isActive" />
+				<AppFooterCode :isActive="isActive" />
 			</div>
 		</transition>
 	</footer>
@@ -22,10 +23,12 @@
 
 <script>
 import AppFooterPresets from './AppFooterPresets.vue';
+import AppFooterCode from './AppFooterCode.vue';
 
 export default {
 	components: {
-		AppFooterPresets
+		AppFooterPresets,
+		AppFooterCode
 	},
 
 	data() {
@@ -55,8 +58,9 @@ export default {
     position: fixed;
     left: 0;
     display: flex;
+    justify-content: space-between;
     width: 100%;
-    height: 60vh;
+    height: 70vh;
     background-color: var(--app-grey);
     transition: bottom .4s ease-out;
     padding-left: calc(var(--side-padding) + var(--column) + var(--gutter));
@@ -94,7 +98,7 @@ export default {
     } /* menu toggle btn end*/
 
     &.menu_inactive {
-        bottom: -50vh;
+        bottom: -60vh;
         & .menu-toggle-btn {
             &:before {
                 transform: rotate(180deg);
