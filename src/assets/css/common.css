@@ -27,3 +27,22 @@ button, input {
 button:active, input:focus {
     opacity: 1;
 }
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+    color: var(--dark-green);
+}
+
+.hljs-attr {
+    color: var(--orange);
+}
+
+.hljs-comment {
+    color: var(--app-light-grey);
+}
