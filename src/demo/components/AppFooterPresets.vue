@@ -230,6 +230,7 @@ export default {
                     &:before {
                         position: absolute;
                         left: 0;
+						top: calc(50% - 13px / 2);
                         content: "";
                         display: block;
                         background-repeat: no-repeat;
