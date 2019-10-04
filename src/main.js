@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './App.vue';
 import FlashMessage from '@/components/index.js';
+import VueHighlightJS from 'vue-highlightjs';
+import Vuescroll from 'vuescroll';
 import store from '@/demo/store/store.js';
 import './assets/css/common.css';
 
@@ -13,6 +15,20 @@ const config = {
 
 Vue.config.productionTip = false;
 Vue.use(FlashMessage, config);
+Vue.use(VueHighlightJS);
+Vue.use(Vuescroll, {
+	ops: {
+		rail: {
+			background: '#fff',
+			opacity: 0.2,
+			keepShow: false
+		},
+		bar: {
+			onlyShowBarOnScroll: true,
+			background: '#0092ca'
+		}
+	}
+});
 Vue.use(Vuex);
 
 new Vue({
