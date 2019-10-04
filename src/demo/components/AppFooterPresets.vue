@@ -110,6 +110,7 @@ export default {
 
 	methods: {
 		showPreset(v) {
+			this.$store.commit('flashMessage/setItem', { shorthand: v });
 			this.flashMessage[v]({
 				icon: `/${v}.svg`,
 				title: `Title for ${v} message`,
@@ -139,8 +140,8 @@ export default {
 						icon: '/custom_position.svg',
 						blockClass: 'custom_msg_two',
 						position: 'left top',
-						x: 100,
-						y: 220
+						x: window.innerWidth / 2,
+						y: window.innerHeight / 2
 					});
 					break;
 				case 'custom styles':
