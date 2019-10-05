@@ -254,19 +254,19 @@ export default {
                     }
 
                     &.preset-list-item_error:before {
-                        background-image: url('~/img/before_error.svg');
+                        background-image: url('~@/assets/img/before_error.svg');
                     }
 
                     &.preset-list-item_warning:before {
-                        background-image: url('~/img/before_warning.svg');
+                        background-image: url('~@/assets/img/before_warning.svg');
                     }
 
                     &.preset-list-item_success:before {
-                        background-image: url('~/img/before_success.svg');
+                        background-image: url('~@/assets/img/before_success.svg');
                     }
 
                     &.preset-list-item_info:before {
-                        background-image: url('~/img/before_info.svg');
+                        background-image: url('~@/assets/img/before_info.svg');
                     }
                 }
             }

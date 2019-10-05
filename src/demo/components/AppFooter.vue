@@ -93,7 +93,7 @@ export default {
             height: 50px;
             margin-top: 5px;
             margin: 0 auto;
-            background-image: url('~/img/arrow.svg');
+            background-image: url('~@/assets/img/arrow.svg');
             background-position: center center;
             background-repeat: no-repeat;
             background-size: 80%;
