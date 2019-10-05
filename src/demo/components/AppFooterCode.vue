@@ -24,7 +24,25 @@ export default {
 
 	computed: {
 		sourcecode() {
-			return this.$store.getters['flashMessage/standartCodeExample'];
+			const type = this.$store.getters['flashMessage/exampleType'];
+			switch (type) {
+				case 'standart':
+					return this.$store.getters[
+						'flashMessage/standartCodeExample'
+					];
+				case 'unclickable without icon':
+					return this.$store.getters[
+						'flashMessage/unclickableCodeExample'
+					];
+				case 'custom position':
+					return this.$store.getters[
+						'flashMessage/customPositionCodeExample'
+					];
+				case 'custom styles':
+					return this.$store.getters[
+						'flashMessage/customStyleCodeExample'
+					];
+			}
 		}
 	}
 };

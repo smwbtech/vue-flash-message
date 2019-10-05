@@ -110,7 +110,10 @@ export default {
 
 	methods: {
 		showPreset(v) {
-			this.$store.commit('flashMessage/setItem', { shorthand: v });
+			this.$store.commit('flashMessage/setItem', {
+				shorthand: v,
+				exampleType: 'standart'
+			});
 			this.flashMessage[v]({
 				icon: `/${v}.svg`,
 				title: `Title for ${v} message`,
@@ -126,6 +129,9 @@ export default {
 		customMessagesHandler(v) {
 			switch (v) {
 				case 'unclickable without icon':
+					this.$store.commit('flashMessage/setItem', {
+						exampleType: v
+					});
 					this.flashMessage.error({
 						title: 'Message Without Icon',
 						message: this.lorem,
@@ -134,6 +140,9 @@ export default {
 					});
 					break;
 				case 'custom position':
+					this.$store.commit('flashMessage/setItem', {
+						exampleType: v
+					});
 					this.flashMessage.show({
 						title: 'Custom Position Message',
 						message: this.lorem,
@@ -145,6 +154,9 @@ export default {
 					});
 					break;
 				case 'custom styles':
+					this.$store.commit('flashMessage/setItem', {
+						exampleType: v
+					});
 					this.flashMessage.show(
 						{
 							title: 'Custom Styled Message',
