@@ -102,4 +102,33 @@ header {
         }
     }/* navigation end */
 }
+
+/* Mobile */
+
+@media (320px <= width < 1024px)  {
+	header {
+		padding: var(--m-gutter);
+
+		& .logo {
+
+			width: calc(var(--m-column) * 3 + var(--m-gutter) * 2);
+
+			& .logo__img {
+				max-width: 100%;
+			}
+
+			& .logo__title {
+				display: none;
+			}
+		}
+
+		& .nav {
+			& .nav-list {
+				& .nav-list-item {
+					margin-left: calc(var(--m-column) + var(--m-gutter));
+				}
+			}
+		}
+	}
+}
 </style>
