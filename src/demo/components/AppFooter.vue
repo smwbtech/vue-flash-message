@@ -14,8 +14,10 @@
 					]"
 					@click="toggleButtonHandler"
 				/>
-				<AppFooterPresets :isActive="isActive" />
-				<AppFooterCode :isActive="isActive" />
+				<div class="wrapper">
+					<AppFooterPresets :isActive="isActive" />
+					<AppFooterCode :isActive="isActive" />
+				</div>
 			</div>
 		</transition>
 	</footer>
@@ -57,14 +59,17 @@ export default {
 .menu {
     position: fixed;
     left: 0;
-    display: flex;
-    justify-content: space-between;
     width: 100%;
     height: 70vh;
     background-color: var(--app-grey);
     transition: bottom .4s ease-out;
-    padding-left: calc(var(--side-padding) + var(--column) + var(--gutter));
-    padding-right: calc(var(--side-padding) + var(--column) + var(--gutter));
+
+	& .wrapper {
+		display: flex;
+	    justify-content: space-between;
+		padding-left: calc(var(--side-padding) + var(--column) + var(--gutter));
+	    padding-right: calc(var(--side-padding) + var(--column) + var(--gutter));
+	}
 
     /* menu toggle btn */
     & .menu-toggle-btn {
@@ -126,5 +131,19 @@ export default {
 .menu-appear-enter-active,
 .menu-appear-leave-active {
     transition: transform .6s ease-in .6s;
+}
+
+/* Mobile */
+
+@media (320px <= width < 1024px) {
+	.menu {
+		min-height: 70vh;
+		& .wrapper {
+			height: 90%;
+			margin-top: 40px;
+			overflow-y: scroll;
+			flex-flow: column;
+		}
+	}
 }
 </style>

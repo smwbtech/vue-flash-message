@@ -300,4 +300,16 @@ export default {
 .assets-apper-leave-active {
     transition: opacity .3s ease-in;
 }
+
+/* Mobile */
+
+@media (320px <= width < 1024px) {
+	.presets {
+		width: 100%;
+		flex-flow: column;
+		& .preset-item {
+			width: 100%;
+		}
+	}
+}
 </style>
