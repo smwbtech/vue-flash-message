@@ -6,6 +6,7 @@ cache:
         - node_modules
 script:
     - npm run test:unit
+    - npm run build
 after_script:
     - cat ./coverage/lcov.info | coveralls
 deploy:
