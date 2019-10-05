@@ -1,31 +1,42 @@
-*, *:before, *:after {
-    box-sizing: border-box;
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 ul {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
-p, input, button {
-    font-weight: 300;
+p,
+input,
+button {
+	font-weight: 300;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
 }
 
-button, input {
-    outline: none;
+button,
+input {
+	outline: none;
 }
 
-button:active, input:focus {
-    opacity: 1;
+button:active,
+input:focus {
+	opacity: 1;
 }
 
 .hljs-type,
@@ -36,13 +47,14 @@ button:active, input:focus {
 .hljs-quote,
 .hljs-template-tag,
 .hljs-deletion {
-    color: var(--dark-green);
+	color: var(--dark-green);
 }
 
-.hljs-attr {
-    color: var(--orange);
+.hljs-attr,
+.hljs-keyword {
+	color: var(--orange);
 }
 
 .hljs-comment {
-    color: var(--app-light-grey);
+	color: var(--app-light-grey);
 }
