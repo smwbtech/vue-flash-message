@@ -284,6 +284,10 @@ export default {
 	&._vue-flash-msg-body ._vue-flash-msg-body__icon {
 		width: 100%;
 	}
+
+	& ._vue-flash-msg-body__content {
+		color: #fff;
+	}
 }
 
 /* Transition */
