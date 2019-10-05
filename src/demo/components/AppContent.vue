@@ -174,4 +174,32 @@ export default {
 .btn-apper-leave-active {
 	transition: opacity .3s ease-in .5s, transform .3s ease-out .5s;
 }
+
+/* Mobile */
+
+@media (320px <= width < 1024px) {
+	.content {
+		padding: 0 var(--m-gutter);
+
+		& .message {
+			width: calc(var(--m-column) * 9 + var(--m-gutter) * 8);
+			flex-flow: column;
+			font-size: .8em;
+			text-align: center;
+
+			&:after {
+				bottom: -60px;
+			}
+
+			& .message-avatar {
+				width: 50%;
+			}
+
+			& .message-text {
+				margin-left: 0;
+				text-align: center;
+			}
+		}
+	}
+}
 </style>
