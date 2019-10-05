@@ -115,7 +115,7 @@ export default {
 				exampleType: 'standart'
 			});
 			this.flashMessage[v]({
-				icon: `/${v}.svg`,
+				icon: `${v}.svg`,
 				title: `Title for ${v} message`,
 				message: this.lorem
 			});
@@ -146,7 +146,7 @@ export default {
 					this.flashMessage.show({
 						title: 'Custom Position Message',
 						message: this.lorem,
-						icon: '/custom_position.svg',
+						icon: 'custom_position.svg',
 						blockClass: 'custom_msg_two',
 						position: 'left top',
 						x: window.innerWidth / 2,
@@ -161,7 +161,7 @@ export default {
 						{
 							title: 'Custom Styled Message',
 							message: this.lorem,
-							icon: '/custom_style.svg',
+							icon: 'custom_style.svg',
 							blockClass: 'custom_msg'
 						},
 						{
@@ -254,19 +254,19 @@ export default {
                     }
 
                     &.preset-list-item_error:before {
-                        background-image: url('/before_error.svg');
+                        background-image: url('before_error.svg');
                     }
 
                     &.preset-list-item_warning:before {
-                        background-image: url('/before_warning.svg');
+                        background-image: url('before_warning.svg');
                     }
 
                     &.preset-list-item_success:before {
-                        background-image: url('/before_success.svg');
+                        background-image: url('before_success.svg');
                     }
 
                     &.preset-list-item_info:before {
-                        background-image: url('/before_info.svg');
+                        background-image: url('before_info.svg');
                     }
                 }
             }

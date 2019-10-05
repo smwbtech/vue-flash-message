@@ -2,7 +2,7 @@
 	<header>
 		<div class="logo">
 			<img
-				src="/fm-logo.svg"
+				src="fm-logo.svg"
 				alt="vue flash message logotype"
 				class="logo__img"
 			/>
