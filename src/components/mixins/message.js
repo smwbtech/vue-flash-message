@@ -108,6 +108,20 @@ export function createMessageMixin(config) {
 						img: true
 					});
 				}
+			},
+			/**
+			 * Invoke callback if it is undefined
+			 * and if it is Function
+			 * @param  {String} name - cb name 'mounted' or 'destroyed'
+			 * @return {undefined}
+			 */
+			invokeCallback(name) {
+				if (
+					this.messageObj[name] &&
+					typeof this.messageObj[name] === 'function'
+				) {
+					this.messageObj[name]();
+				}
 			}
 		},
 
@@ -133,12 +147,7 @@ export function createMessageMixin(config) {
 			}
 
 			// If mounted callback was passed in props
-			if (
-				this.messageObj.mounted &&
-				typeof this.messageObj.mounted === 'function'
-			) {
-				this.messageObj.mounted();
-			}
+			this.invokeCallback('mounted');
 		},
 
 		beforeDestroy() {
@@ -154,12 +163,7 @@ export function createMessageMixin(config) {
 
 		// Invoke destroyed callback function if exist
 		destroyed() {
-			if (
-				this.messageObj.destroyed &&
-				typeof this.messageObj.destroyed === 'function'
-			) {
-				this.messageObj.destroyed();
-			}
+			this.invokeCallback('destroyed');
 		}
 	};
 }
