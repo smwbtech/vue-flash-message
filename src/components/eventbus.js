@@ -1,5 +1,7 @@
+const SHORTHANDS = ['error', 'success', 'warning', 'info'];
+
 export function createEventBus(config) {
-	return {
+	let eventBus = {
 		data() {
 			return {
 				messages: [], // array of messages object
@@ -79,30 +81,6 @@ export function createEventBus(config) {
 
 				return message.id;
 			},
-			error(data, callbacks) {
-				return this.show(
-					Object.assign(data, { status: 'error' }),
-					callbacks
-				);
-			},
-			warning(data, callbacks) {
-				return this.show(
-					Object.assign(data, { status: 'warning' }),
-					callbacks
-				);
-			},
-			info(data, callbacks) {
-				return this.show(
-					Object.assign(data, { status: 'info' }),
-					callbacks
-				);
-			},
-			success(data, callbacks) {
-				return this.show(
-					Object.assign(data, { status: 'success' }),
-					callbacks
-				);
-			},
 
 			/**
 			 * Delete message from messages array
@@ -119,4 +97,16 @@ export function createEventBus(config) {
 			this.$on('imageLoaded', this.$_vueFlashMessage_setDimensions);
 		}
 	};
+
+	// Add shorthands
+	for (const shorthand of SHORTHANDS) {
+		eventBus.methods[shorthand] = function(data, callbacks) {
+			return this.show(
+				Object.assign(data, { status: shorthand }),
+				callbacks
+			);
+		};
+	}
+
+	return eventBus;
 }
