@@ -112,9 +112,9 @@ export default {
 
             & p {
                 color: var(--app-grey);
-                font-family: mrs-eaves-roman-lining, sans-serif;
-                font-weight: 400;
-                font-style: normal;
+				font-family: mrs-eaves-roman-lining, sans-serif;
+				font-weight: 400;
+				font-style: normal;
                 line-height: 1.4;
 
                 & a {
