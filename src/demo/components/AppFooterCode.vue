@@ -65,15 +65,17 @@ export default {
         margin-bottom: 20px;
 
         & .code-item__title {
-            text-align: left;
-            font-family: mrs-eaves-roman-lining, sans-serif;
-            font-weight: 100;
+			font-family: rift, sans-serif;
+			font-weight: 300;
+			font-style: normal;
+			text-align: left;
             font-size: 1.2em;
         }
 
         & .code-item__field {
             max-width: 100%;
             max-height: 55vh;
+			text-align: left;
         }
     }
 

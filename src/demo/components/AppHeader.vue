@@ -60,7 +60,9 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: 'Baron Neue', sans-serif;
+	font-family: rift, sans-serif;
+	font-weight: 700;
+	font-style: normal;
 
     /* Logo */
     & .logo {

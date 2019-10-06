@@ -202,14 +202,16 @@ export default {
         text-align: left;
 
         & .preset-item__title {
-            font-family: mrs-eaves-roman-lining, sans-serif;
-            font-weight: 100;
-            font-size: 1.2em;
+			font-family: rift, sans-serif;
+			font-weight: 300;
+			font-style: normal;
         }
 
         /* standart list */
         & .preset-list {
-            font-family: 'Baron Neue', sans-serif;
+            font-family: rift, sans-serif;
+			font-weight: 700;
+			font-style: normal;
             font-size: 1.2em;
             margin: 0;
             padding: 0;
