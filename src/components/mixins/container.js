@@ -7,8 +7,11 @@ export function createContainerMixin(config) {
 				validator: v => {
 					return v
 						.split(' ')
-						.every(val =>
-							['top', 'left', 'right', 'bottom'].includes(val)
+						.every(
+							val =>
+								['top', 'left', 'right', 'bottom'].indexOf(
+									val
+								) >= 0
 						);
 				}
 			}
