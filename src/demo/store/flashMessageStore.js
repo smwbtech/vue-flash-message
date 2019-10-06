@@ -23,7 +23,8 @@ export const flashMessage = {
 		},
 
 		standartCodeExample(state) {
-			return `<template>
+			return `
+<template>
   <FlashMessage :position="'${state.position}'"/>
 </template>
 
@@ -49,7 +50,8 @@ export default {
 		},
 
 		unclickableCodeExample(state) {
-			return `<template>
+			return `
+<template>
   <FlashMessage :position="'${state.position}'"/>
 </template>
 
@@ -76,7 +78,8 @@ export default {
 </script>`;
 		},
 		customPositionCodeExample(state) {
-			return `<template>
+			return `
+<template>
   <FlashMessage :position="'${state.position}'"/>
 </template>
 
