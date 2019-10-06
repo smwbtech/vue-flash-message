@@ -142,7 +142,7 @@ export default {
 			height: 90%;
 			margin-top: 40px;
 			overflow-y: scroll;
-			flex-flow: column;
+			flex-wrap: wrap;
 		}
 	}
 }
