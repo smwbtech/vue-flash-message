@@ -82,7 +82,7 @@ export default {
             width: 100%;
             height: 80px;
             bottom: -90px;
-            background-image: url('/shadow.svg');
+            background-image: url('~@/assets/img/shadow.svg');
             background-size: 100%;
             background-position: center center;
             background-repeat: no-repeat;
