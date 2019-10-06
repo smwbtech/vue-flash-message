@@ -32,19 +32,8 @@ export function createMessageMixin(config) {
 			},
 			classObj() {
 				return {
-					'_vue-flash-msg-body_success':
-						this.messageObj.status === 'success',
-					'_vue-flash-msg-body_error':
-						this.messageObj.status === 'error',
-					'_vue-flash-msg-body_warning':
-						this.messageObj.status === 'warning',
-					'_vue-flash-msg-body_info':
-						this.messageObj.status === 'info',
-					'_vue-flash-msg-body_default':
-						this.messageObj.status === 'default',
-					'_vue-flash-msg-body_unclickabe': !this.messageObj
-						.clickable,
-					'_vue-flash-msg-body': true
+					status: `_vue-flash-msg-body_${this.messageObj.status}`,
+					basic: '_vue-flash-msg-body'
 				};
 			},
 
@@ -58,42 +47,20 @@ export function createMessageMixin(config) {
 			 * @return {Object}
 			 */
 			positionStyleObj() {
+				const style = {};
+				const [x, y] = this.positionString.split(' ');
 				if (this.isCustom) {
-					const style = {
-						[this.positionString.split(' ')[0]]: `${
-							this.messageObj.x
-						}px`,
-						[this.positionString.split(' ')[1]]: `${
-							this.messageObj.y
-						}px`
-					};
+					style[x] = `${this.messageObj.x}px`;
+					style[y] = `${this.messageObj.y}px`;
 					return style;
 				} else {
-					const yPos = this.positionString.split(' ')[1];
-					if (yPos === 'bottom') {
-						return {
-							bottom: `${this.yAxis}px`
-						};
-					} else {
-						return {
-							top: `${this.yAxis}px`
-						};
-					}
+					style[y] = `${this.yAxis}px`;
+					return style;
 				}
 			}
 		},
 
 		methods: {
-			/**
-			 * Custom set timeout with default time
-			 * @param {Function} callback           - callback function
-			 * @param {Number}   [time=this.time]   - time in mileseconds
-			 * return {Number}                      - timeout id
-			 */
-			setTimeout(callback, time = this.messageObj.time) {
-				return setTimeout(callback, time);
-			},
-
 			/**
 			 * Clear timeoutId in "single" strategy
 			 * Invoke deleteMessage on EventBus
@@ -126,7 +93,7 @@ export function createMessageMixin(config) {
 			},
 
 			/**
-			 * Will invoke 'image' event on EventBus
+			 * Will invoke 'imageLoaded' event on EventBus
 			 * when image is loaded to change position
 			 * of blocks from above
 			 * @return {undefined}
@@ -146,7 +113,7 @@ export function createMessageMixin(config) {
 
 		// Set up data
 		created() {
-			this.timeoutId = this.setTimeout(
+			this.timeoutId = setTimeout(
 				this.clearData.bind(this, false),
 				this.messageObj.time
 			);
