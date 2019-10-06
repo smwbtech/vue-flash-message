@@ -167,13 +167,6 @@ describe('Test FlashMessage Compoent', () => {
 		});
 
 		describe('Test components methods', () => {
-			it('methods.setTimeout should take invoke setTimeout function with two args "cb" and "time"', () => {
-				expect(cmp.vm.setTimeout).toBeInstanceOf(Function);
-				cmp.vm.setTimeout(1);
-				expect(setTimeout).toHaveBeenCalledWith(1, 8000);
-				setTimeout.mockClear();
-			});
-
 			it('methods.clearData should invoke clearTimeout method if data.timeoutId to be truthly and argument "clear" === true', () => {
 				expect(cmp.vm.clearData).toBeInstanceOf(Function);
 				cmp.setData({ timeoutId: 1 });
