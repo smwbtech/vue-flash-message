@@ -1,7 +1,9 @@
 <template lang="html">
 	<div
 		:class="[
-			classObj, // all classes set
+			classObj.status, // all classes set
+			classObj.basic, // basic styles
+			this.messageObj.clickable ? '' : '_vue-flash-msg-body_unclickabe', // unclickabe
 			positionClass, // default position
 			messageObj.blockClass
 		]"
