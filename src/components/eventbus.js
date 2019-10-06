@@ -59,7 +59,7 @@ export function createEventBus(config) {
 			show(data, callbacks = {}) {
 				let message = {
 					id: this.nextMessageId++,
-					time: config.time,
+					time: data.time || config.time,
 					status: 'default',
 					message: '',
 					icon: '',
