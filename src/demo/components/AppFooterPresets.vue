@@ -97,7 +97,8 @@ export default {
 			examples: [
 				'unclickable without icon',
 				'custom position',
-				'custom styles'
+				'custom styles',
+				'infinity lifecycle'
 			],
 			lorem:
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem.'
@@ -170,6 +171,18 @@ export default {
 						}
 					);
 					break;
+				case 'infinity lifecycle':
+					this.$store.commit('flashMessage/setItem', {
+						exampleType: v
+					});
+					this.flashMessage.show({
+						title: 'I will live forever',
+						message:
+							'This message will not disappear until user click on it. Please, do not combine unclickabe and time equal to 0 properties. It will be deprecated in final release.',
+						icon: 'infinity.svg',
+						blockClass: 'infinity_msg',
+						time: 0
+					});
 			}
 		},
 
@@ -292,6 +305,21 @@ export default {
 	}
 }
 
+/* Class for infinity message */
+.infinity_msg {
+	background-color: #fff;
+	border: 2px solid #54b1fe;
+	overflow: hidden;
+
+	& ._vue-flash-msg-body__icon {
+		overflow: hidden;
+
+		& img {
+			animation: spin 6s infinite linear;
+		}
+	}
+}
+
 /* Transition */
 
 .assets-apper-enter,
@@ -305,6 +333,11 @@ export default {
 
 .assets-apper-leave-active {
     transition: opacity .3s ease-in;
+}
+
+@keyframes spin {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
 }
 
 /* Mobile */
