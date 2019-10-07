@@ -127,10 +127,15 @@ export function createMessageMixin(config) {
 
 		// Set up data
 		created() {
-			this.timeoutId = setTimeout(
-				this.clearData.bind(this, false),
-				this.messageObj.time
-			);
+			// If user set up duration time,
+			// set timeout, else if duration time == 0
+			// message will be shown until user close it
+			if (this.messageObj.time) {
+				this.timeoutId = setTimeout(
+					this.clearData.bind(this, false),
+					this.messageObj.time
+				);
+			}
 			this[config.name].$on('changePosition', this.changePositionHandler);
 		},
 
