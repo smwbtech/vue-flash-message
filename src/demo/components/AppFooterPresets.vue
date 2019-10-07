@@ -98,7 +98,8 @@ export default {
 				'unclickable without icon',
 				'custom position',
 				'custom styles',
-				'infinity lifecycle'
+				'infinity lifecycle',
+				'custom component'
 			],
 			lorem:
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem.'
@@ -183,6 +184,17 @@ export default {
 						blockClass: 'infinity_msg',
 						time: 0
 					});
+					break;
+				case 'custom component':
+					this.$store.commit('flashMessage/setItem', {
+						exampleType: v
+					});
+					this.flashMessage.show({
+						component: 'CustomComponent',
+						clickable: false,
+						time: 0
+					});
+					break;
 			}
 		},
 

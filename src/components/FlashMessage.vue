@@ -10,21 +10,42 @@
 		:style="positionStyleObj"
 		@click="clickHandler"
 	>
+		<!-- Dinamic component for message instance -->
+		<component
+			v-if="messageObj.component"
+			:is="messageObj.component"
+			:messageId="messageObj.id"
+		/>
+		<!-- In case if user pass raw html -->
 		<div
-			v-if="messageObj.icon"
-			:class="['_vue-flash-msg-body__icon', messageObj.iconClass]"
-		>
-			<img
-				:src="messageObj.icon"
-				alt=""
-				loading="lazy"
-				@load="imageLoadedHandler"
-			/>
+			v-else-if="messageObj.html"
+			class="wrapper"
+			v-html="messageObj.html"
+		/>
+		<!-- Deafault content for slot -->
+		<div v-else class="default-content">
+			<div
+				v-if="messageObj.icon"
+				:class="['_vue-flash-msg-body__icon', messageObj.iconClass]"
+			>
+				<img
+					:src="messageObj.icon"
+					alt=""
+					loading="lazy"
+					@load="imageLoadedHandler"
+				/>
+			</div>
+			<div
+				:class="[
+					'_vue-flash-msg-body__content',
+					messageObj.contentClass
+				]"
+			>
+				<h3>{{ messageObj.title }}</h3>
+				<p>{{ messageObj.message }}</p>
+			</div>
 		</div>
-		<div :class="['_vue-flash-msg-body__content', messageObj.contentClass]">
-			<h3>{{ messageObj.title }}</h3>
-			<p>{{ messageObj.message }}</p>
-		</div>
+		<!-- Deafault content for slot END-->
 	</div>
 </template>
 

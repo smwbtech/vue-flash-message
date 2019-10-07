@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import App from './App.vue';
 import FlashMessage from '@/components/index.js';
 import VueHighlightJS from 'vue-highlightjs';
+import CustomComponent from '@/demo/components/CustomComponent.vue';
 import Vuescroll from 'vuescroll';
 import store from '@/demo/store/store.js';
 import './assets/css/common.css';
@@ -30,6 +31,8 @@ Vue.use(Vuescroll, {
 	}
 });
 Vue.use(Vuex);
+
+Vue.component('CustomComponent', CustomComponent);
 
 new Vue({
 	store,
