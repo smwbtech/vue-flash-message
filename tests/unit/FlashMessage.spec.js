@@ -253,6 +253,35 @@ describe('Test FlashMessage Compoent', () => {
 			let mountedSpy = jest.fn();
 			let destroyedSpy = jest.fn();
 
+			it('Should not invoke setTimeout in mounted hook if messageObj.time equal to 0', () => {
+				// Clear setTimeout mock, before mounting component
+				setTimeout.mockClear();
+				hooksCmp = shallowMount(FlashMessage, {
+					propsData: {
+						messageObj: {
+							id: 1,
+							status: 'error',
+							title: 'error title',
+							message: 'error message',
+							time: 0
+						}
+					},
+					mocks: {
+						flashMessage: {
+							$emit: jest.fn(),
+							$once: jest.fn(),
+							$on: jest.fn(),
+							$_vueFlashMessage_setDimensions: jest.fn(),
+							currentHeight: 0
+						},
+						$el: {
+							offsetHeight: 200
+						}
+					}
+				});
+				expect(setTimeout).not.toHaveBeenCalled();
+			});
+
 			describe('Message with default position', () => {
 				beforeEach(() => {
 					hooksCmp = shallowMount(FlashMessage, {
