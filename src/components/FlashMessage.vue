@@ -12,18 +12,21 @@
 	>
 		<!-- Dinamic component for message instance -->
 		<component
-			v-if="messageObj.component"
-			:is="messageObj.component"
+			v-if="messageObj.componentName"
+			:is="messageObj.componentName"
 			:messageId="messageObj.id"
 		/>
 		<!-- In case if user pass raw html -->
 		<div
 			v-else-if="messageObj.html"
-			class="wrapper"
+			:class="['_vue-flash-msg-wrapper', messageObj.wrapperClass]"
 			v-html="messageObj.html"
 		/>
-		<!-- Deafault content for slot -->
-		<div v-else class="default-content">
+		<!-- Deafault content -->
+		<div
+			v-else
+			:class="['_vue-flash-msg-wrapper', messageObj.wrapperClass]"
+		>
 			<div
 				v-if="messageObj.icon"
 				:class="['_vue-flash-msg-body__icon', messageObj.iconClass]"
@@ -45,7 +48,7 @@
 				<p>{{ messageObj.message }}</p>
 			</div>
 		</div>
-		<!-- Deafault content for slot END-->
+		<!-- Deafault content END-->
 	</div>
 </template>
 
@@ -57,7 +60,6 @@ export default {};
 
 ._vue-flash-msg-body {
 	position: fixed;
-    display: flex;
     width: 35%;
     border-radius: 5px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
@@ -65,6 +67,7 @@ export default {};
     color: #fff;
     text-align: left;
     cursor: pointer;
+	overflow: hidden;
     transition: all .3s ease-in;
 
 	/* If user set prop.unclickabe === true */
@@ -81,6 +84,11 @@ export default {};
 	&._vue-flash-msg-_left-top {
         left: 20px;
     }
+
+	& ._vue-flash-msg-wrapper {
+		display: flex;
+		width: 100%;
+	}
 
     & ._vue-flash-msg-body__icon {
         display: flex;
