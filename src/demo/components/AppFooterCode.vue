@@ -42,6 +42,14 @@ export default {
 					return this.$store.getters[
 						'flashMessage/customStyleCodeExample'
 					];
+				case 'custom component':
+					return this.$store.getters[
+						'flashMessage/customComponentCodeExample'
+					];
+				case 'raw html':
+					return this.$store.getters[
+						'flashMessage/rawHtmlCodeExample'
+					];
 			}
 		}
 	}

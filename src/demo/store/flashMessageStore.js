@@ -109,7 +109,8 @@ export default {
 </script>`;
 		},
 		customStyleCodeExample(state) {
-			return `<template>
+			return `
+<template>
   <FlashMessage :position="'${state.position}'"/>
 </template>
 
@@ -149,9 +150,113 @@ export default {
   }
 }
 </script>`;
+		},
+		customComponentCodeExample(state) {
+			return `
+<template>
+  <FlashMessage :position="'${state.position}'"/>
+</template>
+
+<script>
+export default {
+  // ... some your code
+  methods: {
+  someEventHandler() {
+    /*
+    * You shouldn't set up strategy every time
+    * before "show" method call. It is just an
+    * example.
+    */
+    this.flashMessage.setStrategy('${state.strategy}');
+    this.flashMessage.show({
+	  component: 'CustomComponent',
+  	  clickable: false,
+  	  time: 0
+    });
+  }
+}
+</script>
+
+<!-- Code of the custom component -->
+<!-- You should register it globally https://vuejs.org/v2/guide/components-registration.html#Global-Registration -->
+<template lang="html">
+  <div class="custom-component">
+    <!-- Do not forget provide interface element to close message block -->
+      <button
+        class="close-btn"
+        @click="flashMessage.deleteMessage(messageId)"
+      />
+      <h2>Meet vue number input</h2>
+      <p>
+        This is another component I'm working on,
+        <a
+          target="_blank"
+          href="https://smwbtech.github.io/vue-number-input/"
+          >vue-number-input</a
+        >
+      </p>
+      <VueNumberInput
+        v-model="value"
+        class="custom-input"
+        :inputClass="'custom-input-class'"
+      />
+    </div>
+</template>
+
+<script>
+import VueNumberInput from '@smartweb/vue-number-input';
+export default {
+  components: {
+    VueNumberInput
+  },
+
+  props: {
+    /*
+    * This prop will be passed to your component.
+    * Do not forget to declare it
+    */
+    messageId: {
+      type: Number
+    }
+  },
+
+  data() {
+    return {
+      value: 0
+    };
+  }
+};
+</script>
+`;
+		},
+		rawHtmlCodeExample(state) {
+			return `
+<template>
+  <FlashMessage :position="'${state.position}'"/>
+</template>
+
+<script>
+  export default {
+  // ... some your code
+  methods: {
+
+    someEventHandler() {
+      /*
+      * You shouldn't set up strategy every time
+      * before "show" method call. It is just an
+      * example.
+      */
+      this.flashMessage.setStrategy('${state.strategy}');
+      this.flashMessage.show({
+        html: "<table>...</table>", // String with html
+        blockClass: 'custom_msg',
+        time: 10000
+    },
+  });
+}
+</script>`;
 		}
 	},
-
 	mutations: {
 		setItem(state, payload) {
 			for (const [prop, val] of Object.entries(payload)) {

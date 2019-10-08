@@ -76,6 +76,32 @@
 
 <script>
 import { mapGetters } from 'vuex';
+const rawHtml = `<table cellspacing="0px">
+  <tr>
+    <th>Features</th>
+    <th>Dogs</th>
+    <th>Cats</th>
+    <th>Hoomans</th>
+  </tr>
+  <tr>
+    <td><strong>Cute</strong></td>
+    <td>&#10004</td>
+    <td>&#10004</td>
+    <td>&#10006</td>
+  </tr>
+  <tr>
+     <td><strong>Funny</strong></td>
+    <td>&#10004</td>
+    <td>&#10004</td>
+    <td>&#10006</td>
+  </tr>
+  <tr>
+    <td><strong>Fluffy</strong></td>
+    <td>&#10004</td>
+    <td>&#10004</td>
+    <td>&#10006</td>
+  </tr>
+</table>`;
 
 export default {
 	props: {
@@ -99,7 +125,8 @@ export default {
 				'custom position',
 				'custom styles',
 				'infinity lifecycle',
-				'custom component'
+				'custom component',
+				'raw html'
 			],
 			lorem:
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem.'
@@ -190,9 +217,20 @@ export default {
 						exampleType: v
 					});
 					this.flashMessage.show({
-						component: 'CustomComponent',
+						componentName: 'CustomComponent',
 						clickable: false,
 						time: 0
+					});
+					break;
+				case 'raw html':
+					this.$store.commit('flashMessage/setItem', {
+						exampleType: v
+					});
+					this.flashMessage.show({
+						html: rawHtml,
+						clickable: true,
+						time: 10000,
+						blockClass: 'custom_msg'
 					});
 					break;
 			}

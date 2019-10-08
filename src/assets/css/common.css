@@ -58,3 +58,20 @@ input:focus {
 .hljs-comment {
 	color: var(--app-light-grey);
 }
+
+table {
+	width: 100%;
+	border: 1px solid #fff;
+
+	& td,
+	& th {
+		width: 25%;
+		text-align: center;
+		color: #fff;
+		border: 1px solid #fff;
+		&:first-child {
+			text-align: left;
+			padding-left: 10px;
+		}
+	}
+}
