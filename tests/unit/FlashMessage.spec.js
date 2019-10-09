@@ -13,6 +13,8 @@ let config = {
 	strategy: 'single'
 };
 
+const componentStub = '<div class="custom-component-stub"></div>';
+
 const FlashMessage = Object.assign(
 	FlashMessageElem,
 	createMessageMixin(config)
@@ -418,6 +420,71 @@ describe('Test FlashMessage Compoent', () => {
 				let elem = cmp.find('._vue-flash-msg-body');
 				expect(elem.element.style.right).toBe('100px');
 				expect(elem.element.style.bottom).toBe('200px');
+			});
+		});
+
+		describe('Test rendering raw html in flash message block', () => {
+			const rawHtmlCmp = shallowMount(FlashMessage, {
+				propsData: {
+					messageObj: {
+						id: 1,
+						html: '<p class="raw-html"></p>',
+						clickable: true,
+						time: 8000
+					},
+					positionString: 'right bottom'
+				},
+				mocks: {
+					flashMessage: {
+						$emit: jest.fn(),
+						$once: jest.fn(),
+						$on: jest.fn(),
+						$_vueFlashMessage_setDimensions: jest.fn(),
+						currentHeight: 0
+					},
+					$el: {
+						offsetHeight: 200
+					}
+				}
+			});
+
+			it('Should render proper html in message block if user pass messageObj.html property', () => {
+				expect(rawHtmlCmp.contains('p.raw-html')).toBe(true);
+			});
+		});
+
+		describe('Test rendering custom component in flash message block', () => {
+			const customComponentCmp = shallowMount(FlashMessage, {
+				propsData: {
+					messageObj: {
+						id: 1,
+						componentName: 'TestComponent',
+						clickable: true,
+						time: 8000
+					},
+					positionString: 'right bottom'
+				},
+				stubs: {
+					TestComponent: componentStub
+				},
+				mocks: {
+					flashMessage: {
+						$emit: jest.fn(),
+						$once: jest.fn(),
+						$on: jest.fn(),
+						$_vueFlashMessage_setDimensions: jest.fn(),
+						currentHeight: 0
+					},
+					$el: {
+						offsetHeight: 200
+					}
+				}
+			});
+
+			it('Should render custom element and bind "componentName" property', () => {
+				expect(
+					customComponentCmp.contains('div.custom-component-stub')
+				).toBe(true);
 			});
 		});
 	});
