@@ -1,9 +1,8 @@
 <template lang="html">
 	<transition-group tag="div" :name="positionClass">
 		<VueMessageBlock
-			v-for="(message, index) in messages"
+			v-for="message in messages"
 			:key="`${message.id}-fm`"
-			:index="index"
 			:messageObj="message"
 			:positionString="position"
 		/>
