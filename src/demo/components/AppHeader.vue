@@ -30,6 +30,10 @@ export default {
 		return {
 			navItems: [
 				{
+					link: 'https://smwb-tech.gitbook.io/vue-flash-message/',
+					text: 'docs'
+				},
+				{
 					link: 'https://github.com/smwbtech/vue-flash-message',
 					text: 'github'
 				},
