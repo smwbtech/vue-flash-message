@@ -12,7 +12,7 @@ The component to display single flash message or multiple flash messages to user
 
 #### [Live Demo](https://smwbtech.github.io/vue-flash-message/)
 
-#### [Docs](https://smwb-tech.gitbook.io)
+#### [Docs](https://smwb-tech.gitbook.io/vue-flash-message/)
 
 ## Setup
 
