@@ -169,7 +169,7 @@ export default {
     */
     this.flashMessage.setStrategy('${state.strategy}');
     this.flashMessage.show({
-	  component: 'CustomComponent',
+	  componentName: 'CustomComponent',
   	  clickable: false,
   	  time: 0
     });
