@@ -6,7 +6,8 @@
 				<h3 class="preset-item__title">READY STYLES PRESETS</h3>
 				<ul class="preset-list">
 					<li
-						v-for="item in readyStylesPresets"
+						v-for="(item, index) in readyStylesPresets"
+						:key="`${index}-preset`"
 						:class="[
 							'preset-list-item',
 							'preset-list-item_styles',
@@ -250,93 +251,91 @@ export default {
 </script>
 
 <style lang="css">
-
 .presets {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: calc(var(--column) * 10 + var(--gutter) * 9);
-    padding-top: 40px;
-    color: var(--app-light-grey);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: calc(var(--column) * 10 + var(--gutter) * 9);
+	padding-top: 40px;
+	color: var(--app-light-grey);
 
-    /* presets block */
-    & .preset-item {
-        width: calc(var(--column) * 5 + var(--gutter) * 4);
-        text-align: left;
+	/* presets block */
+	& .preset-item {
+		width: calc(var(--column) * 5 + var(--gutter) * 4);
+		text-align: left;
 
-        & .preset-item__title {
+		& .preset-item__title {
 			font-family: rift, sans-serif;
 			font-weight: 300;
 			font-style: normal;
-        }
+		}
 
-        /* standart list */
-        & .preset-list {
-            font-family: rift, sans-serif;
+		/* standart list */
+		& .preset-list {
+			font-family: rift, sans-serif;
 			font-weight: 700;
 			font-style: normal;
-            font-size: 1.2em;
-            margin: 0;
-            padding: 0;
+			font-size: 1.2em;
+			margin: 0;
+			padding: 0;
 
-            & .preset-list-item {
-                list-style: none;
-                margin-bottom: 20px;
-                opacity: .6;
-                cursor: pointer;
-                transition: opacity .2s ease-in;
+			& .preset-list-item {
+				list-style: none;
+				margin-bottom: 20px;
+				opacity: 0.6;
+				cursor: pointer;
+				transition: opacity 0.2s ease-in;
 
-                &:hover {
-                    opacity: 1;
-                }
+				&:hover {
+					opacity: 1;
+				}
 
-                &.preset-list-item_active {
-                    opacity: 1;
-                }
-            }
+				&.preset-list-item_active {
+					opacity: 1;
+				}
+			}
+		} /* standart list end */
 
-        } /* standart list end */
+		/* preset styles list */
+		&.preset-item_styles {
+			& .preset-list {
+				& .preset-list-item_styles {
+					padding-left: 40px;
+					position: relative;
+					opacity: 1;
 
-        /* preset styles list */
-        &.preset-item_styles {
-            & .preset-list {
-                & .preset-list-item_styles {
-                    padding-left: 40px;
-                    position: relative;
-                    opacity: 1;
-
-                    &:before {
-                        position: absolute;
-                        left: 0;
+					&:before {
+						position: absolute;
+						left: 0;
 						top: calc(50% - 13px / 2);
-                        content: "";
-                        display: block;
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 100%;
-                        width: 13px;
-                        height: 13px;
-                    }
+						content: '';
+						display: block;
+						background-repeat: no-repeat;
+						background-position: center center;
+						background-size: 100%;
+						width: 13px;
+						height: 13px;
+					}
 
-                    &.preset-list-item_error:before {
-                        background-image: url('~@/assets/img/before_error.svg');
-                    }
+					&.preset-list-item_error:before {
+						background-image: url('~@/assets/img/before_error.svg');
+					}
 
-                    &.preset-list-item_warning:before {
-                        background-image: url('~@/assets/img/before_warning.svg');
-                    }
+					&.preset-list-item_warning:before {
+						background-image: url('~@/assets/img/before_warning.svg');
+					}
 
-                    &.preset-list-item_success:before {
-                        background-image: url('~@/assets/img/before_success.svg');
-                    }
+					&.preset-list-item_success:before {
+						background-image: url('~@/assets/img/before_success.svg');
+					}
 
-                    &.preset-list-item_info:before {
-                        background-image: url('~@/assets/img/before_info.svg');
-                    }
-                }
-            }
-        }/* preset styles list end*/
-    } /* presets block end */
+					&.preset-list-item_info:before {
+						background-image: url('~@/assets/img/before_info.svg');
+					}
+				}
+			}
+		} /* preset styles list end*/
+	} /* presets block end */
 }
 
 /* class for custom message */
@@ -374,20 +373,24 @@ export default {
 
 .assets-apper-enter,
 .assets-apper-leave-to {
-    opacity: 0;
+	opacity: 0;
 }
 
 .assets-apper-enter-active {
-    transition: opacity .4s ease-out;
+	transition: opacity 0.4s ease-out;
 }
 
 .assets-apper-leave-active {
-    transition: opacity .3s ease-in;
+	transition: opacity 0.3s ease-in;
 }
 
 @keyframes spin {
-	0% {transform: rotate(0deg);}
-	100% {transform: rotate(360deg);}
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 /* Mobile */
