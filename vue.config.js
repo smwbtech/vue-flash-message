@@ -20,6 +20,5 @@ module.exports = {
 			]
 		}
 	},
-	publicPath:
-		process.env.NODE_ENV === 'production' ? '/vue-flash-message/' : '/'
+	publicPath: process.env.NODE_ENV === 'build' ? '/vue-flash-message/' : '/'
 };
