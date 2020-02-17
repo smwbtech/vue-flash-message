@@ -130,19 +130,22 @@ describe('Test FlashMessage Compoent', () => {
 		});
 
 		describe('Test classes', () => {
-			it('When user set "blockClass" element sould have specified class', () => {
+			it('When user set "blockClass" element sould have specified class', done => {
 				cmp.setProps({
 					messageObj: {
 						blockClass: 'custom-user-class'
 					}
 				});
 				cmp.vm.$forceUpdate();
-				let elem = cmp.find('._vue-flash-msg-body');
-				expect(elem.is('div')).toBe(true);
-				expect(elem.classes()).toContain('custom-user-class');
+				cmp.vm.$nextTick(() => {
+					let elem = cmp.find('._vue-flash-msg-body');
+					expect(elem.is('div')).toBe(true);
+					expect(elem.classes()).toContain('custom-user-class');
+					done();
+				});
 			});
 
-			it('When user set "iconClass" element sould have specified class', () => {
+			it('When user set "iconClass" element sould have specified class', done => {
 				cmp.setProps({
 					messageObj: {
 						icon: 'iconUrl',
@@ -150,21 +153,27 @@ describe('Test FlashMessage Compoent', () => {
 					}
 				});
 				cmp.vm.$forceUpdate();
-				let elem = cmp.find('._vue-flash-msg-body__icon');
-				expect(elem.is('div')).toBe(true);
-				expect(elem.classes()).toContain('custom-icon-class');
+				cmp.vm.$nextTick(() => {
+					let elem = cmp.find('._vue-flash-msg-body__icon');
+					expect(elem.is('div')).toBe(true);
+					expect(elem.classes()).toContain('custom-icon-class');
+					done();
+				});
 			});
 
-			it('When user set "contentClass" element sould have specified class', () => {
+			it('When user set "contentClass" element sould have specified class', done => {
 				cmp.setProps({
 					messageObj: {
 						contentClass: 'custom-content-class'
 					}
 				});
 				cmp.vm.$forceUpdate();
-				let elem = cmp.find('._vue-flash-msg-body__content');
-				expect(elem.is('div')).toBe(true);
-				expect(elem.classes()).toContain('custom-content-class');
+				cmp.vm.$nextTick(() => {
+					let elem = cmp.find('._vue-flash-msg-body__content');
+					expect(elem.is('div')).toBe(true);
+					expect(elem.classes()).toContain('custom-content-class');
+					done();
+				});
 			});
 		});
 
@@ -409,7 +418,7 @@ describe('Test FlashMessage Compoent', () => {
 		});
 
 		describe('Test custom position of message', () => {
-			it('When user set "x" and "y" props, message block should have inline style with position fixed and coords', () => {
+			it('When user set "x" and "y" props, message block should have inline style with position fixed and coords', done => {
 				cmp.setProps({
 					messageObj: {
 						x: 100,
@@ -417,9 +426,12 @@ describe('Test FlashMessage Compoent', () => {
 					}
 				});
 				cmp.vm.$forceUpdate();
-				let elem = cmp.find('._vue-flash-msg-body');
-				expect(elem.element.style.right).toBe('100px');
-				expect(elem.element.style.bottom).toBe('200px');
+				cmp.vm.$nextTick(() => {
+					let elem = cmp.find('._vue-flash-msg-body');
+					expect(elem.element.style.right).toBe('100px');
+					expect(elem.element.style.bottom).toBe('200px');
+					done();
+				});
 			});
 		});
 
