@@ -21,7 +21,7 @@ jobs:
         - stage: testing
           if: branch in (master, dev)
           script: # if this is not set, it will run npm run test
-              - npm ci
+              - npm i
               - npm run test:unit
               - npm run build
               - npm run lib
