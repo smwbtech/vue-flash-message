@@ -54,83 +54,83 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 /* menu block */
 .menu {
-    position: fixed;
-    left: 0;
-    width: 100%;
-    height: 70vh;
-    background-color: var(--app-grey);
-    transition: bottom .4s ease-out;
+	position: fixed;
+	left: 0;
+	width: 100%;
+	height: 70vh;
+	background-color: var(--app-grey);
+	transition: bottom 0.4s ease-out;
 
 	& .wrapper {
 		display: flex;
-	    justify-content: space-between;
+		justify-content: space-between;
 		padding-left: calc(var(--side-padding) + var(--column) + var(--gutter));
-	    padding-right: calc(var(--side-padding) + var(--column) + var(--gutter));
+		padding-right: calc(
+			var(--side-padding) + var(--column) + var(--gutter)
+		);
 	}
 
-    /* menu toggle btn */
-    & .menu-toggle-btn {
-        position: absolute;
-        top: -30px;
-        left: calc(50% - 30px);
-        width: 60px;
-        height: 60px;
-        margin: 0;
-        padding: 0;
-        background-color: var(--app-light-grey);
-        border: 3px solid var(--app-grey);
-        border-radius: 60px;
-        overflow: hidden;
-        cursor: pointer;
+	/* menu toggle btn */
+	& .menu-toggle-btn {
+		position: absolute;
+		top: -30px;
+		left: calc(50% - 30px);
+		width: 60px;
+		height: 60px;
+		margin: 0;
+		padding: 0;
+		background-color: var(--app-light-grey);
+		border: 3px solid var(--app-grey);
+		border-radius: 60px;
+		overflow: hidden;
+		cursor: pointer;
 
-        &:before {
-            content: "";
-            display: block;
-            width: 50px;
-            height: 50px;
-            margin-top: 5px;
-            margin: 0 auto;
-            background-image: url('~@/assets/img/arrow.svg');
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: 80%;
-            transition: transform .4s ease-in;
-        }
+		&:before {
+			content: '';
+			display: block;
+			width: 50px;
+			height: 50px;
+			margin-top: 5px;
+			margin: 0 auto;
+			background-image: url('~@/assets/img/arrow.svg');
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: 80%;
+			transition: transform 0.4s ease-in;
+		}
+	} /* menu toggle btn end*/
 
-    } /* menu toggle btn end*/
+	&.menu_inactive {
+		bottom: -60vh;
+		& .menu-toggle-btn {
+			&:before {
+				transform: rotate(180deg);
+			}
+		}
+	}
 
-    &.menu_inactive {
-        bottom: -60vh;
-        & .menu-toggle-btn {
-            &:before {
-                transform: rotate(180deg);
-            }
-        }
-    }
-
-    &.menu_active {
-        bottom: 0%;
-        & .menu-toggle-btn {
-            &:before {
-                transform: rotate(0deg);
-            }
-        }
-    }
+	&.menu_active {
+		bottom: 0%;
+		& .menu-toggle-btn {
+			&:before {
+				transform: rotate(0deg);
+			}
+		}
+	}
 } /* menu block end*/
 
 /* Transition */
 
 .menu-appear-enter,
 .menu-appear-leave-to {
-    transform: translateY(calc(20vh));
+	transform: translateY(calc(20vh));
 }
 
 .menu-appear-enter-active,
 .menu-appear-leave-active {
-    transition: transform .6s ease-in .6s;
+	transition: transform 0.6s ease-in 0.6s;
 }
 
 /* Mobile */

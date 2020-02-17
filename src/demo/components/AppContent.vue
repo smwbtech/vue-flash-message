@@ -53,92 +53,90 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 .content {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: column;
-    padding: 0 calc(var(--side-padding) + var(--column) + var(--gutter));
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+	padding: 0 calc(var(--side-padding) + var(--column) + var(--gutter));
 
-    /* message block */
-    & .message {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        width: calc(var(--column) * 9 + var(--gutter) * 8);
-        border: 1px solid var(--app-grey);
-        border-radius: 10px;
-        box-shadow: 2px 2px 8px rgba(0,0,0,.16);
+	/* message block */
+	& .message {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px;
+		width: calc(var(--column) * 9 + var(--gutter) * 8);
+		border: 1px solid var(--app-grey);
+		border-radius: 10px;
+		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.16);
 
-        &:after {
-            display: block;
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 80px;
-            bottom: -90px;
-            background-image: url('~@/assets/img/shadow.svg');
-            background-size: 100%;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
+		&:after {
+			display: block;
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 80px;
+			bottom: -90px;
+			background-image: url('~@/assets/img/shadow.svg');
+			background-size: 100%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
 
-        /* avatar */
-        & .message-avatar {
-            display: block;
-            width: calc(var(--column) * 4 + var(--gutter) * 3);
-            height: auto;
+		/* avatar */
+		& .message-avatar {
+			display: block;
+			width: calc(var(--column) * 4 + var(--gutter) * 3);
+			height: auto;
 
-            & > * {
-                display: block;
-                max-width: 100%;
-                height: auto;
-            }
-        }/* avatar end*/
+			& > * {
+				display: block;
+				max-width: 100%;
+				height: auto;
+			}
+		} /* avatar end*/
 
-        /* message text */
-        & .message-text {
-            margin-left: var(--gutter);
-            text-align: left;
+		/* message text */
+		& .message-text {
+			margin-left: var(--gutter);
+			text-align: left;
 
-            & .message-text__title {
-                font-family: 'Baron Neue', sans-serif;
-            }
+			& .message-text__title {
+				font-family: 'Baron Neue', sans-serif;
+			}
 
-            & p {
-                color: var(--app-grey);
+			& p {
+				color: var(--app-grey);
 				font-family: mrs-eaves-roman-lining, sans-serif;
 				font-weight: 400;
 				font-style: normal;
-                line-height: 1.4;
+				line-height: 1.4;
 
-                & a {
-                    color: var(--app-blue);
-                    text-decoration: none;
-                }
-            }
-        } /* message text end */
+				& a {
+					color: var(--app-blue);
+					text-decoration: none;
+				}
+			}
+		} /* message text end */
+	} /* message block end*/
 
-    }/* message block end*/
-
-    & .fm-btn {
-        font-family: 'Baron Neue', sans-serif;
-        font-size: 1.2em;
-        display: block;
-        padding: 10px;
-        color: #fff;
-        text-align: center;
-        border: 1px solid var(--app-grey);
-        border-radius: 5px;
-        background-color: var(--app-grey);
-        margin-top: 100px;
-        cursor: pointer;
-    }
+	& .fm-btn {
+		font-family: 'Baron Neue', sans-serif;
+		font-size: 1.2em;
+		display: block;
+		padding: 10px;
+		color: #fff;
+		text-align: center;
+		border: 1px solid var(--app-grey);
+		border-radius: 5px;
+		background-color: var(--app-grey);
+		margin-top: 100px;
+		cursor: pointer;
+	}
 }
 
 /* transition */
@@ -157,10 +155,10 @@ export default {
 
 .message-appear-enter-active,
 .message-appear-leave-active {
-	transition: opacity .6s ease-in, transform .6s ease-out;
+	transition: opacity 0.6s ease-in, transform 0.6s ease-out;
 
 	&.message:after {
-		transition: transform .6s ease-out;
+		transition: transform 0.6s ease-out;
 	}
 }
 
@@ -172,7 +170,7 @@ export default {
 
 .btn-apper-enter-active,
 .btn-apper-leave-active {
-	transition: opacity .3s ease-in .5s, transform .3s ease-out .5s;
+	transition: opacity 0.3s ease-in 0.5s, transform 0.3s ease-out 0.5s;
 }
 
 /* Mobile */
@@ -184,7 +182,7 @@ export default {
 		& .message {
 			width: calc(var(--m-column) * 9 + var(--m-gutter) * 8);
 			flex-flow: column;
-			font-size: .8em;
+			font-size: 0.8em;
 			text-align: center;
 
 			&:after {

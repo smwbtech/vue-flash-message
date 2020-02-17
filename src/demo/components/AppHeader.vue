@@ -54,69 +54,65 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 header {
-    width: 100%;
-    padding-top: 20px;
-    padding-left: calc(var(--side-padding) + var(--column) + var(--gutter));
-    padding-right: calc(var(--side-padding) + var(--column) + var(--gutter));
-    color: var(--app-grey);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	width: 100%;
+	padding-top: 20px;
+	padding-left: calc(var(--side-padding) + var(--column) + var(--gutter));
+	padding-right: calc(var(--side-padding) + var(--column) + var(--gutter));
+	color: var(--app-grey);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	font-family: rift, sans-serif;
 	font-weight: 700;
 	font-style: normal;
 
-    /* Logo */
-    & .logo {
-        display: flex;
-        align-items: center;
+	/* Logo */
+	& .logo {
+		display: flex;
+		align-items: center;
 
-        & .logo__title {
-            margin-left: var(--gutter);
-        }
-    }/* Logo end*/
+		& .logo__title {
+			margin-left: var(--gutter);
+		}
+	} /* Logo end*/
 
-    /* navigation */
+	/* navigation */
 
-    & .nav {
+	& .nav {
+		& .nav-list {
+			display: flex;
+			align-items: center;
+			padding: 0;
+			margin: 0;
+			list-style: none;
 
-        & .nav-list {
-            display: flex;
-            align-items: center;
-            padding: 0;
-            margin: 0;
-            list-style: none;
+			& .nav-list-item {
+				display: block;
+				margin-left: calc(var(--column) + var(--gutter));
 
-            & .nav-list-item {
-                display: block;
-                margin-left: calc(var(--column) + var(--gutter));
+				/* links */
+				& .nav-list-item__link {
+					color: var(--app-grey);
+					text-decoration: none;
+					transition: color 0.2s ease-in;
 
-                /* links */
-                & .nav-list-item__link {
-                    color: var(--app-grey);
-                    text-decoration: none;
-                    transition: color .2s ease-in;
-
-                    &:hover {
-                        color:var(--app-blue);
-                    }
-
-                }/* links  end*/
-            }
-        }
-    }/* navigation end */
+					&:hover {
+						color: var(--app-blue);
+					}
+				} /* links  end*/
+			}
+		}
+	} /* navigation end */
 }
 
 /* Mobile */
 
-@media (320px <= width < 1024px)  {
+@media (320px <= width < 1024px) {
 	header {
 		padding: var(--m-gutter);
 
 		& .logo {
-
 			width: calc(var(--m-column) * 3 + var(--m-gutter) * 2);
 
 			& .logo__img {

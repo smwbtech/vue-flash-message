@@ -63,14 +63,14 @@ export default {
 		background-size: 100%;
 		background-repeat: no-repeat;
 		background-position: center center;
-		background-color: rgba(0,0,0,0);
+		background-color: rgba(0, 0, 0, 0);
 		border: none;
 		cursor: pointer;
 	}
 
 	& .custom-input {
 		width: 40%;
-		background-color: rgba(255, 255, 255, .2);
+		background-color: rgba(255, 255, 255, 0.2);
 
 		& .custom-input-class {
 			background-color: rgba(255, 255, 255, 0);
