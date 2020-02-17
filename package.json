@@ -3,7 +3,7 @@
 	"version": "0.5.3",
 	"main": "./build/vue-flash-msg.common.js",
 	"files": [
-		"build/*"
+		"build/*.js"
 	],
 	"description": "Vue flash message component",
 	"keywords": [
