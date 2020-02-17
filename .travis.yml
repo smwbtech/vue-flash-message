@@ -3,7 +3,6 @@ node_js:
     - 12
 cache:
     directories:
-        - node_modules
         - '$HOME/.npm'
 # script:
 #     - npm run test:unit
