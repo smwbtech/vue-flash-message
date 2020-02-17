@@ -6,7 +6,19 @@ module.exports = {
 	},
 	configureWebpack: {
 		mode: 'production',
-		plugins: [new TerserPlugin()]
+		optimization: {
+			minimize: true,
+			minimizer: [
+				new TerserPlugin({
+					sourceMap: false,
+					terserOptions: {
+						ie8: false,
+						safari10: false,
+						ecma: 2015
+					}
+				})
+			]
+		}
 	},
 	publicPath:
 		process.env.NODE_ENV === 'production' ? '/vue-flash-message/' : '/'
