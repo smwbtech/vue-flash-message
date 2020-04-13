@@ -79,7 +79,7 @@ Put the component into your template
 You can pass a string as position property to set up default position of messages block. Valid values: **'right bottom'**, **'right top'**, **'left bottom'**, **'left top'**.
 
 ```html
-<FlashMessage :position="right bottom"></FlashMessage>
+<FlashMessage :position="'right bottom'"></FlashMessage>
 ```
 
 Now you can access flash message by using global EventBus alias (that is "flashMessage" by default) of your Vue instance
