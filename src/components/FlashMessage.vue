@@ -44,8 +44,12 @@
 					messageObj.contentClass
 				]"
 			>
-				<p role="heading" class="_vue-flash-msg-body__title">{{ messageObj.title }}</p>
-				<p class="_vue-flash-msg-body__text">{{ messageObj.message }}</p>
+				<p role="heading" class="_vue-flash-msg-body__title">
+					{{ messageObj.title }}
+				</p>
+				<p class="_vue-flash-msg-body__text">
+					{{ messageObj.message }}
+				</p>
 			</div>
 		</div>
 		<!-- Deafault content END-->
