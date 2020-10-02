@@ -143,7 +143,6 @@ export function createMessageMixin(config, version = 2) {
 
 		// Invoke mounted callback function if exist
 		mounted() {
-			console.log('mounted');
 			this.heightWithoutImage = this.$el.offsetHeight;
 			this.yAxis =
 				version < 3
