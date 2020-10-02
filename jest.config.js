@@ -23,6 +23,7 @@ module.exports = {
 	collectCoverageFrom: [
 		'**/src/components/**',
 		'!**/src/components/index.js',
+		'!**/src/components/fallback/**',
 		'!**/App.{vue}',
 		'!**/wrapper.js',
 		'!**/node_modules/**',
