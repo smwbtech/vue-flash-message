@@ -8,29 +8,38 @@ const defaultSettings = {
 	name: 'flashMessage',
 	tag: 'FlashMessage',
 	time: 8000,
-	strategy: 'single'
+	strategy: 'miltiple'
 };
 
-export default function install(Vue, config = {}) {
+export default function install(Vue, config = {}, ref) {
 	if (install.installed) return;
+
+	const version = Number(Vue.version.split('.')[0]);
 	install.installed = true;
 
 	config = Object.assign(defaultSettings, config);
 
 	// Set up Event Bus
-	const EventBus = new Vue(createEventBus(config));
-	// Global access to flashMessage property
-	Vue.prototype[config.name] = EventBus;
+	if (version < 3) {
+		const EventBus = new Vue(createEventBus(config));
+		// Global access to flashMessage property
+		Vue.prototype[config.name] = EventBus;
+	}
+	//TODO: this is for versions compability
+	else {
+		const EventBus = createEventBus(config, version, ref);
+		Vue.config.globalProperties[config.name] = EventBus;
+	}
 	// Extend Container component
 	const Container = Object.assign(
 		ContainerElem,
-		createContainerMixin(config)
+		createContainerMixin(config, version)
 	);
 
 	// Extend Flash Message component
 	const FlashMessage = Object.assign(
 		FlashMessageElem,
-		createMessageMixin(config)
+		createMessageMixin(config, version)
 	);
 	//  Set up component
 	Vue.component(config.tag, Container);
