@@ -1,4 +1,4 @@
-export function createContainerMixin(config) {
+export function createContainerMixin(config, version = 2) {
 	return {
 		props: {
 			position: {
@@ -20,10 +20,16 @@ export function createContainerMixin(config) {
 		computed: {
 			// Get strategy
 			strategy() {
-				return this[config.name].strategy;
+				//TODO: this is for versions compability
+				return version < 3
+					? this[config.name].strategy
+					: this[config.name].strategy.value;
 			},
 			messages() {
-				return this[config.name].messages;
+				//TODO: this is for versions compability
+				return version < 3
+					? this[config.name].messages
+					: this[config.name].messages.value;
 			},
 			// Firstly it was position class for container,
 			// but now it will be usef for message.
