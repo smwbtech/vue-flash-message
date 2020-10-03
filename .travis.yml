@@ -40,6 +40,8 @@ jobs:
                 api_key: '$NPM_TOKEN'
                 edge: true
                 skip_cleanup: true
+                on:
+                    branch: 0.x.x
               - provider: pages
                 edge: true
                 skip_cleanup: true
