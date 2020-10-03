@@ -69,7 +69,10 @@ export function createMessageMixin(config) {
 			 */
 			clearData(clear = true) {
 				if (this.timeoutId && clear) clearTimeout(this.timeoutId);
-				this[config.name].$emit('delete-message', this.messageObj.id);
+				this[`$${config.name}`].$emit(
+					'delete-message',
+					this.messageObj.id
+				);
 			},
 
 			/**
@@ -102,7 +105,7 @@ export function createMessageMixin(config) {
 				if (!this.isCustom) {
 					const diff =
 						this.$el.offsetHeight - this.heightWithoutImage;
-					this[config.name].$emit('image-loaded', {
+					this[`$${config.name}`].$emit('image-loaded', {
 						height: diff,
 						id: this.messageObj.id,
 						img: true
@@ -136,7 +139,7 @@ export function createMessageMixin(config) {
 					this.messageObj.time
 				);
 			}
-			this[config.name].$on(
+			this[`$${config.name}`].$on(
 				'change-position',
 				this.changePositionHandler
 			);
@@ -145,11 +148,11 @@ export function createMessageMixin(config) {
 		// Invoke mounted callback function if exist
 		mounted() {
 			this.heightWithoutImage = this.$el.offsetHeight;
-			this.yAxis = this[config.name].currentHeight.value + 20;
+			this.yAxis = this[`$${config.name}`].currentHeight.value + 20;
 
 			// If this is not an object with custom position
 			if (!this.isCustom) {
-				this[config.name].$_vueFlashMessage_setDimensions({
+				this[`$${config.name}`].$_vueFlashMessage_setDimensions({
 					height: this.$el.offsetHeight + 20
 				});
 			}
@@ -159,13 +162,13 @@ export function createMessageMixin(config) {
 		},
 
 		beforeUnmount() {
-			this[config.name].$off(
+			this[`$${config.name}`].$off(
 				'change-position',
 				this.changePositionHandler
 			);
 			// If this is not message with custom position
 			if (!this.isCustom) {
-				this[config.name].$emit('destroy', {
+				this[`$${config.name}`].$emit('destroy', {
 					height: -(this.$el.offsetHeight + 20),
 					id: this.messageObj.id
 				});
