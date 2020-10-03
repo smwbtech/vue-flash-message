@@ -1,6 +1,4 @@
-export function createMessageMixin(config, version = 2) {
-	const _beforeDestroyHook = version < 3 ? 'beforeDestroy' : 'beforeUnmount';
-	const _destroyedHook = version < 3 ? 'destroyed' : 'unmounted';
+export function createMessageMixin(config) {
 	//If user choosed 'bus' strategy or didn't pass any args
 	return {
 		props: {
@@ -71,7 +69,7 @@ export function createMessageMixin(config, version = 2) {
 			 */
 			clearData(clear = true) {
 				if (this.timeoutId && clear) clearTimeout(this.timeoutId);
-				this[config.name].$emit('deleteMessage', this.messageObj.id);
+				this[config.name].$emit('delete-message', this.messageObj.id);
 			},
 
 			/**
@@ -104,7 +102,7 @@ export function createMessageMixin(config, version = 2) {
 				if (!this.isCustom) {
 					const diff =
 						this.$el.offsetHeight - this.heightWithoutImage;
-					this[config.name].$emit('imageLoaded', {
+					this[config.name].$emit('image-loaded', {
 						height: diff,
 						id: this.messageObj.id,
 						img: true
@@ -138,16 +136,16 @@ export function createMessageMixin(config, version = 2) {
 					this.messageObj.time
 				);
 			}
-			this[config.name].$on('changePosition', this.changePositionHandler);
+			this[config.name].$on(
+				'change-position',
+				this.changePositionHandler
+			);
 		},
 
 		// Invoke mounted callback function if exist
 		mounted() {
 			this.heightWithoutImage = this.$el.offsetHeight;
-			this.yAxis =
-				version < 3
-					? this[config.name].currentHeight + 20
-					: this[config.name].currentHeight.value + 20;
+			this.yAxis = this[config.name].currentHeight.value + 20;
 
 			// If this is not an object with custom position
 			if (!this.isCustom) {
@@ -160,10 +158,11 @@ export function createMessageMixin(config, version = 2) {
 			this.invokeCallback('mounted');
 		},
 
-		[_beforeDestroyHook]() {
-			if (version < 3) {
-				this.$off('changePosition', this.changePositionHandler);
-			}
+		beforeUnmount() {
+			this[config.name].$off(
+				'change-position',
+				this.changePositionHandler
+			);
 			// If this is not message with custom position
 			if (!this.isCustom) {
 				this[config.name].$emit('destroy', {
@@ -174,7 +173,7 @@ export function createMessageMixin(config, version = 2) {
 		},
 
 		// Invoke destroyed callback function if exist
-		[_destroyedHook]() {
+		unmounted() {
 			this.invokeCallback('destroyed');
 		}
 	};

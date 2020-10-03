@@ -53,13 +53,13 @@ export function createEventbusFallback(config, ref) {
 			if (height < 0 && typeof id === 'number') {
 				/* istanbul ignore next */
 				setTimeout(() => {
-					this.$emit('changePosition', {
+					this.$emit('change-position', {
 						height: Math.abs(height),
 						id
 					});
 				}, 500);
 			} else {
-				this.$emit('changePosition', { height, id, img });
+				this.$emit('change-position', { height, id, img });
 			}
 		}
 		show(data, callbacks = {}) {
@@ -106,9 +106,9 @@ export function createEventbusFallback(config, ref) {
 	}
 
 	const eventBus = new FlashMessage(ref);
-	eventBus.$on('deleteMessage', eventBus.deleteMessage);
+	eventBus.$on('delete-message', eventBus.deleteMessage);
 	eventBus.$on('destroy', eventBus.$_vueFlashMessage_setDimensions);
-	eventBus.$on('imageLoaded', eventBus.$_vueFlashMessage_setDimensions);
+	eventBus.$on('image-loaded', eventBus.$_vueFlashMessage_setDimensions);
 
 	// Add shorthands
 	for (const shorthand of SHORTHANDS) {
