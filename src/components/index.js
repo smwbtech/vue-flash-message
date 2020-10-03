@@ -12,7 +12,7 @@ const defaultSettings = {
 	strategy: 'single'
 };
 
-export default function install(Vue, config = {}, ref) {
+export default function install(Vue, config = {}, ref, defineComponent) {
 	if (install.installed) return;
 
 	const version = Number(Vue.version.split('.')[0]);
@@ -34,16 +34,21 @@ export default function install(Vue, config = {}, ref) {
 		Vue.config.globalProperties[`$${config.name}`] = EventBus;
 	}
 	// Extend Container component
-	const Container = Object.assign(
+	let Container = Object.assign(
 		ContainerElem,
 		createContainerMixin(config, version)
 	);
 
 	// Extend Flash Message component
-	const FlashMessage = Object.assign(
+	let FlashMessage = Object.assign(
 		FlashMessageElem,
 		createMessageMixin(config, version)
 	);
+	// TODO: try to figure out error in final build
+	if (version > 2) {
+		Container = defineComponent(Container);
+		FlashMessage = defineComponent(FlashMessage);
+	}
 	//  Set up component
 	Vue.component(config.tag, Container);
 	Vue.component('VueMessageBlock', FlashMessage);
