@@ -1,6 +1,7 @@
 # vue-flash-message
 
 [![vue](https://img.shields.io/badge/Vue-2.x-green.svg)](https://vuejs.org/index.html)
+[![vue](https://img.shields.io/badge/Vue-3.x-green.svg)](https://v3.vuejs.org/)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/smwbtech/vue-flash-message/blob/master/LICENSE.md)
 [![Build Status](https://travis-ci.org/smwbtech/vue-flash-message.svg?branch=master)](https://travis-ci.org/smwbtech/vue-flash-message)
 [![Coverage Status](https://coveralls.io/repos/github/smwbtech/vue-flash-message/badge.svg?branch=master)](https://coveralls.io/github/smwbtech/vue-flash-message?branch=master)
@@ -9,6 +10,7 @@
 ![Gif Image](https://raw.githubusercontent.com/smwbtech/vue-flash-message/master/public/vue-flash-message.gif)
 
 The component to display single flash message or multiple flash messages to user. It has styles presets, but can be easily customized by passing style object as argument.
+Compatible with **Vue 2.x.x** and **Vue 3.x.x**
 
 #### [Live Demo](https://smwbtech.github.io/vue-flash-message/)
 
@@ -21,6 +23,8 @@ npm i @smartweb/vue-flash-message
 ```
 
 ## Installation and Configuration
+
+### Vue 2.x.x
 
 Register the component in your app entry point (main.js or as you called it)
 
@@ -36,15 +40,29 @@ You can pass [configuration object](#configuration-object) as second argument
 Vue.use(FlashMessage, config);
 ```
 
+### Vue 3.x.x
+
+All the steps are the same as in case with Vue 2 version, except one important thing. You need to import ref function from vue package and pass it as third argument, when you register flashMessage plugin.
+
+```javascript
+import { createApp, ref } from 'vue';
+import App from './App.vue';
+import FlashMessage from '@smartweb/vue-flash-message';
+
+const app = createApp(App);
+app.use(FlashMessage, {}, ref);
+app.mount('#app');
+```
+
 ### Nuxt.js
 
 Create vue-flash-message.js file in plugins directory and put the following code:
 
 ```javascript
 import Vue from 'vue';
-import VueFlashMessage from '@smartweb/vue-flash-message';
+import FlashMessage from '@smartweb/vue-flash-message';
 
-Vue.use(VueFlashMessage);
+Vue.use(FlashMessage);
 ```
 
 In your nuxt.config.js file register your plugin
@@ -73,24 +91,26 @@ In your nuxt.config.js file register your plugin
 Put the component into your template
 
 ```html
-<FlashMessage></FlashMessage>
+<FlashMessage />
 ```
 
 You can pass a string as position property to set up default position of messages block. Valid values: **'right bottom'**, **'right top'**, **'left bottom'**, **'left top'**.
 
 ```html
-<FlashMessage :position="'right bottom'"></FlashMessage>
+<FlashMessage :position="'right bottom'" />
 ```
 
-Now you can access flash message by using global EventBus alias (that is "flashMessage" by default) of your Vue instance
+Now you can access flash message by using global EventBus alias (that is "\$flashMessage" by default) of your Vue instance.
 
 ```javascript
-this.flashMessage.show({
+this.$flashMessage.show({
 	status: 'error',
 	title: 'Error Message Title',
 	message: 'Oh, you broke my heart! Shame on you!'
 });
 ```
+
+> ⚠️ in versions < 0.7.x you can call plugin without \$ prefix. You can still do it, but this will not be available starting from version 1.0.0
 
 ## Methods
 
