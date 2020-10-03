@@ -121,7 +121,7 @@ this.$flashMessage.show({
 Every display message method will return the id of the message instance
 
 ```javascript
-this.flashMessage.show({
+this.$flashMessage.show({
 	status: 'error',
 	title: 'Error Message Title',
 	message: 'Oh, you broke my heart! Shame on you!'
@@ -131,19 +131,19 @@ this.flashMessage.show({
 You also can use shorthands without status property.
 
 ```javascript
-this.flashMessage.error({
+this.$flashMessage.error({
 	title: 'Error Message Title',
 	message: 'Oh, you broke my heart! Shame on you!'
 });
-this.flashMessage.warning({
+this.$flashMessage.warning({
 	title: 'Warning Message Title',
 	message: "Don't stop me nooooow....!"
 });
-this.flashMessage.info({
+this.$flashMessage.info({
 	title: 'Info Message Title',
 	message: 'Just want you to know, that Vue is so cool'
 });
-this.flashMessage.success({
+this.$flashMessage.success({
 	title: 'Success Message Title',
 	message: 'Hoorah, it is my fist npm package and it works!'
 });
