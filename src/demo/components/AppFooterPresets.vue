@@ -107,18 +107,19 @@ const rawHtml = `<table cellspacing="0px">
 export default {
 	props: {
 		isActive: {
-			type: Boolean
-		}
+			type: Boolean,
+		},
 	},
 
 	data() {
 		return {
+			publicPath: process.env.BASE_URL,
 			readyStylesPresets: ['error', 'warning', 'success', 'info'],
 			defaultPositions: [
 				'right bottom',
 				'right top',
 				'left bottom',
-				'left top'
+				'left top',
 			],
 			strategyList: ['single', 'multiple'],
 			examples: [
@@ -127,27 +128,27 @@ export default {
 				'custom styles',
 				'infinity lifecycle',
 				'custom component',
-				'raw html'
+				'raw html',
 			],
 			lorem:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem.'
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin fermentum, ligula ac accumsan lobortis, nulla ante pharetra magna, sed sagittis dui metus sit amet lorem.',
 		};
 	},
 
 	computed: {
-		...mapGetters('flashMessage', ['position', 'strategy'])
+		...mapGetters('flashMessage', ['position', 'strategy']),
 	},
 
 	methods: {
 		showPreset(v) {
 			this.$store.commit('flashMessage/setItem', {
 				shorthand: v,
-				exampleType: 'standart'
+				exampleType: 'standart',
 			});
 			this.flashMessage[v]({
 				icon: `${v}.svg`,
 				title: `Title for ${v} message`,
-				message: this.lorem
+				message: this.lorem,
 			});
 		},
 
@@ -160,18 +161,18 @@ export default {
 			switch (v) {
 				case 'unclickable without icon':
 					this.$store.commit('flashMessage/setItem', {
-						exampleType: v
+						exampleType: v,
 					});
 					this.flashMessage.error({
 						title: 'Message Without Icon',
 						message: this.lorem,
 						icon: false,
-						clickable: false
+						clickable: false,
 					});
 					break;
 				case 'custom position':
 					this.$store.commit('flashMessage/setItem', {
-						exampleType: v
+						exampleType: v,
 					});
 					this.flashMessage.show({
 						title: 'Custom Position Message',
@@ -180,29 +181,29 @@ export default {
 						blockClass: 'custom_msg_two',
 						position: 'left top',
 						x: window.innerWidth / 2,
-						y: window.innerHeight / 2
+						y: window.innerHeight / 2,
 					});
 					break;
 				case 'custom styles':
 					this.$store.commit('flashMessage/setItem', {
-						exampleType: v
+						exampleType: v,
 					});
 					this.flashMessage.show(
 						{
 							title: 'Custom Styled Message',
 							message: this.lorem,
 							icon: 'custom_style.svg',
-							blockClass: 'custom_msg'
+							blockClass: 'custom_msg',
 						},
 						{
 							mounted: this.mountedSound,
-							destroyed: this.destroyedSound
+							destroyed: this.destroyedSound,
 						}
 					);
 					break;
 				case 'infinity lifecycle':
 					this.$store.commit('flashMessage/setItem', {
-						exampleType: v
+						exampleType: v,
 					});
 					this.flashMessage.show({
 						title: 'I will live forever',
@@ -210,43 +211,44 @@ export default {
 							'This message will not disappear until user click on it. Please, do not combine unclickabe and time equal to 0 properties. It will be deprecated in final release.',
 						icon: 'infinity.svg',
 						blockClass: 'infinity_msg',
-						time: 0
+						time: 0,
 					});
 					break;
 				case 'custom component':
 					this.$store.commit('flashMessage/setItem', {
-						exampleType: v
+						exampleType: v,
 					});
 					this.flashMessage.show({
 						componentName: 'CustomComponent',
 						clickable: false,
-						time: 0
+						time: 0,
 					});
 					break;
 				case 'raw html':
 					this.$store.commit('flashMessage/setItem', {
-						exampleType: v
+						exampleType: v,
 					});
 					this.flashMessage.show({
 						html: rawHtml,
 						clickable: true,
 						time: 10000,
-						blockClass: 'custom_msg'
+						blockClass: 'custom_msg',
 					});
 					break;
 			}
 		},
 
 		mountedSound() {
-			let sound = new Audio('/sounds/message.mp3');
+			console.log(this.publicPath);
+			let sound = new Audio(`${this.publicPath}sounds/message.mp3`);
 			sound.play();
 		},
 
 		destroyedSound() {
-			let sound = new Audio('/sounds/delete.mp3');
+			let sound = new Audio(`${this.publicPath}sounds/delete.mp3`);
 			sound.play();
-		}
-	}
+		},
+	},
 };
 </script>
 
