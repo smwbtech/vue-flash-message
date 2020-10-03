@@ -9,6 +9,7 @@
 ![Gif Image](https://raw.githubusercontent.com/smwbtech/vue-flash-message/master/public/vue-flash-message.gif)
 
 The component to display single flash message or multiple flash messages to user. It has styles presets, but can be easily customized by passing style object as argument.
+[Vue 3 version - alpha](https://www.npmjs.com/package/@smartweb/vue-flash-message/v/next)
 
 #### [Live Demo](https://smwbtech.github.io/vue-flash-message/)
 
