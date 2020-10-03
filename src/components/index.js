@@ -20,7 +20,6 @@ export default function install(Vue, config = {}, ref) {
 
 	// Set up Event Bus
 	const EventBus = createEventbusFallback(config, ref);
-	Vue.config.globalProperties[config.name] = EventBus;
 	Vue.config.globalProperties[`$${config.name}`] = EventBus;
 	// Extend Container component
 	let Container = Object.assign(ContainerElem, createContainerMixin(config));
