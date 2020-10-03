@@ -1,6 +1,5 @@
 # vue-flash-message
 
-[![vue](https://img.shields.io/badge/Vue-2.x-green.svg)](https://vuejs.org/index.html)
 [![vue](https://img.shields.io/badge/Vue-3.x-green.svg)](https://v3.vuejs.org/)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/smwbtech/vue-flash-message/blob/master/LICENSE.md)
 [![Build Status](https://travis-ci.org/smwbtech/vue-flash-message.svg?branch=master)](https://travis-ci.org/smwbtech/vue-flash-message)
@@ -9,8 +8,9 @@
 
 ![Gif Image](https://raw.githubusercontent.com/smwbtech/vue-flash-message/master/public/vue-flash-message.gif)
 
+> ⚠️ This is APLHA version for those who want to migrate from Vue 2 to Vue 3. Plugin API will be changed in final release.
+
 The component to display single flash message or multiple flash messages to user. It has styles presets, but can be easily customized by passing style object as argument.
-Compatible with **Vue 2.x.x** and **Vue 3.x.x**
 
 #### [Live Demo](https://smwbtech.github.io/vue-flash-message/)
 
@@ -23,22 +23,6 @@ npm i @smartweb/vue-flash-message
 ```
 
 ## Installation and Configuration
-
-### Vue 2.x.x
-
-Register the component in your app entry point (main.js or as you called it)
-
-```javascript
-import Vue from 'vue';
-import FlashMessage from '@smartweb/vue-flash-message';
-Vue.use(FlashMessage);
-```
-
-You can pass [configuration object](#configuration-object) as second argument
-
-```javascript
-Vue.use(FlashMessage, config);
-```
 
 ### Vue 3.x.x
 
@@ -54,7 +38,7 @@ app.use(FlashMessage, {}, ref);
 app.mount('#app');
 ```
 
-### Nuxt.js
+<!-- ### Nuxt.js
 
 Create vue-flash-message.js file in plugins directory and put the following code:
 
@@ -73,7 +57,7 @@ In your nuxt.config.js file register your plugin
 	 More info: https://nuxtjs.org/guide/plugins#client-side-only */
 	 plugins: [{ src: '~/plugins/flash-message.js', mode: 'client' }]
  },
-```
+``` -->
 
 ### Configuration object
 
@@ -109,8 +93,6 @@ this.$flashMessage.show({
 	message: 'Oh, you broke my heart! Shame on you!'
 });
 ```
-
-> ⚠️ in versions < 0.7.x you can call plugin without \$ prefix. You can still do it, but this will not be available starting from version 1.0.0
 
 ## Methods
 
