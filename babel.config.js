@@ -1,6 +1,6 @@
 const presets = [
 	[
-		'@vue/babel-preset-app',
+		'@vue/cli-plugin-babel/preset',
 		{
 			useBuiltIns: process.env.NODE_ENV === 'production' ? false : 'usage'
 		}

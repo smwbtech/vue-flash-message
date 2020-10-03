@@ -9,7 +9,7 @@ const defaultSettings = {
 	name: 'flashMessage',
 	tag: 'FlashMessage',
 	time: 8000,
-	strategy: 'miltiple'
+	strategy: 'single'
 };
 
 export default function install(Vue, config = {}, ref) {
