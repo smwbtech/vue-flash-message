@@ -1,6 +1,7 @@
 import { createEventBus } from './eventbus.js';
 import { createContainerMixin } from './mixins/container.js';
 import { createMessageMixin } from './mixins/message.js';
+import { createEventbusFallback } from './fallback/eventbus-fallback.js';
 import ContainerElem from './Container.vue';
 import FlashMessageElem from './FlashMessage.vue';
 
@@ -24,11 +25,13 @@ export default function install(Vue, config = {}, ref) {
 		const EventBus = new Vue(createEventBus(config));
 		// Global access to flashMessage property
 		Vue.prototype[config.name] = EventBus;
+		Vue.prototype[`$${config.name}`] = EventBus;
 	}
 	//TODO: this is for versions compability
 	else {
-		const EventBus = createEventBus(config, version, ref);
+		const EventBus = createEventbusFallback(config, ref);
 		Vue.config.globalProperties[config.name] = EventBus;
+		Vue.config.globalProperties[`$${config.name}`] = EventBus;
 	}
 	// Extend Container component
 	const Container = Object.assign(
