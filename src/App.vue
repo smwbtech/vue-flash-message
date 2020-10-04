@@ -1,49 +1,27 @@
 <template>
-	<div id="app">
-		<!-- Navigation -->
-		<AppHeader />
-		<!-- content section -->
-		<AppContent />
-		<!-- footer -->
-		<AppFooter />
-
-		<FlashMessage :position="position"></FlashMessage>
-	</div>
+	<img alt="Vue logo" src="./assets/logo.png" />
+	<HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
 </template>
 
-<script>
-import AppHeader from '@/demo/components/AppHeader.vue';
-import AppContent from '@/demo/components/AppContent.vue';
-import AppFooter from '@/demo/components/AppFooter.vue';
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import HelloWorld from './components/HelloWorld.vue';
 
-export default {
-	name: 'app',
-
+@Options({
 	components: {
-		AppHeader,
-		AppContent,
-		AppFooter
-	},
-
-	computed: {
-		position() {
-			return this.$store.getters['flashMessage/position'];
-		}
+		HelloWorld
 	}
-};
+})
+export default class App extends Vue {}
 </script>
 
 <style>
 #app {
-	display: flex;
-	flex-flow: column;
-	align-items: center;
-	justify-content: space-between;
-	min-width: 100vw;
-	min-height: 100vh;
-	background: #fff;
+	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
+	color: #2c3e50;
+	margin-top: 60px;
 }
 </style>

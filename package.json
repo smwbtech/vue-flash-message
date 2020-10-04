@@ -1,81 +1,88 @@
 {
-	"name": "@smartweb/vue-flash-message",
-	"version": "1.0.0-alpha.1",
-	"description": "Vue flash message component",
-	"author": {
-		"name": "Roman Privalov",
-		"email": "roman.privalov@gmail.com",
-		"url": "https://t.me/RomanPrivalov"
-	},
-	"scripts": {
-		"serve": "vue-cli-service serve",
-		"build": "cross-env NODE_ENV=build vue-cli-service build",
-		"test:unit": "jest --verbose",
-		"lint": "vue-cli-service lint",
-		"lib": "cross-env NODE_ENV=production vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.js --dest ./build"
-	},
-	"main": "./build/vue-flash-msg.common.js",
-	"files": [
-		"build/*.js"
-	],
-	"dependencies": {},
-	"devDependencies": {
-		"@babel/plugin-transform-runtime": "^7.11.5",
-		"@vue/cli-plugin-babel": "~4.5.0",
-		"@vue/cli-plugin-eslint": "~4.5.0",
-		"@vue/cli-service": "~4.5.0",
-		"@vue/compiler-sfc": "^3.0.0-0",
-		"@vue/eslint-config-prettier": "^6.0.0",
-		"@vue/test-utils": "^1.1.0",
-		"babel-eslint": "^10.1.0",
-		"babel-helper-vue-jsx-merge-props": "^2.0.3",
-		"babel-plugin-syntax-jsx": "^6.18.0",
-		"babel-plugin-transform-vue-jsx": "^3.7.0",
-		"babel-preset-minify": "^0.5.1",
-		"core-js": "^3.6.5",
-		"cross-env": "^7.0.2",
-		"eslint": "^6.7.2",
-		"eslint-plugin-prettier": "^3.1.3",
-		"eslint-plugin-vue": "^7.0.0-0",
-		"jest": "^26.4.2",
-		"jest-serializer-vue": "^2.0.2",
-		"jest-transform-stub": "^2.0.0",
-		"jest-watch-typeahead": "^0.6.1",
-		"postcss": "^8.1.1",
-		"postcss-preset-env": "^6.7.0",
-		"prettier": "^1.19.1",
-		"terser-webpack-plugin": "^4.2.2",
-		"vue": "^3.0.0-0",
-		"vue-jest": "^3.0.7"
-	},
-	"browserslist": [
-		"> 2%",
-		"last 2 versions",
-		"ie 11"
-	],
-	"bugs": {
-		"url": "https://github.com/smwbtech/vue-flash-message/issues"
-	},
-	"homepage": "https://smwbtech.github.io/vue-flash-message/",
-	"keywords": [
-		"vue",
-		"vuejs",
-		"flash message",
-		"flash",
-		"vue message",
-		"vue flash",
-		"vue flash message",
-		"vue notify",
-		"vue notifications",
-		"nuxt notify",
-		"nuxt notifications",
-		"nuxt message",
-		"nuxt flash",
-		"nuxt flash message"
-	],
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/smwbtech/vue-flash-message"
-	}
+  "name": "@smartweb/vue-flash-message",
+  "version": "1.0.0-alpha.1",
+  "description": "Vue flash message component",
+  "author": {
+    "name": "Roman Privalov",
+    "email": "roman.privalov@gmail.com",
+    "url": "https://t.me/RomanPrivalov"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "cross-env NODE_ENV=build vue-cli-service build",
+    "test:unit": "jest --verbose",
+    "lint": "vue-cli-service lint",
+    "lib": "cross-env NODE_ENV=production vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.js --dest ./build"
+  },
+  "main": "./build/vue-flash-msg.common.js",
+  "files": [
+    "build/*.js"
+  ],
+  "dependencies": {
+    "vue-class-component": "^8.0.0-0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-typescript": "^4.5.6",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0-0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "@vue/test-utils": "^1.1.0",
+    "babel-eslint": "^10.1.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-minify": "^0.5.1",
+    "core-js": "^3.6.5",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-vue": "^7.0.0-0",
+    "jest": "^26.4.2",
+    "jest-serializer-vue": "^2.0.2",
+    "jest-transform-stub": "^2.0.0",
+    "jest-watch-typeahead": "^0.6.1",
+    "postcss": "^8.1.1",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^1.19.1",
+    "terser-webpack-plugin": "^4.2.2",
+    "typescript": "~3.9.3",
+    "vue": "^3.0.0-0",
+    "vue-jest": "^3.0.7"
+  },
+  "browserslist": [
+    "> 2%",
+    "last 2 versions",
+    "ie 11"
+  ],
+  "bugs": {
+    "url": "https://github.com/smwbtech/vue-flash-message/issues"
+  },
+  "homepage": "https://smwbtech.github.io/vue-flash-message/",
+  "keywords": [
+    "vue",
+    "vuejs",
+    "flash message",
+    "flash",
+    "vue message",
+    "vue flash",
+    "vue flash message",
+    "vue notify",
+    "vue notifications",
+    "nuxt notify",
+    "nuxt notifications",
+    "nuxt message",
+    "nuxt flash",
+    "nuxt flash message"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smwbtech/vue-flash-message"
+  }
 }
