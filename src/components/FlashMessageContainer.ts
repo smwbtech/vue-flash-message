@@ -8,12 +8,10 @@ import {
 	toRefs,
 	computed,
 	PropType,
-	TransitionGroup,
-	onBeforeMount
+	TransitionGroup
 } from 'vue';
 import FlashMessagePlugin from './FlashMessagePlugin';
 import FlashMessageBlock from './FlashMessageBlock';
-import FlashMessageError from './FlashMessageError';
 import '@/assets/css/container.css';
 
 const ContainerComponent = defineComponent({
@@ -22,6 +20,11 @@ const ContainerComponent = defineComponent({
 			type: String,
 			default: 'div'
 		},
+		transitionName: {
+			type: String,
+			default: undefined
+		},
+
 		position: {
 			type: String as PropType<FlashMessageContainerPosition>,
 			default: 'right bottom',
@@ -49,7 +52,9 @@ const ContainerComponent = defineComponent({
 	},
 
 	setup(props) {
-		const { position, group, time, strategy } = toRefs(props);
+		const { position, group, time, strategy, transitionName } = toRefs(
+			props
+		);
 
 		FlashMessagePlugin.registerGroup(group.value, {
 			time: time.value,
@@ -73,7 +78,7 @@ const ContainerComponent = defineComponent({
 				TransitionGroup,
 				{
 					tag: 'div',
-					name: positionClass.value
+					name: transitionName.value ?? positionClass.value
 				},
 				() =>
 					messagesList.value.map(messageObject =>
