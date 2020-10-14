@@ -21,6 +21,10 @@ interface FlashMessagePositionStyle {
 	[propName: string]: string | undefined;
 }
 
+// TODO: replace this with ResizeObserver for root div element
+let heighWithoutImage = 0;
+let $el = null as null | HTMLDListElement;
+
 const FlashMessageBlock = defineComponent({
 	props: {
 		messageObj: {
@@ -36,19 +40,14 @@ const FlashMessageBlock = defineComponent({
 	setup(props) {
 		const { messageObj, positionString } = toRefs(props);
 
-		// console.log(isProxy(messageObj));
-		// console.log(isReactive(messageObj.value.yAxis));
-
 		const isCustomPosition = computed(() => {
 			return !!messageObj.value.x && !!messageObj.value.y;
 		});
 
 		const positionClass = computed(() => {
 			const [x, y] = positionString.value.split(' ');
-			return `_vue-flash-msg-_${x}-${y}`;
+			return `_vue-flash-msg-${x}-${y}`;
 		});
-
-		// console.log(messageObj.value.yAxis);
 
 		const positionStyle = computed(() => {
 			const style = [] as FlashMessagePositionStyle[];
@@ -68,8 +67,6 @@ const FlashMessageBlock = defineComponent({
 			return style;
 		});
 
-		// console.log(positionStyle.value);
-
 		const flashMessageBlockClasses = computed(() => {
 			return [
 				'_vue-flash-msg-body',
@@ -82,15 +79,17 @@ const FlashMessageBlock = defineComponent({
 			];
 		});
 
+		// TODO: replace this with ResizeObserver for root div element
 		function imageLoadedHandler(e: Event) {
 			if (!isCustomPosition.value) {
-				console.log(e);
-				// const diff = this.$el.offsetHeight - this.heightWithoutImage;
-				// this.$flashMessage.setDimensions(this.messageObj.group, {
-				// 	height: diff,
-				// 	id: this.messageObj.id,
-				// 	isImgLoaded: true
-				// });
+				const img = e.target as HTMLImageElement;
+				FlashMessagePlugin.setDimensions(messageObj.value.group, {
+					height: $el
+						? $el.offsetHeight - heighWithoutImage
+						: img.offsetHeight,
+					id: messageObj.value.id,
+					isImgLoaded: true
+				});
 			}
 		}
 
@@ -107,7 +106,10 @@ const FlashMessageBlock = defineComponent({
 						h(
 							// TODO: trick to pass TS validation. Need to fix
 							messageObj.value.component ?? {},
-							messageObj.value.props ?? {}
+							Object.assign(
+								messageObj.value.props,
+								messageObj.value
+							) ?? {}
 						)
 					]
 				);
@@ -136,7 +138,7 @@ const FlashMessageBlock = defineComponent({
 						style: positionStyle.value,
 						onclick: () => {
 							if (messageObj.value.clickable)
-								FlashMessagePlugin.delete(
+								FlashMessagePlugin.remove(
 									messageObj.value.group,
 									messageObj.value.id
 								);
@@ -174,7 +176,7 @@ const FlashMessageBlock = defineComponent({
 								}),
 								h('p', {
 									class: ['_vue-flash-msg-body__text'],
-									innerText: messageObj.value.message
+									innerText: messageObj.value.text
 								})
 							]
 						)
@@ -199,7 +201,7 @@ const FlashMessageBlock = defineComponent({
 	methods: {
 		deleteMessage(clear = true) {
 			if (this.timeoutId && clear) clearTimeout(this.timeoutId);
-			this.$flashMessage.delete(
+			this.$flashMessage.remove(
 				this.messageObj.group,
 				this.messageObj.id
 			);
@@ -232,26 +234,49 @@ const FlashMessageBlock = defineComponent({
 		}
 	},
 
+	beforeMount() {
+		const cb = this.messageObj.beforeMount;
+		if (cb && typeof cb === 'function') {
+			cb(this, this.messageObj);
+		}
+	},
+
 	mounted() {
+		// TODO: replace with ResizeObserver
+		$el = this.$el;
+		heighWithoutImage = this.$el.offsetHeight;
+		const cb = this.messageObj.mounted;
 		if (!this.isCustomPosition) {
 			this.$flashMessage.setDimensions(this.messageObj.group, {
 				id: this.messageObj.id,
-				// TODO: 20 is hardcoded distance, user should have API to change it
-				height: this.$el.offsetHeight + 20,
+				height: this.$el.offsetHeight + this.messageObj.space,
 				isImgLoaded: false
 			});
+		}
+		if (cb && typeof cb === 'function') {
+			cb(this, this.messageObj);
+		}
+	},
+
+	beforeUnmount() {
+		const cb = this.messageObj.beforeUnmount;
+		if (cb && typeof cb === 'function') {
+			cb(this, this.messageObj);
 		}
 	},
 
 	unmounted() {
+		const cb = this.messageObj.beforeUnmount;
 		if (!this.isCustomPosition) {
 			setTimeout(() => {
 				this.$flashMessage.setDimensions(this.messageObj.group, {
 					id: this.messageObj.id,
-					// TODO: 20 is hardcoded distance, user should have API to change it
-					height: -(this.$el.offsetHeight + 20),
+					height: -(this.$el.offsetHeight + this.messageObj.space),
 					isImgLoaded: false
 				});
+				if (cb && typeof cb === 'function') {
+					cb(this, this.messageObj);
+				}
 			}, 500);
 		}
 	}
