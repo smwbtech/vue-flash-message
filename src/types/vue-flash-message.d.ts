@@ -25,8 +25,10 @@ declare interface FlashMessageRegisterObject {
 
 declare interface FlashMessageObject {
 	title?: string;
-	message?: string;
+	text?: string;
 	type?: string;
+	group?: keyof FlashMessagePlugin['groups'];
+	space?: number;
 	image?: string;
 	time?: number;
 	clickable?: boolean;
@@ -39,14 +41,38 @@ declare interface FlashMessageObject {
 	blockClass?: string;
 	imageClass?: string;
 	contentClass?: string;
-	beforeCreate?: (flashMessageInstance: ComponentPublicInstance) => any;
-	created?: (flashMessageInstance: ComponentPublicInstance) => any;
-	beforeMount?: (flashMessageInstance: ComponentPublicInstance) => any;
-	mounted?: (flashMessageInstance: ComponentPublicInstance) => any;
-	beforeUpdate?: (flashMessageInstance: ComponentPublicInstance) => any;
-	updated?: (flashMessageInstance: ComponentPublicInstance) => any;
-	beforeUnmoutn?: (flashMessageInstance: ComponentPublicInstance) => any;
-	unmounted?: (flashMessageInstance: ComponentPublicInstance) => any;
+	beforeCreate?: (
+		flashMessageInstance: ComponentPublicInstance,
+		messageObj: FlashMessageSerializedObject
+	) => any;
+	created?: (
+		flashMessageInstance: ComponentPublicInstance,
+		messageObj: FlashMessageSerializedObject
+	) => any;
+	beforeMount?: (
+		flashMessageInstance: ComponentPublicInstance,
+		messageObj: FlashMessageSerializedObject
+	) => any;
+	mounted?: (
+		flashMessageInstance: ComponentPublicInstance,
+		messageObj: FlashMessageSerializedObject
+	) => any;
+	beforeUpdate?: (
+		flashMessageInstance: ComponentPublicInstance,
+		messageObj: FlashMessageSerializedObject
+	) => any;
+	updated?: (
+		flashMessageInstance: ComponentPublicInstance,
+		messageObj: FlashMessageSerializedObject
+	) => any;
+	beforeUnmount?: (
+		flashMessageInstance: ComponentPublicInstance,
+		messageObj: FlashMessageSerializedObject
+	) => any;
+	unmounted?: (
+		flashMessageInstance: ComponentPublicInstance,
+		messageObj: FlashMessageSerializedObject
+	) => any;
 }
 
 declare interface FlashMessageSerializedObject extends FlashMessageObject {
