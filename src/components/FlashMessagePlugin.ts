@@ -10,12 +10,13 @@ import {
 import { reactive, Ref, ref } from 'vue';
 import FlashMessageError from './FlashMessageError';
 
+type FlashMessageGroupName = keyof FlashMessagePlugin['groups'];
+
 export class FlashMessagePlugin {
 	groups: FlashMessageGroup;
 	nextMessageId: number;
 
 	constructor() {
-		// TODO: default group must me registered in Container mounted hook
 		this.groups = {};
 		this.nextMessageId = 1;
 	}
@@ -42,13 +43,11 @@ export class FlashMessagePlugin {
 	private changeHeight(
 		group: FlashMessageGroupItem,
 		id: number,
-		height: number
+		height: number,
+		isImgLoaded: boolean
 	) {
 		const messageIndex = group.messages.value.findIndex(v => v.id > id);
 		if (messageIndex >= 0) {
-			// group.messages.value
-			// 	.slice(messageIndex)
-			// 	?.forEach(v => console.log(v.yAxis));
 			group.messages.value
 				.slice(messageIndex)
 				?.forEach(v => (v.yAxis += height));
@@ -59,12 +58,11 @@ export class FlashMessagePlugin {
 		group: keyof FlashMessagePlugin['groups'],
 		options: FlashMessageDimensionsObject
 	) {
-		console.log(options);
 		const currentGroup = this.groups[group];
 		const { id, height, isImgLoaded } = options;
 		const strategy = currentGroup.strategy;
 		const newHeight = currentGroup.currentHeight.value + height;
-		this.changeHeight(currentGroup, id, height);
+		this.changeHeight(currentGroup, id, height, isImgLoaded);
 		if (
 			strategy.value === 'multiple' &&
 			currentGroup.messages.value.length > 0
@@ -85,11 +83,8 @@ export class FlashMessagePlugin {
 		}
 	}
 
-	show(
-		messageObject: FlashMessageObject,
-		group?: keyof FlashMessagePlugin['groups']
-	) {
-		const groupName = group ?? 'default';
+	show(messageObject: FlashMessageObject) :FlashMessageSerializedObject {
+		const groupName = messageObject.group ?? 'default';
 		const currentGroup = this.groups[groupName];
 		const heigh = currentGroup.currentHeight.value;
 		const strategy = currentGroup.strategy.value;
@@ -107,6 +102,7 @@ export class FlashMessagePlugin {
 				id,
 				clickable,
 				time: messageObject.time ?? defaultTime,
+				space: messageObject.x && messageObject.y ? 0 : messageObject.space ?? 20,
 				group: groupName,
 				type: messageObject.type ?? 'default',
 				yAxis: heigh
@@ -114,7 +110,6 @@ export class FlashMessagePlugin {
 		);
 
 		if (strategy === 'single' && messagesLength > 0) {
-			console.log('clear messages');
 			clearTimeout(timeoutId);
 			currentGroup.messages.value = [];
 			currentGroup.timeoutId = setTimeout(() => {
@@ -132,16 +127,28 @@ export class FlashMessagePlugin {
 	}
 
 	changeStrategy(
-		group: keyof FlashMessagePlugin['groups'],
-		strategy: FlashMessageStrategy
+		strategy: FlashMessageStrategy,
+		group?: keyof FlashMessagePlugin['groups']
 	) {
-		this.groups[group].strategy.value = strategy;
+		this.groups[group ?? 'default'].strategy.value = strategy;
 	}
 
-	delete(group: keyof FlashMessagePlugin['groups'], id: number) {
-		this.groups[group].messages.value = this.groups[
-			group
+	remove(id: number, group?: keyof FlashMessagePlugin['groups']) {
+		const groupName = group ?? 'default';
+		this.groups[groupName].messages.value = this.groups[
+			groupName
 		].messages.value.filter(v => v.id !== id);
+	}
+
+	removeAll(group?: keyof FlashMessagePlugin['groups']) {
+		if (group) {
+			this.groups[group].messages.value = [];
+		} else {
+			const groupNamesList = Object.keys(this.groups);
+			for (const groupName of groupNamesList) {
+				this.groups[groupName].messages.value = [];
+			}
+		}
 	}
 }
 
