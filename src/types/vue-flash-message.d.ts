@@ -1,5 +1,5 @@
 import { FlashMessagePlugin } from '@/components/FlashMessagePlugin';
-import { VNode, Ref, ComponentPublicInstance } from 'vue';
+import { VNode, Ref, ComponentPublicInstance, Component } from 'vue';
 
 declare module '@smartweb/vue-flash-message';
 
@@ -34,7 +34,7 @@ declare interface FlashMessageObject {
 	clickable?: boolean;
 	x?: string;
 	y?: string;
-	component?: VNode;
+	component?: Component;
 	props?: object;
 	html?: string;
 	position?: FlashMessageContainerPosition;
