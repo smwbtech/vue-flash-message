@@ -130,7 +130,7 @@ All properties are optional
  <sup id="f2">2</sup>your component should be able to receive 'messageObj' prop to get actual message data  
 <sup id="f3">3</sup>Schema with base classes and custom classes is below
 
-![Message custom styles schema](https://github.com/smwbtech/vue-flash-message/blob/1.x.x-prerelease-ts/public/flash-message-custom-styles.jpg?raw=true)
+![Message custom styles schema](https://github.com/smwbtech/vue-flash-message/blob/1.x.x-prerelease/public/flash-message-custom-styles.jpg?raw=true)
 ---
 
 ## Show method
