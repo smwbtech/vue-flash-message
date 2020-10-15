@@ -1,4 +1,5 @@
 ._vue-flash-msg-body {
+	display: flex;
 	position: fixed;
 	width: 35%;
 	border-radius: 5px;
@@ -15,22 +16,17 @@
 		cursor: auto;
 	}
 
-	&._vue-flash-msg-_right-bottom,
-	&._vue-flash-msg-_right-top {
+	&._vue-flash-msg-right-bottom,
+	&._vue-flash-msg-right-top {
 		right: 20px;
 	}
 
-	&._vue-flash-msg-_left-bottom,
-	&._vue-flash-msg-_left-top {
+	&._vue-flash-msg-left-bottom,
+	&._vue-flash-msg-left-top {
 		left: 20px;
 	}
 
-	& ._vue-flash-msg-wrapper {
-		display: flex;
-		width: 100%;
-	}
-
-	& ._vue-flash-msg-body__icon {
+	& ._vue-flash-msg-body__image {
 		display: flex;
 		justify-content: center;
 		max-width: 20%;
@@ -114,13 +110,13 @@
 		font-size: 0.9em;
 		width: 90%;
 
-		&._vue-flash-msg-_right-bottom,
-		&._vue-flash-msg-_right-top {
+		&._vue-flash-msg-right-bottom,
+		&._vue-flash-msg-right-top {
 			right: 5%;
 		}
 
-		&._vue-flash-msg-_left-bottom,
-		&._vue-flash-msg-_left-top {
+		&._vue-flash-msg-left-bottom,
+		&._vue-flash-msg-left-top {
 			left: 5%;
 		}
 
