@@ -5,9 +5,10 @@
 	"files": [
 		"build/*.js"
 	],
-	"description": "Vue flash message component",
+	"description": "vue-flash-message - is plugin and component to provide simple and fast notification system for website/application user",
 	"keywords": [
 		"vue",
+		"vue 3",
 		"vuejs",
 		"flash message",
 		"flash",
