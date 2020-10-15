@@ -3,7 +3,7 @@ import {
 	FlashMessageSerializedObject
 } from '@/types/vue-flash-message';
 import FlashMessagePlugin from '@/components/FlashMessagePlugin';
-import { defineComponent, h, PropType, toRefs, computed } from 'vue';
+import { defineComponent, h, PropType, toRefs, computed, toRaw } from 'vue';
 import '@/assets/css/message.css';
 
 enum HooksName {
@@ -94,23 +94,29 @@ const FlashMessageBlock = defineComponent({
 		}
 
 		// Render custom component inside flash message block
-		if (messageObj.value.component) {
+		if (props.messageObj.component) {
+			const CustomComponent = toRaw(props.messageObj.component);
+			const propsData = Object.assign(
+				messageObj.value.props ?? {},
+				{messageObj: messageObj.value}
+			)
 			const render = () => {
 				return h(
 					'div',
 					{
 						class: flashMessageBlockClasses.value,
-						style: positionStyle.value
+						style: positionStyle.value,
+						onclick: () => {
+							if (messageObj.value.clickable)
+								FlashMessagePlugin.remove(
+									messageObj.value.id,
+									messageObj.value.group
+								);
+						}
 					},
 					[
-						h(
-							// TODO: trick to pass TS validation. Need to fix
-							messageObj.value.component ?? {},
-							Object.assign(
-								messageObj.value.props,
-								messageObj.value
-							) ?? {}
-						)
+						// @ts-ignore
+						h(CustomComponent, toRaw(propsData))
 					]
 				);
 			};
@@ -123,7 +129,14 @@ const FlashMessageBlock = defineComponent({
 				h('div', {
 					class: flashMessageBlockClasses.value,
 					style: positionStyle.value,
-					innerHTML: messageObj.value.html
+					innerHTML: messageObj.value.html,
+					onclick: () => {
+						if (messageObj.value.clickable)
+							FlashMessagePlugin.remove(
+								messageObj.value.id,
+								messageObj.value.group
+							);
+					}
 				});
 			return render;
 		}
@@ -139,8 +152,8 @@ const FlashMessageBlock = defineComponent({
 						onclick: () => {
 							if (messageObj.value.clickable)
 								FlashMessagePlugin.remove(
-									messageObj.value.group,
-									messageObj.value.id
+									messageObj.value.id,
+									messageObj.value.group
 								);
 						}
 					},
@@ -202,8 +215,8 @@ const FlashMessageBlock = defineComponent({
 		deleteMessage(clear = true) {
 			if (this.timeoutId && clear) clearTimeout(this.timeoutId);
 			this.$flashMessage.remove(
-				this.messageObj.group,
-				this.messageObj.id
+				this.messageObj.id,
+				this.messageObj.group
 			);
 		},
 
