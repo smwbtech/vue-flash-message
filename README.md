@@ -147,6 +147,61 @@ const message = this.$flashMessage.show({
 message.id //Id of message instance
 ```
 
+**Base usage:**
+
+```javascript
+    methods: {
+        deleteTrouble() {
+            this.$axios.delete(`/delete/trouble/${trouble.id}`)
+                .then( res => {
+                    let { status, data, error } = res.data;
+                    if(status) {
+                        this.$flashMessage.show({
+                            type: 'success',
+                            title: 'Don\'t Warry',
+                            text: 'Be Happy!',
+                            time: 5000,
+                            blockClass: 'custom-block-class'
+                        });
+                    }
+                    else {
+                        this.flashMessage.error({title: error.name || 'Error', message: error.message});
+                    }
+                })
+                .catch(e);
+        }
+    }
+```
+
+**RAW HTML**
+
+```javascript
+const message = this.$flashMessage.show({
+	html: '<p>You should not render raw html from unreliable sources to avoid XSS attacks</p>'
+});
+
+message.id //Id of message instance
+```
+
+**CUSTOM COMPONENT**
+
+```javascript
+import MyBeautifulComponent from '@/components/MyBeautifulComponent.vue'
+
+export default {
+    methods: {
+        showMessage() {
+            this.$flashMessage.show({
+                component: MyBeautifulComponent,
+                props: {someProp: 'Hello, it is text from someProp!'}
+            })
+        }
+    }
+}
+```
+
+You can declare messageObj prop inside your component and receive all messageObj data inside component. 
+
 ## Groups
 
 Groups provide you possibility to divide your notifications among different app parts. For example, you want to show notifications for received messages in right bottom corner of viewport and some push notifications in left top corner. In addition group functionality will be increased in future releases.
@@ -194,32 +249,6 @@ this.$flashMessage.success({
 	message: 'Hoorah, it is my fist npm package and it works!'
 });
 ``` -->
-
-**Base usage:**
-
-```javascript
-    methods: {
-        deleteTrouble() {
-            this.$axios.delete(`/delete/trouble/${trouble.id}`)
-                .then( res => {
-                    let { status, data, error } = res.data;
-                    if(status) {
-                        this.$flashMessage.show({
-                            type: 'success',
-                            title: 'Don\'t Warry',
-                            text: 'Be Happy!',
-                            time: 5000,
-                            blockClass: 'custom-block-class'
-                        });
-                    }
-                    else {
-                        this.flashMessage.error({title: error.name || 'Error', message: error.message});
-                    }
-                })
-                .catch(e);
-        }
-    }
-```
 
 ## Remove methods
 
