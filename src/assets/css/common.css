@@ -76,3 +76,33 @@ table {
 		}
 	}
 }
+
+.custom-transition-enter-active {
+	transform-origin: center center;
+	animation: customAnimationEnter 0.8s forwards;
+}
+.custom-transition-leave-active {
+	transform-origin: center center;
+	animation: customAnimationLeave 0.8s forwards;
+}
+
+@keyframes customAnimationEnter {
+	from {
+		transform: scale(0);
+	}
+
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes customAnimationLeave {
+	from {
+		opacity: 1;
+		transform: scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: scale(1.5);
+	}
+}

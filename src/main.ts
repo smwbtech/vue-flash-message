@@ -40,9 +40,14 @@
 // }).$mount('#app');
 
 import { createApp } from 'vue';
+import { createStore } from 'vuex'
 import FlashMessage from '@/components/index.ts';
+import store from '@/demo/store/store.ts';
 import App from './App.vue';
+import './assets/css/common.css';
 
 const app = createApp(App);
+const vuex = createStore(store)
+app.use(vuex);
 app.use(FlashMessage);
 app.mount('#app');

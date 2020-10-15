@@ -23,17 +23,6 @@
 				</div>
 			</div>
 		</transition>
-		<!-- Remove? -->
-		<!-- <transition name="btn-apper" mode="out-in">
-			<button
-				class="fm-btn"
-				type="button"
-				name="button"
-				v-show="showMessage"
-			>
-				push me
-			</button>
-		</transition> -->
 	</section>
 </template>
 

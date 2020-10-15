@@ -1,13 +1,10 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import { flashMessage } from './flashMessageStore.js';
-import { app } from './appStore.js';
+// @ts-nocheck
+import { flashMessage } from './flashMessageStore';
+import { app } from './appStore';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default {
 	modules: {
 		flashMessage,
 		app
 	}
-});
+};

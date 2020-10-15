@@ -77,6 +77,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import CustomComponent from './CustomComponent'
 const rawHtml = `<table cellspacing="0px">
   <tr>
     <th>Features</th>
@@ -145,15 +146,16 @@ export default {
 				shorthand: v,
 				exampleType: 'standart'
 			});
-			this.flashMessage[v]({
-				icon: `${v}.svg`,
+			this.$flashMessage.show({
+				type: v,
+				image: `${v}.svg`,
 				title: `Title for ${v} message`,
-				message: this.lorem
+				text: this.lorem
 			});
 		},
 
 		strategyHandler(strategy) {
-			this.flashMessage.setStrategy(strategy);
+			this.$flashMessage.changeStrategy(strategy);
 			this.$store.commit('flashMessage/setItem', { strategy });
 		},
 
@@ -163,10 +165,10 @@ export default {
 					this.$store.commit('flashMessage/setItem', {
 						exampleType: v
 					});
-					this.flashMessage.error({
+					this.$flashMessage.show({
+						type: 'error',
 						title: 'Message Without Icon',
-						message: this.lorem,
-						icon: false,
+						text: this.lorem,
 						clickable: false
 					});
 					break;
@@ -174,42 +176,42 @@ export default {
 					this.$store.commit('flashMessage/setItem', {
 						exampleType: v
 					});
-					this.flashMessage.show({
+					this.$flashMessage.show({
+						group: 'custom-position',
 						title: 'Custom Position Message',
-						message: this.lorem,
-						icon: 'custom_position.svg',
+						text: this.lorem,
+						image: 'custom_position.svg',
 						blockClass: 'custom_msg_two',
 						position: 'left top',
-						x: window.innerWidth / 2,
-						y: window.innerHeight / 2
+						x: `${window.innerWidth / 2}px`,
+						y: `${window.innerHeight / 2}px`,
+						time: 0
 					});
 					break;
 				case 'custom styles':
 					this.$store.commit('flashMessage/setItem', {
 						exampleType: v
 					});
-					this.flashMessage.show(
+					this.$flashMessage.show(
 						{
 							title: 'Custom Styled Message',
-							message: this.lorem,
-							icon: 'custom_style.svg',
-							blockClass: 'custom_msg'
-						},
-						{
+							text: this.lorem,
+							image: 'custom_style.svg',
+							blockClass: 'custom_msg',
 							mounted: this.mountedSound,
-							destroyed: this.destroyedSound
-						}
+							unmounted: this.destroyedSound
+						},
 					);
 					break;
 				case 'infinity lifecycle':
 					this.$store.commit('flashMessage/setItem', {
 						exampleType: v
 					});
-					this.flashMessage.show({
+					this.$flashMessage.show({
 						title: 'I will live forever',
-						message:
+						text:
 							'This message will not disappear until user click on it. Please, do not combine unclickabe and time equal to 0 properties. It will be deprecated in final release.',
-						icon: 'infinity.svg',
+						image: 'infinity.svg',
 						blockClass: 'infinity_msg',
 						time: 0
 					});
@@ -218,8 +220,9 @@ export default {
 					this.$store.commit('flashMessage/setItem', {
 						exampleType: v
 					});
-					this.flashMessage.show({
-						componentName: 'CustomComponent',
+					this.$flashMessage.show({
+						component: CustomComponent,
+						props: {},
 						clickable: false,
 						time: 0
 					});
@@ -228,7 +231,7 @@ export default {
 					this.$store.commit('flashMessage/setItem', {
 						exampleType: v
 					});
-					this.flashMessage.show({
+					this.$flashMessage.show({
 						html: rawHtml,
 						clickable: true,
 						time: 10000,

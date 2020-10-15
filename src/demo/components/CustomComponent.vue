@@ -2,35 +2,22 @@
 	<div class="custom-component">
 		<button
 			class="close-btn"
-			@click="flashMessage.deleteMessage(messageId)"
+			@click="$flashMessage.remove(messageObj.id)"
 		/>
-		<h2>Meet vue number input</h2>
-		<p>
-			This is another component I'm working on,
-			<a
-				target="_blank"
-				href="https://smwbtech.github.io/vue-number-input/"
-				>vue-number-input</a
-			>
-		</p>
-		<VueNumberInput
-			v-model="value"
-			class="custom-input"
-			:inputClass="'custom-input-class'"
-		/>
+		<h2>Please, enter some number</h2>
+		<form action="">
+
+			<input type="text" name="" id="">
+		</form>
 	</div>
 </template>
 
 <script>
-import VueNumberInput from '@smartweb/vue-number-input';
 export default {
-	components: {
-		VueNumberInput
-	},
-
 	props: {
-		messageId: {
-			type: Number
+		messageObj: {
+			type: Object,
+			default: () => {}
 		}
 	},
 

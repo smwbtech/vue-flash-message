@@ -3,12 +3,10 @@
 		<div v-show="isActive" class="code">
 			<div class="code-item code-item_template">
 				<h3 class="code-item__title">CODE EXAMPLE</h3>
-				<vue-scroll>
-					<pre class="code-item__field" v-highlightjs="sourcecode">
+					<pre class="code-item__field">
                         <code class="html">
                         </code>
                     </pre>
-				</vue-scroll>
 			</div>
 		</div>
 	</transition>
