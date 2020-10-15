@@ -46,7 +46,7 @@ const FlashMessageBlock = defineComponent({
 
 		const positionClass = computed(() => {
 			const [x, y] = positionString.value.split(' ');
-			return `_vue-flash-msg-${x}-${y}`;
+			return `_vue-flash-msg_${x}-${y}`;
 		});
 
 		const positionStyle = computed(() => {
@@ -164,6 +164,9 @@ const FlashMessageBlock = defineComponent({
 								class: [
 									'_vue-flash-msg-body__image',
 									messageObj.value.imageClass
+								],
+								style: [
+									{display: messageObj.value.image ?? 'none'}
 								]
 							},
 							[

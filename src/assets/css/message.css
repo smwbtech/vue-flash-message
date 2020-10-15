@@ -16,13 +16,13 @@
 		cursor: auto;
 	}
 
-	&._vue-flash-msg-right-bottom,
-	&._vue-flash-msg-right-top {
+	&._vue-flash-msg_right-bottom,
+	&._vue-flash-msg_right-top {
 		right: 20px;
 	}
 
-	&._vue-flash-msg-left-bottom,
-	&._vue-flash-msg-left-top {
+	&._vue-flash-msg_left-bottom,
+	&._vue-flash-msg_left-top {
 		left: 20px;
 	}
 
@@ -110,13 +110,13 @@
 		font-size: 0.9em;
 		width: 90%;
 
-		&._vue-flash-msg-right-bottom,
-		&._vue-flash-msg-right-top {
+		&._vue-flash-msg_right-bottom,
+		&._vue-flash-msg_right-top {
 			right: 5%;
 		}
 
-		&._vue-flash-msg-left-bottom,
-		&._vue-flash-msg-left-top {
+		&._vue-flash-msg_left-bottom,
+		&._vue-flash-msg_left-top {
 			left: 5%;
 		}
 
