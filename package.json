@@ -12,11 +12,15 @@
 		"build": "cross-env NODE_ENV=build vue-cli-service build",
 		"test:unit": "jest --verbose",
 		"lint": "vue-cli-service lint",
-		"lib": "cross-env NODE_ENV=production vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.ts --dest ./build"
+		"lib": "cross-env NODE_ENV=production vue-cli-service build --mode production -g envify --target lib --name vue-flash-msg ./src/components/index.ts --dest ./build",
+		"lib:dts": "tsc -d --declarationDir build --emitDeclarationOnly"
 	},
 	"main": "./build/vue-flash-msg.common.js",
+	"types": "/build/types/vue-flash-message.d.ts",
 	"files": [
-		"build/*.js"
+		"build/*.js",
+		"build/*.ts",
+		"build/*.d.ts"
 	],
 	"dependencies": {
 		"vue-class-component": "^8.0.0-0",

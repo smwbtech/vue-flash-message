@@ -20,6 +20,7 @@ jobs:
           if: branch = 1.x.x-prerelease AND commit_message =~ /^[0-9]*\.[0-9]*\.[0-9]*-[0-9]*$/
           before_deploy:
               - npm run lib
+              - npm run lib:dts
           deploy:
               - provider: npm
                 email: '$NPM_EMAIL'
@@ -34,6 +35,7 @@ jobs:
           before_deploy:
               - npm run build
               - npm run lib
+              - npm run lib:dts
           deploy:
               - provider: npm
                 email: '$NPM_EMAIL'
