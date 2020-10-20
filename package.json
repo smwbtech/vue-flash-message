@@ -1,6 +1,6 @@
 {
 	"name": "@smartweb/vue-flash-message",
-	"version": "1.0.0-alpha.3",
+	"version": "1.0.0-alpha.4",
 	"description": "Vue flash message is notification plugin for Vue 2.x.x and Vue 3.x.x",
 	"author": {
 		"name": "Roman Privalov",
