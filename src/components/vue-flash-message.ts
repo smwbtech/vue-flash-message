@@ -1,4 +1,4 @@
-declare module '@smartweb/vue-flash-message' {
+// declare module '@smartweb/vue-flash-message' {
 	import { FlashMessagePlugin } from '@/components/FlashMessagePlugin';
 	import { VNode, Ref, ComponentPublicInstance, Component } from 'vue';
 	
@@ -93,4 +93,4 @@ declare module '@smartweb/vue-flash-message' {
 		isImgLoaded: boolean;
 	}
 	
-}
+// }

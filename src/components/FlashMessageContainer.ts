@@ -2,7 +2,7 @@ import './../assets/css/container.css';
 import {
 	FlashMessageContainerPosition,
 	FlashMessageStrategy
-} from '@smartweb/vue-flash-message';
+} from './vue-flash-message';
 import {
 	defineComponent,
 	h,

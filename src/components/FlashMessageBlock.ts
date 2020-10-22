@@ -2,7 +2,7 @@ import './../assets/css/message.css';
 import {
 	FlashMessageContainerPosition,
 	FlashMessageSerializedObject
-} from '@smartweb/vue-flash-message';
+} from './vue-flash-message';
 import FlashMessagePlugin from '@/components/FlashMessagePlugin';
 import { defineComponent, h, PropType, toRefs, computed, toRaw } from 'vue';
 
