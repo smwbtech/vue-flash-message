@@ -6,7 +6,7 @@ import {
 	FlashMessageDimensionsObject,
 	FlashMessageGroupItem,
 	FlashMessageRegisterObject
-} from '@/types/vue-flash-message';
+} from '@smartweb/vue-flash-message';
 import { reactive, Ref, ref } from 'vue';
 import FlashMessageError from './FlashMessageError';
 

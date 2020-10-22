@@ -3,24 +3,15 @@
 // import { createEventbusFallback } from './fallback/eventbus-fallback.js';
 // import ContainerElem from './Container.vue';
 // import FlashMessageElem from './FlashMessage.vue';
-import { App } from 'vue';
-import FlashMessagePlugin from './FlashMessagePlugin';
-import FlashMessageContainer from './FlashMessageContainer';
 
-function install(app: App) {
-	if (install.installed) return;
+import { FlashMessagePlugin } from "./FlashMessagePlugin";
+import Install from './FlashMessageInstall'
 
-	install.installed = true;
-
-	// Set up plugin
-	const $flashMessage = FlashMessagePlugin;
-	app.config.globalProperties.$flashMessage = $flashMessage;
-
-	//  Set up component
-	app.component('FlashMessage', FlashMessageContainer);
-	// Vue.component('VueMessageBlock', FlashMessage);
+declare module '@vue/runtime-core' {
+    interface ComponentCustomProperties {
+        $flashMessage: FlashMessagePlugin;
+    }
 }
 
-install.installed = false;
+export default Install
 
-export default install;
