@@ -2,10 +2,12 @@ import path from 'path'
 import ts from 'rollup-plugin-typescript2'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
+import postcss from 'rollup-plugin-postcss'
 import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
 import pascalcase from 'pascalcase'
 
+const postcssConfig = require('./postcss.config.js');
 const pkg = require('./package.json')
 const name = pkg.name
 
@@ -90,6 +92,11 @@ function createConfig(format, output, plugins = []) {
 
   const shouldEmitDeclarations = !hasTSChecked
 
+  const postcssPlugin = postcss({
+    extract: false,
+    inject: true
+  });
+
   const tsPlugin = ts({
     check: !hasTSChecked,
     tsconfig: path.resolve(__dirname, 'tsconfig.json'),
@@ -119,6 +126,7 @@ function createConfig(format, output, plugins = []) {
     external,
     plugins: [
       tsPlugin,
+      
       createReplacePlugin(
         isProductionBuild,
         isBundlerESMBuild,
@@ -129,6 +137,7 @@ function createConfig(format, output, plugins = []) {
       ),
       ...nodePlugins,
       ...plugins,
+      postcssPlugin
     ],
     output,
     // onwarn: (msg, warn) => {

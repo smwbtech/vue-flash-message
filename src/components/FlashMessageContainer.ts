@@ -1,3 +1,4 @@
+import './../assets/css/container.css';
 import {
 	FlashMessageContainerPosition,
 	FlashMessageStrategy
@@ -12,7 +13,7 @@ import {
 } from 'vue';
 import FlashMessagePlugin from './FlashMessagePlugin';
 import FlashMessageBlock from './FlashMessageBlock';
-import '@/assets/css/container.css';
+
 
 const ContainerComponent = defineComponent({
 	props: {
