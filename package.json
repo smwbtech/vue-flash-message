@@ -25,7 +25,8 @@
 	"types": "build/vue-flash-message.d.ts",
 	"files": [
 		"build/*.js",
-		"build/*.d.ts"
+		"build/*.d.ts",
+		"build/types/*.d.ts"
 	],
 	"dependencies": {
 		"vue": "^3.0.0-0"

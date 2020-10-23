@@ -1,4 +1,3 @@
-import './../assets/css/message.css';
 import {
 	FlashMessageContainerPosition,
 	FlashMessageSerializedObject

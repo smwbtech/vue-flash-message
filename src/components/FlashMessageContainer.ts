@@ -1,4 +1,5 @@
 import './../assets/css/container.css';
+import './../assets/css/message.css';
 import {
 	FlashMessageContainerPosition,
 	FlashMessageStrategy

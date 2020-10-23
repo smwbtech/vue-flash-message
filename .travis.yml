@@ -20,7 +20,6 @@ jobs:
           if: branch = 1.x.x-prerelease AND commit_message =~ /^[0-9]*\.[0-9]*\.[0-9]*-[0-9]*$/
           before_deploy:
               - npm run rollup:lib
-              - npm run rollup:dts
           deploy:
               - provider: npm
                 email: '$NPM_EMAIL'
