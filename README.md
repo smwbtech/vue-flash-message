@@ -4,10 +4,9 @@
 [![typescript](https://img.shields.io/badge/-TypeScript-blue.svg)](https://www.typescriptlang.org/)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/smwbtech/vue-flash-message/blob/master/LICENSE.md)
 [![Build Status](https://travis-ci.org/smwbtech/vue-flash-message.svg?branch=1.x.x-prerelease)](https://travis-ci.org/smwbtech/vue-flash-message)
+[![Size](https://badgen.net/bundlephobia/minzip/@smartweb/vue-flash-message@latest)](https://bundlephobia.com/result?p=@smartweb/vue-flash-message@next)  
 
 <!-- [![Coverage Status](https://coveralls.io/repos/github/smwbtech/vue-flash-message/badge.svg?branch=master)](https://coveralls.io/github/smwbtech/vue-flash-message?branch=master) -->
-
-[![Size](https://badgen.net/bundlephobia/minzip/@smartweb/vue-flash-message@latest)](https://bundlephobia.com/result?p=@smartweb/vue-flash-message@next)
 
 ![Gif Image](https://raw.githubusercontent.com/smwbtech/vue-flash-message/master/public/vue-flash-message.gif)
 
@@ -48,6 +47,24 @@ app.use(FlashMessage);
 app.mount('#app');
 ```
 
+**For TypeScript users**
+
+```javascript
+import { createApp } from 'vue';
+import App from './App.vue';
+import FlashMessage, { FlashMessagePlugin } from '@smartweb/vue-flash-message';
+
+declare module '@vue/runtime-core' {
+    interface ComponentCustomProperties {
+        $flashMessage: FlashMessagePlugin
+    }
+}
+
+const app = createApp(App);
+app.use(FlashMessage);
+app.mount('#app');
+```
+
 ## Usage
 
 Put the component into your template
@@ -73,7 +90,7 @@ You can pass different props to cutomize the notification group. All of thme are
 <FlashMessage position="left top" time="10000" strategy="single" group="hints"/>
 ```
 
-Now you can access flash message by using global EventBus alias (that is "\$flashMessage" by default) of your Vue instance.
+Now you can access flash message by using global alias (that is "\$flashMessage" by default) of your Vue instance.
 
 ```javascript
 this.$flashMessage.show({
@@ -81,6 +98,21 @@ this.$flashMessage.show({
 	title: 'Error Message Title',
 	message: 'Oh, you broke my heart! Shame on you!'
 });
+```
+
+If you want to use plugin in some place, where you have no access to current active Vue instance, for example in [setup method](https://v3.vuejs.org/guide/composition-api-setup.html#arguments)
+
+```javascript
+
+import {defineComponent} from 'vue'
+import { flashMessage } from '@smartweb/vue-flash-message';
+
+export default defineComponent({
+    setup() {
+        flashMessage.changeStrategy('multiple')
+    }
+}
+
 ```
 ---
 
@@ -165,7 +197,7 @@ message.id //Id of message instance
                         });
                     }
                     else {
-                        this.flashMessage.error({title: error.name || 'Error', message: error.message});
+                        this.$flashMessage.error({title: error.name || 'Error', message: error.message});
                     }
                 })
                 .catch(e);
@@ -316,7 +348,7 @@ For example you can add some sound which will be played when message appears
             sound.play(); // and play it
         },
         clickHandler() {
-            this.flashMessage.info({
+            this.$flashMessage.info({
                 title: 'Ooooooops!',
                 message: 'Do you see this text and hear this sound? Wtf?',
                 mounted: makeSomeNoize,
