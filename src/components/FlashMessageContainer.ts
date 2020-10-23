@@ -45,7 +45,7 @@ const ContainerComponent = defineComponent({
 		},
 		strategy: {
 			type: String as PropType<FlashMessageStrategy>,
-			default: 'single'
+			default: 'multiple'
 		},
 		group: {
 			type: String,
