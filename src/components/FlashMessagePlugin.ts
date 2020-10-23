@@ -6,7 +6,7 @@ import {
 	FlashMessageDimensionsObject,
 	FlashMessageGroupItem,
 	FlashMessageRegisterObject
-} from './vue-flash-message';
+} from './types/index';
 import { reactive, Ref, ref } from 'vue';
 import FlashMessageError from './FlashMessageError';
 

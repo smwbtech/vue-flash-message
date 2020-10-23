@@ -2,7 +2,7 @@ import './../assets/css/container.css';
 import {
 	FlashMessageContainerPosition,
 	FlashMessageStrategy
-} from './vue-flash-message';
+} from './types/index';
 import {
 	defineComponent,
 	h,

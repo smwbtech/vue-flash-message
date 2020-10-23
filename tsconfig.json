@@ -29,7 +29,8 @@
     ]
   },
   "include": [
-    "src/components/*.ts"
+    "src/components/*.ts",
+    "src/components/types/*.ts"
     // "src/**/*.ts",
     // "src/**/*.tsx",
     // "src/**/*.vue",
