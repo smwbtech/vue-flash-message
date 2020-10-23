@@ -1,6 +1,6 @@
 // declare module '@smartweb/vue-flash-message' {
 	import { FlashMessagePlugin } from './../FlashMessagePlugin';
-	import { VNode, Ref, ComponentPublicInstance, Component } from 'vue';
+	import { Ref, ComponentPublicInstance, Component } from 'vue';
 	
 	export type FlashMessageContainerPosition =
 		| 'right bottom'

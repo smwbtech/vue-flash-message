@@ -41,7 +41,7 @@
 
 import { createApp } from 'vue';
 import { createStore } from 'vuex'
-import FlashMessage from './components/vue-flash-message';
+import FlashMessage from './components/index';
 import store from './demo/store/store';
 import App from './App.vue';
 import './assets/css/common.css';

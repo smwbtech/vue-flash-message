@@ -120,7 +120,7 @@ function createConfig(format, output, plugins = []) {
   const nodePlugins = [resolve(), commonjs()]
 
   return {
-    input: `src/components/vue-flash-message.ts`,
+    input: `src/components/index.ts`,
     // Global and Browser ESM builds inlines everything so that they can be
     // used alone.
     external,
@@ -137,7 +137,8 @@ function createConfig(format, output, plugins = []) {
       ),
       ...nodePlugins,
       ...plugins,
-      postcssPlugin
+      postcssPlugin,
+      terser()
     ],
     output,
     // onwarn: (msg, warn) => {

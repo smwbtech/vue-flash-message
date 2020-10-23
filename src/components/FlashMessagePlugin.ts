@@ -7,10 +7,8 @@ import {
 	FlashMessageGroupItem,
 	FlashMessageRegisterObject
 } from './types/index';
-import { reactive, Ref, ref } from 'vue';
+import { ref } from 'vue';
 import FlashMessageError from './FlashMessageError';
-
-type FlashMessageGroupName = keyof FlashMessagePlugin['groups'];
 
 export class FlashMessagePlugin {
 	groups: FlashMessageGroup;
