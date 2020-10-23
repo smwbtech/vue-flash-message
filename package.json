@@ -14,7 +14,8 @@
 		"lint": "vue-cli-service lint",
 		"lib": "cross-env NODE_ENV=production vue-cli-service build --mode production -g envify --target lib --name vue-flash-message ./src/components/index.ts --dest ./build",
 		"lib:dts": "tsc -d --declarationDir build --emitDeclarationOnly",
-		"rollup:lib": "rollup -c rollup.config.js"
+		"rollup:lib": "rollup -c rollup.config.js",
+		"rollup:dts": "api-extractor run --local --verbose"
 	},
 	"main": "build/vue-flash-message.cjs.js",
 	"browser": "build/vue-flash-message.esm.js",
@@ -31,6 +32,7 @@
 	},
 	"devDependencies": {
 		"@babel/plugin-transform-runtime": "^7.11.5",
+		"@microsoft/api-extractor": "^7.10.4",
 		"@rollup/plugin-commonjs": "^15.1.0",
 		"@rollup/plugin-node-resolve": "^9.0.0",
 		"@rollup/plugin-replace": "^2.3.3",
